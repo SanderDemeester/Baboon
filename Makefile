@@ -4,4 +4,4 @@ all:
 baboon: http.o
 	$(CC) http.o
 http.o:
-	$(CC) -Wall -I. -c generic/http.c
+	$(CC) -Wall -I. -c server/http.c

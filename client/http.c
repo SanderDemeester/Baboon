@@ -1,5 +1,6 @@
 /*none secure http client**/
 
+#define HTTP_PORT 80
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -32,3 +33,4 @@ int parse_url(char *url,char **host, char**path){
   }
   return 0;
 }
+
