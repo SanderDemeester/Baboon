@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
     return 1;
   }
   if(parse_url(argv[1],&host,&path) == -1){
-    fprintf(stderr,"Error - malformed URL '%s'.\n" argv[1]);
+    fprintf(stderr,"Error - malformed URL '%s'.\n", argv[1]);
     return 1;
   }
   printf("Connecting to host '%s'\n",host);
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
   memcpy(&host_adr.sin_addr,host_name->h_addr_list[0],
 	 sizeof(struct in_addr));
   
-  fi(connect(client_connection,(struct sockaddr*)&host_adr,
+  if(connect(client_connection,(struct sockaddr*)&host_adr,
 	     sizeof(host_adr))==-1);{
     perror("Unable to connect to host");
     return -4;
