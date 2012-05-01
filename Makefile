@@ -13,3 +13,4 @@ http_command.o:
 clean:
 	rm -rf *.o
 	rm -rf *.out
+	rm http_client
