@@ -89,6 +89,7 @@ int main(int argc, char* argv[]){
   printf("Retrieving document: '%s'\n",path);
   
   http_get(client_connection,path,host);
+  http_close(client_connection,host);
   display_result(client_connection);
   printf("Shutting down");
 
