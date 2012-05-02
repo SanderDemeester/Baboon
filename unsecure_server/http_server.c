@@ -1,5 +1,5 @@
 #define HTTP_PORT 80
-#define MAX_CONNECTIONS 10
+#define MAX_CONNECTIONS 2
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -13,6 +13,7 @@
 
 void *process_http_request(int *connection_socket){
   printf("%s \n","new connection");
+  printf("%d \n",*connection_socket);
 }
 int main(int argc, char *argv[]){
   int listen_socket;
@@ -54,12 +55,17 @@ int main(int argc, char *argv[]){
   while((connection_socket = accept(listen_socket,
 				    (struct sockaddr*)&client_addr,
 				    &client_addr_len)) != -1){
-    thread_return[thread_index++] = pthread_create(&threads[thread_index-1],
-						 NULL,proces_http_request,&connection_socket);
-    Process_http_request(connection_socket);
+    if(thread_index == MAX_CONNECTIONS){
+      perror("Max connections limit is reached, wont accespt any more connections");
+    }else{
+    thread_return[thread_index++] = pthread_create (&threads[thread_index-1],
+						    NULL,process_http_request,&connection_socket);
+    }
   }
   if(connection_socket == -1){
     perror("Unable to connect socket request");
   }
+  free thread_return;
+  free threads;
   return 0;
 }
