@@ -21,7 +21,7 @@
 void display_result(int connection){
   int rev = 0;
   static char recv_buffer[ BUFFER_SIZE +1 ];
-  while((rev = recv(connection,recv,BUFFER_SIZE,0))>0){
+  while((rev = recv(connection,recv_buffer,BUFFER_SIZE,0))>0){
     recv_buffer[rev] = '\0';
     printf("%s",recv_buffer);
   }
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]){
   if(connect(client_connection,(struct sockaddr*)&host_adr,sizeof(host_adr))==-1){
     perror("Unable to connect to host");
     return 4;
-  }
+ }
   printf("Retrieving document: '%s'\n",path);
   
   http_get(client_connection,path,host);
