@@ -1,0 +1,55 @@
+#define HTTP_PORT 80
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <netdb.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+void process_http_request(connection_socket);
+int main(int argc, char *argv[]){
+  int listen_socket;
+  int connection_socket;
+  int av = 1;
+  struct sockaddr_in local_addr;
+  struct sockaddr_in client_addr;
+
+  int client_addr_len = sizeof(client_addr);
+
+  if((listen_socket = socket(PF_INET,SOCK_STREAM,0)) == -1){
+    peror("Unable te create listen socket");
+    exit(0);
+  }
+  
+  if(setsockopt(listen_socket,SOL_SOCKET,
+		SO_REUSEADDR,
+		&av,sizeof(av)) == -1){
+    perror("Settings socket option");
+    exit(0);
+  }
+  local_addr.sin_family = AF_INET;
+  local_addr.sin_port = htons(HTTP_PORT);
+  local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+  if(bind(listen_socket,(struct sockaddr*) &local_addr,
+	  sizeof(local_addr)) == -1){
+    perror("Unable to bind, root?");
+    exit(0);
+  }
+  if(listen(listen_socket,5) == -1){
+    perror("Unable to set socket backlo");
+    exit(0);
+  }
+  while((connection_socket = accept(listen_socket,
+				    (struct sockaddr*)&client_addr,
+				    &client_addr_len)) != -1){
+    //span new thread
+    process_http_request(connection_socket);
+  }
+  if(connection_socket == -1){
+    perror("Unable to connect socket request");
+  }
+  return 0;
+}
