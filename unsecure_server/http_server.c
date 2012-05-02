@@ -11,17 +11,19 @@
 #include <unistd.h>
 #include <pthread.h>
 
-void process_http_request(int connection_socket){
+void *process_http_request(int *connection_socket){
   printf("%s \n","new connection");
 }
 int main(int argc, char *argv[]){
   int listen_socket;
   int connection_socket;
   int av = 1;
+  int thread_index = 0;
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
-
-  pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*10);
+  
+  pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
+  int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 
   int client_addr_len = sizeof(client_addr);
 
@@ -52,8 +54,9 @@ int main(int argc, char *argv[]){
   while((connection_socket = accept(listen_socket,
 				    (struct sockaddr*)&client_addr,
 				    &client_addr_len)) != -1){
-    //span new thread
-    process_http_request(connection_socket);
+    thread_return[thread_index++] = pthread_create(&threads[thread_index-1],
+						 NULL,proces_http_request,&connection_socket);
+    Process_http_request(connection_socket);
   }
   if(connection_socket == -1){
     perror("Unable to connect socket request");
