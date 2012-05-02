@@ -1,5 +1,8 @@
 CC=gcc
 NAME=baboon
+builddir=build/
+
+$(builddir)/%.o: 
 all:
 	baboon
 baboon: 

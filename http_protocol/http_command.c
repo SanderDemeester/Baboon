@@ -34,7 +34,7 @@ int http_trace(int connection,const char *host){
  **/
 
 int http_close(int connection, const char *host){
-  static char http_buffer[MAX_HTTPCOMMAND];
+  static char http_buffer[MAX_HTTP_COMMAND];
   sprintf(http_buffer,"Connection: close\r\n\r\n");
   if(send(connection,http_buffer,strlen(http_buffer),0) == -1){
     return -1;
