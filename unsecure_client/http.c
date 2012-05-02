@@ -1,6 +1,7 @@
 /*none secure http client**/
 
 #define HTTP_PORT 80
+#define BUFFER_SIZE 255
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -17,7 +18,15 @@
  * parse a url, return 0 on succes and -1 if the url is wrong
  *
 */
-void display_result(int connection);
+void display_result(int connection){
+  int rev = 0;
+  static char recv_buffer[ BUFFER_SIZE +1 ];
+  while((rev = recv(connection,recv,BUFFER_SIZE,0))>0){
+    recv_buffer[rev] = '\0';
+    printf("%s",recv_buffer);
+  }
+  printf("\n");
+}
 int parse_url(char *url,char **host, char**path){
   char *position;
   position = strstr(url,"//");
@@ -72,11 +81,10 @@ int main(int argc, char* argv[]){
   
   memcpy(&host_adr.sin_addr,host_name->h_addr_list[0],
 	 sizeof(struct in_addr));
-  
-  if(connect(client_connection,(struct sockaddr*)&host_adr,
-	     sizeof(host_adr))==-1);{
+
+  if(connect(client_connection,(struct sockaddr*)&host_adr,sizeof(host_adr))==-1){
     perror("Unable to connect to host");
-    return -4;
+    return 4;
   }
   printf("Retrieving document: '%s'\n",path);
   
