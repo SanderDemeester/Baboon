@@ -16,7 +16,7 @@ http.o:
 http_command.o:
 	$(CC) -Wall -I. -c http_protocol/http_command.c
 http_server.o:
-	$(CC) -Wall -I. -c unsecure_server/http_server.c
+	$(CC) -Wall -lpthread -I. -c unsecure_server/http_server.c
 clean:
 	rm -rf *.o
 	rm -rf *.out

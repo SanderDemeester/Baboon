@@ -1,4 +1,5 @@
 #define HTTP_PORT 80
+#define MAX_CONNECTIONS 10
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -8,7 +9,11 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
-void process_http_request(connection_socket);
+#include <pthread.h>
+
+void process_http_request(int connection_socket){
+  printf("%s \n","new connection");
+}
 int main(int argc, char *argv[]){
   int listen_socket;
   int connection_socket;
@@ -16,10 +21,12 @@ int main(int argc, char *argv[]){
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
 
+  pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*10);
+
   int client_addr_len = sizeof(client_addr);
 
   if((listen_socket = socket(PF_INET,SOCK_STREAM,0)) == -1){
-    peror("Unable te create listen socket");
+    perror("Unable te create listen socket");
     exit(0);
   }
   
@@ -39,7 +46,7 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   if(listen(listen_socket,5) == -1){
-    perror("Unable to set socket backlo");
+    perror("Unable to set socket backlog");
     exit(0);
   }
   while((connection_socket = accept(listen_socket,
