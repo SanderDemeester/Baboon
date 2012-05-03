@@ -64,5 +64,7 @@ int main(int argc, char *argv[]){
   if(connection_socket == -1){
     perror("Unable to connect socket request");
   }
+  free(threads);
+  free(thread_return);
   return 0;
 }
