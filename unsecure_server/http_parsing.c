@@ -13,7 +13,14 @@ void *process_http_request(int *connection_socket){
     }
 }
 
-void build_error_response(int connection_socket, int http_reponse_code){}
+void build_error_response(int connection_socket, int http_reponse_code){
+  char buf[255];
+  sprintf(buf,"HTTP/1.1 %d Error Occurred\r\n\r\n",http_reponse_code);
+  if(send(connection_socket,buf,strlen(buf),0) < strlen(buf)){ //return len of buf if succes
+    perror("Respond is failing..");
+  }
+
+}
 void build_succes_response(int connection_socket){}
 char* read_line(int connection_socket){
   static int line_lengte = LINE_SIZE;
