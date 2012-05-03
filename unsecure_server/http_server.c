@@ -1,5 +1,5 @@
 #define HTTP_PORT 80
-#define MAX_CONNECTIONS 2
+#define MAX_CONNECTIONS 10
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -13,7 +13,6 @@
 
 void *process_http_request(int *connection_socket){
   printf("%s \n","new connection");
-  printf("%d \n",*connection_socket);
 }
 int main(int argc, char *argv[]){
   int listen_socket;
