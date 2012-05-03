@@ -11,9 +11,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
-void *process_http_request(int *connection_socket){
-  printf("%s \n","new connection");
-}
+#include "header/http_parsing.h"
 int main(int argc, char *argv[]){
   int listen_socket;
   int connection_socket;
