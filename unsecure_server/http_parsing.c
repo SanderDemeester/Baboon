@@ -1,14 +1,14 @@
 #include "header/http_parsing.h"
 void *process_http_request(int *connection_socket){
     char *request_line;
-  request_line = read_line(connection_socket);
+  request_line = read_line(*connection_socket);
   if(strncmp(request_line,"GET",3)){
-      build_error_response(connection_socket,501); //HTTP 501 response
+      build_error_response(*connection_socket,501); //HTTP 501 response
     }else{
-      while(strcmp(read_line(connection_socket), "" ));
+      while(strcmp(read_line(*connection_socket), "" ));
       build_succes_response(connection_socket);
     }
-    if(close(connection_socket) == -1){
+    if(close(*connection_socket) == -1){
       perror("Unable to close connection");
     }
 }
@@ -28,7 +28,6 @@ char* read_line(int connection_socket){
   int size;
   char c;
   int pos = 0;
-  
   if(!line){
     line = malloc(line_lengte);
   }
