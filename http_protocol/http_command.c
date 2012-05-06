@@ -1,5 +1,8 @@
 #include "header/http_command.h"
 #define MAX_HTTP_COMMAND 255
+#ifndef _GENERAL
+#include "header/general.h"
+#endif
 
 /**
  * Send a HTTP GET request

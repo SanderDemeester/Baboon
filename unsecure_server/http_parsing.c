@@ -1,4 +1,7 @@
 #include "header/http_parsing.h"
+#ifndef _GENERAL
+#include "header/general.h"
+#endif
 void *process_http_request(int *connection_socket){
     char *request_line;
   request_line = read_line(*connection_socket);

@@ -1,14 +1,8 @@
 #define HTTP_PORT 80
 #define MAX_CONNECTIONS 10
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
+#ifndef _GENERAL
+#include "header/general.h"
+#endif
 #include <pthread.h>
 
 #include "header/http_parsing.h"

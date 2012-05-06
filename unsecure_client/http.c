@@ -2,16 +2,9 @@
 
 #define HTTP_PORT 80
 #define BUFFER_SIZE 255
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
-
+#ifndef _GENERAL
+#include "header/general.h"
+#endif
 #include "header/http_command.h"
 
 /**
