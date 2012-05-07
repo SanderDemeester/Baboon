@@ -5,8 +5,13 @@
 #endif
 #include <ctype.h>
 #include <pthread.h>
-
 #include "header/http_parsing.h"
+
+struct commandline_argumeten{
+  int a;
+  int b;
+  int c;
+};
 int main(int argc, char *argv[]){
   int listen_socket;
   int connection_socket;
@@ -14,25 +19,32 @@ int main(int argc, char *argv[]){
   int thread_index = 0;
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
-
+  struct commandline_argumeten argumenten = {0,0,0};
   if(argc > 1){
-    int opterr = 0;
-    int c;
-    while((c = getopt(argc,argv,"abc:")) != 1){
+    int c = getopt(argc,argv,"abc");
+    while(c !=  -1){
       switch(c){
       case 'a':
-	printf("\s \n","a");
+	argumenten.a = 1;
 	break;
       case 'b':
-	printf("%s \n","b");
+	argumenten.b = 1;
 	break;
       case 'c':
-	printf("%s \n","c");
+	argumenten.c = 1;
+	break;
+      default:
+	printf("%s \n","default");
 	break;
       }
     }
     printf("%s \n","include commandline arguments");
   }
+
+  printf("%s \n",argumenten.a);
+  printf("%s \n",argumenten.b);
+  printf("%s \n",argumenten.c);
+  
   
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
