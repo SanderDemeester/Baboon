@@ -3,6 +3,7 @@
 #ifndef _GENERAL
 #include "header/general.h"
 #endif
+#include <ctype.h>
 #include <pthread.h>
 
 #include "header/http_parsing.h"
@@ -13,6 +14,25 @@ int main(int argc, char *argv[]){
   int thread_index = 0;
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
+
+  if(argc > 1){
+    int opterr = 0;
+    int c;
+    while((c = getopt(argc,argv,"abc:")) != 1){
+      switch(c){
+      case 'a':
+	printf("\s \n","a");
+	break;
+      case 'b':
+	printf("%s \n","b");
+	break;
+      case 'c':
+	printf("%s \n","c");
+	break;
+      }
+    }
+    printf("%s \n","include commandline arguments");
+  }
   
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
