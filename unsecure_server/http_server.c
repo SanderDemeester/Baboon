@@ -22,7 +22,6 @@ int main(int argc, char *argv[]){
     parse_arguments(argc,argv,&ar);
     if(ar.p == 1) port = ar.port;
   }
-  if(ar.f == 1) printf("%s \n",ar.parameter_f);
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 
