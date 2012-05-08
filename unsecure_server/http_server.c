@@ -1,3 +1,4 @@
+
 #define HTTP_PORT 80
 #define MAX_CONNECTIONS 10
 #ifndef _GENERAL
@@ -6,6 +7,7 @@
 #include <ctype.h>
 #include <pthread.h>
 #include "header/http_parsing.h"
+#include "header/arguments.h"
 
 int main(int argc, char *argv[]){
   int listen_socket;
@@ -14,29 +16,11 @@ int main(int argc, char *argv[]){
   int thread_index = 0;
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
-  struct commandline_argumeten ar = {0,0,0,0};
+  struct arguments ar = {0,0,0,0};
   if(argc > 1){
-    int opt = getopt(argc,argv,"a:bc");
-    while(opt !=  -1){
-      switch(opt){
-      case 'a':
-	ar.a=1;
-	ar.parameter_a = optarg;
-	break;
-      case 'b':
-	ar.b = 1;
-	break;
-      case 'c':
-	ar.c = 1;
-	break;
-      default:
-	printf("%s \n","default");
-	break;
-      }
-      opt = getopt(argc,argv,"abc");
-    }
+    parse_arguments(argc,argv,&ar);
   }
-  if(ar.a == 1) printf("%s \n",ar.parameter_a);
+  if(ar.f == 1) printf("%s \n",ar.parameter_f);
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 

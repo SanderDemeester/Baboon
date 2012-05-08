@@ -1,4 +1,4 @@
-#ifndef _GENERAL
+#define _GENERAL_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -8,4 +8,3 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
-#endif
