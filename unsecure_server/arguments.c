@@ -25,7 +25,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       break;
     case 'p':
       arg_->p = 1;
-      arg_->port = optarg
+      arg_->port = optarg;
     default:
       usage();
       break;

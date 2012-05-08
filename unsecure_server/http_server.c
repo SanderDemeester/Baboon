@@ -14,11 +14,13 @@ int main(int argc, char *argv[]){
   int connection_socket;
   int av = 1;
   int thread_index = 0;
+  int port = HTTP_PORT;
   struct sockaddr_in local_addr;
   struct sockaddr_in client_addr;
   struct arguments ar = {0,0,0,0};
   if(argc > 1){
     parse_arguments(argc,argv,&ar);
+    if(ar.p == 1) port = ar.port;
   }
   if(ar.f == 1) printf("%s \n",ar.parameter_f);
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
