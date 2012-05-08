@@ -22,16 +22,17 @@ int main(int argc, char *argv[]){
     parse_arguments(argc,argv,&ar);
     if(ar.p == 1) port = ar.port;
   }
+  if(ar.f == 0) ar.file_directory=get_current_dir_name();
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 
   int client_addr_len = sizeof(client_addr);
-
+  if(ar.v==1) printf("%s \n","setting up socket...");
   if((listen_socket = socket(PF_INET,SOCK_STREAM,0)) == -1){
     perror("Unable te create listen socket");
     exit(0);
   }
-  
+  if(ar.v==1) printf("%s \n","setting socket options...");
   if(setsockopt(listen_socket,SOL_SOCKET,
 		SO_REUSEADDR,
 		&av,sizeof(av)) == -1){
@@ -39,9 +40,11 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   local_addr.sin_family = AF_INET;
-  local_addr.sin_port = htons(HTTP_PORT);
+  if(ar.p == 1) local_addr.sin_port = htons(atoi(ar.port));
+  else local_addr.sin_port = htons(HTTP_PORT);
   local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
+  if(ar.v==1) printf("%s \n","binding socket to interface...");
   if(bind(listen_socket,(struct sockaddr*) &local_addr,
 	  sizeof(local_addr)) == -1){
     perror("Unable to bind, root?");
