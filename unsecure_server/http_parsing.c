@@ -27,7 +27,7 @@ void build_error_response(int connection_socket, int http_reponse_code){
 void setup(int connection_socket, int http_reponse_code){
   char buf[HTTP_RESPONSE_BUF];
   sprintf(buf,"HTTP/1.1 200 Success\r\nConnection: keep-alive\r\n");
-  if(send(connection_socket,buf, strlen(buf),0 < strlen(buf)){
+  if(send(connection_socket,buf, strlen(buf),0) < strlen(buf)){
       perror("Error while setting up http stream");
     }
 }
