@@ -18,6 +18,7 @@ typedef struct document_unit{
 
   int number_of_links; //number of links to other document_unit's.
   int number_of_dependency //number of dependency this document_unit has.
+  char *path; //location of document_unit relative to root
   
   
 };
