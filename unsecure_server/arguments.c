@@ -15,6 +15,7 @@ void display_help(char *prog_name){
   printf("-p: \t\t port override\n");
   printf("-f: \t\t file directory to serve files from\n");
   printf("-c: \t\t specify configuration file\n");
+  exit(0);
 }
 
 /**
