@@ -17,10 +17,8 @@ typedef struct document_unit{
   struct dependency* dependency_list; //a list of assets to complete this document.
 
   int number_of_links; //number of links to other document_unit's.
-  int number_of_dependency //number of dependency this document_unit has.
+  int number_of_dependency; //number of dependency this document_unit has.
   char *path; //location of document_unit relative to root
-  
-  
 };
 
 /**
@@ -36,3 +34,5 @@ typedef struct dependency{
 */
 typedef struct opic_block{
 };
+
+
