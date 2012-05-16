@@ -24,6 +24,14 @@ void build_error_response(int connection_socket, int http_reponse_code){
   }
 
 }
+void setup(int connection_socket, int http_reponse_code){
+  char buf[HTTP_RESPONSE_BUF];
+  sprintf(buf,"HTTP/1.1 200 Success\r\nConnection: keep-alive\r\n");
+  if(send(connection_socket,buf, strlen(buf),0 < strlen(buf)){
+      perror("Error while setting up http stream");
+    }
+}
+
 void build_succes_response(int connection_socket){
   char buf[HTTP_RESPONSE_BUF];
   sprintf(buf,"HTTP/1.1 200 Success\r\nConnection: Closeo\r\nContent-Type:text\r\n\r\n<html><head><Title></Title><body>These are not the droids you're looking for.</body></html>\r\n");
