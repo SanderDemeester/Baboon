@@ -1,4 +1,3 @@
-
 #define HTTP_PORT 80
 #define MAX_CONNECTIONS 10
 #ifndef _GENERAL
@@ -8,7 +7,7 @@
 #include <pthread.h>
 #include "header/http_parsing.h"
 #include "header/arguments.h"
-
+#include "header/filegraph.h"
 int main(int argc, char *argv[]){
   int listen_socket;
   int connection_socket;
@@ -20,9 +19,12 @@ int main(int argc, char *argv[]){
   struct arguments ar = {0,0,0,0};
   if(argc > 1){
     parse_arguments(argc,argv,&ar);
-    if(ar.p == 1) port = ar.port;
+    
+    if(ar.p == 1) port = ar.port;      // use port provided from cli
   }
   if(ar.f == 0) ar.file_directory=get_current_dir_name();
+  construct_graph(ar.file_directory);
+  
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 
