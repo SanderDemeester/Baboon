@@ -4,6 +4,7 @@
  * with the most incoming graph vectors
 */
 typedef struct context_unit{
+  struct document_unit *entry_point; //entry point document_unit
 };
 
 /**
@@ -25,6 +26,7 @@ typedef struct document_unit{
  * A dependency is something that a document_unit needs to construct the full document.
 */
 typedef struct dependency{
+  FILE *file_handler;
 };
 
 
@@ -33,6 +35,12 @@ typedef struct dependency{
  * or can be part of a context
 */
 typedef struct opic_block{
+  FILE *file_handler;
 };
 
 
+/**
+   The graph itself
+*/
+typedef struct document_graph{
+};
