@@ -2,6 +2,8 @@
 #include "header/general.h"
 #endif
 #include "header/filegraph.h"
+#include "libxml/parser.h"
+#include "libxml/tree.h"
 #include <dirent.h>
 
 /**
