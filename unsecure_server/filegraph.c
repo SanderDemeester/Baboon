@@ -26,15 +26,28 @@ int construct_graph(char *root){
       if(opendir(path_file) == NULL){
 	xml_document = xmlReadFile(path_file,NULL,0);
 	if(xml_document != NULL){
-	  printf("start parsing document");
+	  /**
+	     some test code
+	  **/
+	  for(xml_node = xml_document->children; xml_node != NULL; xml_node = xml_node->next){
+	    printf("%s \n",xml_node->name);
+	    for(a_node = xml_node->children; a_node != NULL; a_node = a_node->next){
+	      printf("%s \n",a_node->name);
+	    }
+	  }
+	  #ifdef _DEBUG
+	  printf("start parsing document \n");
+	  #endif
 	}else{
 	  printf("fout\n");
 	}
+	#ifdef _DEBUG
+	printf("%s \n","start free-ing xmlDocument");
+	#endif
 	xmlFreeDoc(xml_document);
       }
     }
-    (void)closedir(root_d);
-    
   }
+  (void)closedir(root_d);
 }
 
