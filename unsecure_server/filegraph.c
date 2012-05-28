@@ -14,7 +14,6 @@ void links(htmlNodePtr htm_node){
   xmlAttrPtr attr = NULL;
   
   for(node = htm_node; node != NULL; node = node->next){
-    printf("%p \n",node->children);
     if(node->type == XML_ELEMENT_NODE){
       printf("%s \n",node->name);
       if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0){
