@@ -3,7 +3,7 @@
 #endif
 #include "header/filegraph.h"
 #include "libxml/HTMLparser.h"
-#include "libxml/tree.h"
+#include "libxml/HTMLtree.h"
 #include <dirent.h>
 
 /**
