@@ -2,20 +2,36 @@
 #include "header/general.h"
 #endif
 #include "header/filegraph.h"
-#include "libxml/parser.h"
+#include "libxml/HTMLparser.h"
 #include "libxml/tree.h"
 #include <dirent.h>
 
 /**
 -1 not a directory
-
-*/
+**/
+void links(htmlNodePtr htm_node){
+  htmlNodePtr node = NULL;
+  xmlAttrPtr attr = NULL;
+  
+  for(node = htm_node; node != NULL; node = node->next){
+    if(node->type == XML_ELEMENT_NODE){
+      if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0){
+	for(attr = node->properties; attr != NULL; attr = attr->next){
+	  if(xmlStrcasecmp(attr->name, (const xmlChar*)"HREF") == 0){
+	    printf("found dep <%s>\n", node->children->content);
+	  }
+	}
+      }
+      if(node->children != NULL){
+	links(node->children);
+      }
+    }
+  }
+}
 int construct_graph(char *root){
   printf("DEBUG: root-dir: %s \n",root);
   DIR *root_d;
-  xmlDocPtr xml_document = NULL;
-  xmlNode *xml_node = NULL;
-  xmlNode *a_node = "a";
+  htmlDocPtr html_document = NULL;
   struct dirent *listing;
   root_d = opendir(root);
   if(root_d != NULL){
@@ -24,27 +40,19 @@ int construct_graph(char *root){
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       if(opendir(path_file) == NULL){
-	xml_document = xmlReadFile(path_file,NULL,0);
-	if(xml_document != NULL){
-	  /**
-	     some test code
-	  **/
-	  for(xml_node = xml_document->children; xml_node != NULL; xml_node = xml_node->next){
-	    printf("%s \n",xml_node->name);
-	    for(a_node = xml_node->children; a_node != NULL; a_node = a_node->next){
-	      printf("%s \n",a_node->name);
-	    }
-	  }
-	  #ifdef _DEBUG
+	html_document = htmlParseDoc(path_file,NULL);
+	if(html_document != NULL){
+	  htmlNodePtr root = xmlDocGetRootElement(html_document);
+#ifdef _DEBUG
 	  printf("start parsing document \n");
-	  #endif
+#endif
 	}else{
 	  printf("fout\n");
 	}
-	#ifdef _DEBUG
+#ifdef _DEBUG
 	printf("%s \n","start free-ing xmlDocument");
-	#endif
-	xmlFreeDoc(xml_document);
+#endif
+	xmlFreeDoc(html_document);
       }
     }
   }
