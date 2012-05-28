@@ -14,8 +14,9 @@ void links(htmlNodePtr htm_node){
   xmlAttrPtr attr = NULL;
   
   for(node = htm_node; node != NULL; node = node->next){
-    printf("%p \n",node);
+    printf("%p \n",node->children);
     if(node->type == XML_ELEMENT_NODE){
+      printf("%s \n",node->name);
       if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0){
 	for(attr = node->properties; attr != NULL; attr = attr->next){
 	  if(xmlStrcasecmp(attr->name, (const xmlChar*)"HREF") == 0){
@@ -41,9 +42,10 @@ int construct_graph(char *root){
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       if(opendir(path_file) == NULL){
-	html_document = htmlParseDoc(path_file,NULL);
+	html_document = htmlParseFile((xmlChar*)path_file,NULL);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
+	  printf("%s \n",root->name);
 	  links(root);
 #ifdef _DEBUG
 	  printf("start parsing document \n");
