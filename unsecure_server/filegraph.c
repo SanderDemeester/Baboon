@@ -11,15 +11,17 @@
 **/
 void links(htmlNodePtr htm_node){
   htmlNodePtr node = NULL;
-  xmlAttrPtr attr = NULL;
+  //  xmlAttrPtr attr = NULL;
+  xmlAttribute *attr = NULL;
   
   for(node = htm_node; node != NULL; node = node->next){
     if(node->type == XML_ELEMENT_NODE){
-      printf("%s \n",node->name);
-      if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0){
+      if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0 ||
+	 xmlStrcasecmp(node->name,(const xmlChar*)"LINK") == 0){
 	for(attr = node->properties; attr != NULL; attr = attr->next){
 	  if(xmlStrcasecmp(attr->name, (const xmlChar*)"HREF") == 0){
-	    printf("found dep <%s>\n", node->children->content);
+	    //need to check if the depending document is in the same origin.
+	    printf("this page depends on: <%s>\n", attr->children->content);
 	  }
 	}
       }
@@ -44,7 +46,6 @@ int construct_graph(char *root){
 	html_document = htmlParseFile((xmlChar*)path_file,NULL);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
-	  printf("%s \n",root->name);
 	  links(root);
 #ifdef _DEBUG
 	  printf("start parsing document \n");
