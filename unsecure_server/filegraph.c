@@ -46,6 +46,7 @@ int construct_graph(char *root){
 	html_document = htmlParseFile((xmlChar*)path_file,NULL);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
+	  htmlNodeStatus(root,0);
 	  links(root);
 #ifdef _DEBUG
 	  printf("start parsing document \n");
