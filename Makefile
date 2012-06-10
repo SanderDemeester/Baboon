@@ -2,6 +2,7 @@ CC=gcc
 CFLAGS=-Wimplicit-function-declaration
 NAME=baboon
 builddir=build/
+obj=obj
 
 $(builddir)/%.o: 
 all:
@@ -17,7 +18,7 @@ http.o:
 http_command.o:
 	$(CC) $(CFLAGS) -Wall -I. -c http_protocol/http_command.c
 http_server.o:
-	$(CC) $(CFLAGS) -Wall -I. -c unsecure_server/http_server.c
+	$(CC) $(CFLAGS) -Wall -I. -c unsecure_server/http_server.c 
 http_parsing.o:
 	$(CC) $(CFLAGS) -Wall -I. -c unsecure_server/http_parsing.c
 arguments.o:	
