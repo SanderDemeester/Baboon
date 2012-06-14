@@ -39,7 +39,9 @@ int construct_graph(char *root){
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
+      #ifndef _DEBUG
       printf("%s \n",root);
+      #endif
       char *path_file = malloc(strlen(root) + strlen(listing->d_name) + 1);
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
