@@ -45,9 +45,13 @@ int construct_graph(char *root){
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       printf("%s \n",path_file);
       if(opendir(path_file) == NULL){
-	/* /\* libxml_use_internal_errors(true); *\/ */
-	/* html_document = htmlParseFile((xmlChar*)path_file,NULL); */
-	html_document = htmlReadFile((xmlChar*)path_file,NULL,64);
+	
+	/****************************************/
+        /* 64 = suppress warning reports        */
+	/* 1 = relax parsing 		        */
+        /****************************************/
+
+	html_document = htmlReadFile((xmlChar*)path_file,NULL,65);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
 	  htmlNodeStatus(root,0);
