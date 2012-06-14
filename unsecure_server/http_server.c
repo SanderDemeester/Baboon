@@ -22,7 +22,10 @@ int main(int argc, char *argv[]){
     
     if(ar.p == 1) port = ar.port;      // use port provided from cli
   }
-  if(ar.f == 0) ar.file_directory=get_current_dir_name();
+  if(ar.f == 0){
+    ar.file_directory=get_current_dir_name();
+    ar.file_directory[strlen(ar.file_directory)]='/';
+  }
   construct_graph(ar.file_directory);
   
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);

@@ -39,11 +39,15 @@ int construct_graph(char *root){
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
+      printf("%s \n",root);
       char *path_file = malloc(strlen(root) + strlen(listing->d_name) + 1);
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
+      printf("%s \n",path_file);
       if(opendir(path_file) == NULL){
-	html_document = htmlParseFile((xmlChar*)path_file,NULL);
+	/* /\* libxml_use_internal_errors(true); *\/ */
+	/* html_document = htmlParseFile((xmlChar*)path_file,NULL); */
+	html_document = htmlReadFile((xmlChar*)path_file,NULL,64);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
 	  htmlNodeStatus(root,0);
