@@ -18,15 +18,16 @@ void display_help(char *prog_name){
   exit(0);
 }
 
-/**
- * Possible options for now:
- -d: backgrond
- -v: verbose
- -p: port override
- -f: file directory
- -c: config file
- *
-*/
+
+ /******************************/
+ /*  Possible options for now: */
+ /* -d: backgrond	       */
+ /* -v: verbose		       */
+ /* -p: port override	       */
+ /* -f: file directory	       */
+ /* -c: config file	       */
+ /******************************/
+
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt;
   opt = getopt(argc,argv, "f:p:vdc:");
