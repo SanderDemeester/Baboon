@@ -50,10 +50,11 @@ int construct_graph(char *root){
 	
 	/****************************************/
         /* 64 = suppress warning reports        */
+	/* 32 = suppress error reports          */
 	/* 1 = relax parsing 		        */
         /****************************************/
 
-	html_document = htmlReadFile((xmlChar*)path_file,NULL,65);
+	html_document = htmlReadFile((xmlChar*)path_file,NULL,97);
 	if(html_document != NULL){
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
 	  htmlNodeStatus(root,0);
