@@ -49,7 +49,10 @@ int construct_graph(char *root){
   struct dirent *listing;
 
   context_unit *filestructure_start = calloc(1, sizeof(context_unit));
-
+  /* init context_unit
+ */
+  filestructure_start->number_of_units = 0;
+  filestructure_start->entry_point = NULL;
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
@@ -58,7 +61,11 @@ int construct_graph(char *root){
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       if(opendir(path_file) == NULL){
 	
-	
+	filestructure_start->number_of_units++; //number of document units in list +1
+	filestructure_start->entry_point = (document_unit*) realloc(filestructure_start->entry_point, filestructure_start->number_of_units * sizeof(document_unit));
+	/* just the name, does not include "../" name */
+	filestructure_start->entry_point[filestructure_start->number_of_units-1].file_handler = fopen(listing->d_name,"rt");
+	filestructure_start->entry_point[filestructure_start->number_of_units-1].path = listing->d_name;
 	
 	/****************************************/
         /* 64 = suppress warning reports        */
@@ -66,8 +73,10 @@ int construct_graph(char *root){
 	/* 1 = relax parsing 		        */
         /****************************************/
 
-	html_document = htmlReadFile((xmlChar*)path_file,NULL,97);
+	html_document = htmlReadFile((xmlChar*)path_file,NULL,0);
+	printf("starting to check: %s \n",path_file);
 	if(html_document != NULL){
+	  
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
 	  htmlNodeStatus(root,0);
 	  links(root);
