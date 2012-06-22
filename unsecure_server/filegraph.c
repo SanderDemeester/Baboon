@@ -55,6 +55,8 @@ int construct_graph(char *root){
  */
   filestructure_start->number_of_units = 0;
   filestructure_start->entry_point = NULL;
+  filestructure_start->fp_exist_element = exist_element;
+  filestructure_start->fp_enumerate_file_graph = enumerate_file_graph;
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
