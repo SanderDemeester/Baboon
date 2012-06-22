@@ -58,6 +58,5 @@ typedef struct opic_block{
 typedef struct document_graph{
 } document_graph;
 
-
 int exist_element(char *,struct context_unit*);
 void enumerate_file_graph(struct context_unit*);

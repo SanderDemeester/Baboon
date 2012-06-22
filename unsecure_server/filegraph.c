@@ -116,8 +116,20 @@ int construct_graph(char *root){
 /*************************/
 
 int exist_element(char *file_path,struct context_unit* filestructure_start){
-  printf("test \n");
-  return 0;
+  int i,j;
+  int number_of_links;
+  for(i = 0;i < filestructure_start->number_of_units; i++){
+    if(strcmp(file_path,filestructure_start->entry_point[i].path) != 0){
+      return 0;
+    }
+    for(j = 0; j < filestructure_start->entry_point[i].number_of_links; j++){
+      if(strcmp(file_path,filestructure_start->entry_point[i].links[j].path) != 0){
+	return 0;
+      }
+    }
+    printf("%s \n",filestructure_start->entry_point[i].path);
+  }
+    return -1;
 }
 
 void enumerate_file_graph(struct context_unit *filestructure_start){
