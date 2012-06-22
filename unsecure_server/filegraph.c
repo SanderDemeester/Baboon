@@ -98,3 +98,13 @@ int construct_graph(char *root){
   (void)closedir(root_d);
 }
 
+/*************************/
+/* methodes of filegraph */
+/*************************/
+
+int exist_element(char *file_path,struct context_unit* filestructure_start){
+  return 0;
+}
+
+void enumerate_file_graph(struct context_unit *filestructure_start){
+}
