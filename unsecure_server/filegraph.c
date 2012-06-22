@@ -17,6 +17,7 @@ void links(htmlNodePtr htm_node){
   xmlAttribute *attr = NULL;
   char *URN_http = (char*) calloc(7,sizeof(char));
   char *URN_https = (char*) calloc(8,sizeof(char));
+  char *path_file_dependency = NULL;
 
   for(node = htm_node; node != NULL; node = node->next){
     if(node->type == XML_ELEMENT_NODE){
@@ -30,7 +31,8 @@ void links(htmlNodePtr htm_node){
 
 
 	    if(strcmp("http://",URN_http) != 0 && strcmp("https://",URN_https) != 0){
-	      printf("this page depends on: <%s>\n", attr->children->content);
+	      path_file_dependency = (char*) calloc(strlen((char*)attr->children->content),sizeof(char));
+	      strcpy(path_file_dependency,(char*)attr->children->content);
 	    }
 	  }
 	}
