@@ -47,6 +47,9 @@ int construct_graph(char *root){
   DIR *root_d;
   htmlDocPtr html_document = NULL;
   struct dirent *listing;
+
+  context_unit *filestructure_start = calloc(1, sizeof(context_unit));
+
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
@@ -54,6 +57,8 @@ int construct_graph(char *root){
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       if(opendir(path_file) == NULL){
+	
+	
 	
 	/****************************************/
         /* 64 = suppress warning reports        */

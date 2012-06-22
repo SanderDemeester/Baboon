@@ -5,7 +5,8 @@
 */
 typedef struct context_unit{
   struct document_unit *entry_point; //entry point document_unit
-};
+  int number_of_units; //number of document units links in this context unit
+} context_unit;
 
 /**
  * A document_unit is a abstraction of the notion of a document, most documents
@@ -20,14 +21,14 @@ typedef struct document_unit{
   int number_of_links; //number of links to other document_unit's.
   int number_of_dependency; //number of dependency this document_unit has.
   char *path; //location of document_unit relative to root
-};
+} document_unit;
 
 /**
  * A dependency is something that a document_unit needs to construct the full document.
 */
 typedef struct dependency{
   FILE *file_handler;
-};
+} dependency;
 
 
 /**
@@ -36,11 +37,11 @@ typedef struct dependency{
 */
 typedef struct opic_block{
   FILE *file_handler;
-};
+} opic_block;
 
 
 /**
    The graph itself
 */
 typedef struct document_graph{
-};
+} document_graph;
