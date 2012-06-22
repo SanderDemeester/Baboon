@@ -117,10 +117,14 @@ int dir_re(const char *path, context_unit *filestructure_start){
       continue;
     
     if(S_ISDIR(fstat.st_mode)){
+      #ifdef _DEBUG
       printf("%s \n",path_file);
+      #endif
 	dir_re(path_file,filestructure_start);
     }else{
+      #ifdef _DEBUG
       printf("%s \n",path_file);
+      #endif
        construct_dependency(path_file,listing,filestructure_start); 
     }
   }
@@ -132,6 +136,9 @@ int construct_graph(char *root){
   /* init context_unit */
   filestructure_start->number_of_units = 0;
   filestructure_start->entry_point = NULL;
+  /**************************/
+  /* init function pointers */
+  /**************************/
   filestructure_start->fp_exist_element = exist_element;
   filestructure_start->fp_enumerate_file_graph = enumerate_file_graph;
 
