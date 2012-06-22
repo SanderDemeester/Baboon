@@ -9,7 +9,7 @@
 /**
 -1 not a directory
 **/
-void links(htmlNodePtr htm_node){
+document_unit* links(htmlNodePtr htm_node){
   int i = 0; //index for loop usage
   int skip = 1; //skip if dependency is not in same-origin as current context
   htmlNodePtr node = NULL;
@@ -18,6 +18,7 @@ void links(htmlNodePtr htm_node){
   char *URN_http = (char*) calloc(7,sizeof(char));
   char *URN_https = (char*) calloc(8,sizeof(char));
   char *path_file_dependency = NULL;
+  document_unit* result = (document_unit*) calloc(1,sizeof(document_unit));
 
   for(node = htm_node; node != NULL; node = node->next){
     if(node->type == XML_ELEMENT_NODE){
@@ -42,6 +43,7 @@ void links(htmlNodePtr htm_node){
       }
     }
   }
+  return result;
 }
 int construct_graph(char *root){
   DIR *root_d;
