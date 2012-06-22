@@ -6,6 +6,18 @@
 typedef struct context_unit{
   struct document_unit *entry_point; //entry point document_unit
   int number_of_units; //number of document units links in this context unit
+
+  /*METHODE'S*/
+  /*********************************************************/
+  /* does a check to see if a document_unit with a certain */
+  /* path exist in the file graph. 			   */
+  /* return value:					   */
+  /* 0 for succes					   */
+  /* -1 for error					   */
+  /*********************************************************/
+  int (*fp_exist_element)(char *path,struct context_unit *); 
+  void (*fp_enumerate_file_graph)(struct context_unit*);
+
 } context_unit;
 
 /**
@@ -45,3 +57,7 @@ typedef struct opic_block{
 */
 typedef struct document_graph{
 } document_graph;
+
+
+int exist_element(char *,struct context_unit*);
+void enumerate_file_graph(struct context_unit*);

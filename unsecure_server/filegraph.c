@@ -30,8 +30,8 @@ document_unit* links(htmlNodePtr htm_node){
 	    strncpy(URN_https,(char*)attr->children->content+0,8);
 	    strncpy(URN_http,(char*)attr->children->content+0,7);
 
-
 	    if(strcmp("http://",URN_http) != 0 && strcmp("https://",URN_https) != 0){
+	      //if this is true, this document_unit has another dependency.
 	      path_file_dependency = (char*) calloc(strlen((char*)attr->children->content),sizeof(char));
 	      strcpy(path_file_dependency,(char*)attr->children->content);
 	    }
