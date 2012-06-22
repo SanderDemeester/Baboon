@@ -57,6 +57,9 @@ int construct_graph(char *root){
   filestructure_start->entry_point = NULL;
   filestructure_start->fp_exist_element = exist_element;
   filestructure_start->fp_enumerate_file_graph = enumerate_file_graph;
+
+
+
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
@@ -70,6 +73,8 @@ int construct_graph(char *root){
 	/* just the name, does not include "../" name */
 	filestructure_start->entry_point[filestructure_start->number_of_units-1].file_handler = fopen(listing->d_name,"rt");
 	filestructure_start->entry_point[filestructure_start->number_of_units-1].path = listing->d_name;
+	filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_links = 0;
+	filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_dependency = 0;
 	
 	/****************************************/
         /* 64 = suppress warning reports        */
@@ -78,9 +83,10 @@ int construct_graph(char *root){
         /****************************************/
 
 	html_document = htmlReadFile((xmlChar*)path_file,NULL,0);
+	#ifdef _DEBUG
 	printf("starting to check: %s \n",path_file);
+	#endif
 	if(html_document != NULL){
-	  
 	  htmlNodePtr root = xmlDocGetRootElement(html_document);
 	  htmlNodeStatus(root,0);
 	  links(root);
@@ -94,10 +100,15 @@ int construct_graph(char *root){
 	printf("%s \n","start free-ing xmlDocument");
 #endif
 	xmlFreeDoc(html_document);
+      }else{
+	if(strcmp(".",listing->d_name) != 0 && strcmp("..",listing->d_name) != 0){
+	  
+	}
       }
     }
   }
   (void)closedir(root_d);
+  filestructure_start->fp_enumerate_file_graph(filestructure_start);
 }
 
 /*************************/
@@ -105,8 +116,14 @@ int construct_graph(char *root){
 /*************************/
 
 int exist_element(char *file_path,struct context_unit* filestructure_start){
+  printf("test \n");
   return 0;
 }
 
 void enumerate_file_graph(struct context_unit *filestructure_start){
+  int i;
+  for(i = 0;i < filestructure_start->number_of_units; i++){
+    printf("%s \n",filestructure_start->entry_point[i].path);
+  }
+
 }
