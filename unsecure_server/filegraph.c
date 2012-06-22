@@ -102,14 +102,13 @@ int construct_graph(char *root){
 	xmlFreeDoc(html_document);
       }else{
 	if(strcmp(".",listing->d_name) != 0 && strcmp("..",listing->d_name) != 0){
-	  
+	  //found subdir
 	}
       }
     }
   }
   (void)closedir(root_d);
-  filestructure_start->fp_enumerate_file_graph(filestructure_start);
-  printf("%d \n",filestructure_start->fp_exist_element("indedx.html",filestructure_start));
+  printf("%d \n",filestructure_start->fp_exist_element("index.html",filestructure_start));
 }
 
 /*************************/
