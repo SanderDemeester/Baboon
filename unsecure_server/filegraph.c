@@ -10,10 +10,14 @@
 -1 not a directory
 **/
 void links(htmlNodePtr htm_node){
+  int i = 0; //index for loop usage
+  int skip = 1; //skip if dependency is not in same-origin as current context
   htmlNodePtr node = NULL;
   //  xmlAttrPtr attr = NULL;
   xmlAttribute *attr = NULL;
-  
+  char *URN_http = (char*) calloc(7,sizeof(char));
+  char *URN_https = (char*) calloc(8,sizeof(char));
+
   for(node = htm_node; node != NULL; node = node->next){
     if(node->type == XML_ELEMENT_NODE){
       if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0 ||
@@ -21,7 +25,13 @@ void links(htmlNodePtr htm_node){
 	for(attr = node->properties; attr != NULL; attr = attr->next){
 	  if(xmlStrcasecmp(attr->name, (const xmlChar*)"HREF") == 0){
 	    //need to check if the depending document is in the same origin.
-	    printf("this page depends on: <%s>\n", attr->children->content);
+	    strncpy(URN_https,(char*)attr->children->content+0,8);
+	    strncpy(URN_http,(char*)attr->children->content+0,7);
+	    
+	    if(strcmp("http://",URN_http) != 0 &&
+	       strcmp("https://",URN_https != 0)){
+	      printf("this page depends on: <%s>\n", attr->children->content);
+	    }
 	  }
 	}
       }
@@ -32,20 +42,15 @@ void links(htmlNodePtr htm_node){
   }
 }
 int construct_graph(char *root){
-  printf("DEBUG: root-dir: %s \n",root);
   DIR *root_d;
   htmlDocPtr html_document = NULL;
   struct dirent *listing;
   root_d = opendir(root);
   if(root_d != NULL){
     while(listing = readdir(root_d)){
-      #ifndef _DEBUG
-      printf("%s \n",root);
-      #endif
       char *path_file = malloc(strlen(root) + strlen(listing->d_name) + 1);
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
-      printf("%s \n",path_file);
       if(opendir(path_file) == NULL){
 	
 	/****************************************/
