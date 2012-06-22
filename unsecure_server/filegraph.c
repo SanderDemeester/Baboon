@@ -45,20 +45,52 @@ document_unit* links(htmlNodePtr htm_node){
   }
   return result;
 }
+
+void construct_dependency(char *path_file, struct dirent* listing, context_unit *filestructure_start){
+  htmlDocPtr html_document = NULL;
+  filestructure_start->number_of_units++; //number of document units in list +1
+  filestructure_start->entry_point = (document_unit*) realloc(filestructure_start->entry_point, filestructure_start->number_of_units * sizeof(document_unit));
+  /* just the name, does not include "../" name */
+  filestructure_start->entry_point[filestructure_start->number_of_units-1].file_handler = fopen(listing->d_name,"rt");
+  filestructure_start->entry_point[filestructure_start->number_of_units-1].path = listing->d_name;
+  filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_links = 0;
+  filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_dependency = 0;
+  
+  /****************************************/
+  /* 64 = suppress warning reports        */
+  /* 32 = suppress error reports          */
+  /* 1 = relax parsing 		        */
+  /****************************************/
+  
+  html_document = htmlReadFile((xmlChar*)path_file,NULL,0);
+#ifdef _DEBUG
+  printf("starting to check: %s \n",path_file);
+#endif
+  if(html_document != NULL){
+    htmlNodePtr root = xmlDocGetRootElement(html_document);
+    htmlNodeStatus(root,0);
+    links(root);
+#ifdef _DEBUG
+    printf("start parsing document \n");
+#endif
+  }else{
+    printf("fout\n");
+  }
+#ifdef _DEBUG
+  printf("%s \n","start free-ing xmlDocument");
+#endif
+  xmlFreeDoc(html_document);
+}
+
 int construct_graph(char *root){
   DIR *root_d;
-  htmlDocPtr html_document = NULL;
   struct dirent *listing;
-
   context_unit *filestructure_start = calloc(1, sizeof(context_unit));
-  /* init context_unit
- */
+  /* init context_unit */
   filestructure_start->number_of_units = 0;
   filestructure_start->entry_point = NULL;
   filestructure_start->fp_exist_element = exist_element;
   filestructure_start->fp_enumerate_file_graph = enumerate_file_graph;
-
-
 
   root_d = opendir(root);
   if(root_d != NULL){
@@ -67,39 +99,7 @@ int construct_graph(char *root){
       memcpy(path_file,root,strlen(root));
       memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
       if(opendir(path_file) == NULL){
-	
-	filestructure_start->number_of_units++; //number of document units in list +1
-	filestructure_start->entry_point = (document_unit*) realloc(filestructure_start->entry_point, filestructure_start->number_of_units * sizeof(document_unit));
-	/* just the name, does not include "../" name */
-	filestructure_start->entry_point[filestructure_start->number_of_units-1].file_handler = fopen(listing->d_name,"rt");
-	filestructure_start->entry_point[filestructure_start->number_of_units-1].path = listing->d_name;
-	filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_links = 0;
-	filestructure_start->entry_point[filestructure_start->number_of_units-1].number_of_dependency = 0;
-	
-	/****************************************/
-        /* 64 = suppress warning reports        */
-	/* 32 = suppress error reports          */
-	/* 1 = relax parsing 		        */
-        /****************************************/
-
-	html_document = htmlReadFile((xmlChar*)path_file,NULL,0);
-	#ifdef _DEBUG
-	printf("starting to check: %s \n",path_file);
-	#endif
-	if(html_document != NULL){
-	  htmlNodePtr root = xmlDocGetRootElement(html_document);
-	  htmlNodeStatus(root,0);
-	  links(root);
-#ifdef _DEBUG
-	  printf("start parsing document \n");
-#endif
-	}else{
-	  printf("fout\n");
-	}
-#ifdef _DEBUG
-	printf("%s \n","start free-ing xmlDocument");
-#endif
-	xmlFreeDoc(html_document);
+	construct_dependency(path_file,listing,filestructure_start);
       }else{
 	if(strcmp(".",listing->d_name) != 0 && strcmp("..",listing->d_name) != 0){
 	  //found subdir
