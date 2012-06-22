@@ -27,9 +27,9 @@ void links(htmlNodePtr htm_node){
 	    //need to check if the depending document is in the same origin.
 	    strncpy(URN_https,(char*)attr->children->content+0,8);
 	    strncpy(URN_http,(char*)attr->children->content+0,7);
-	    
-	    if(strcmp("http://",URN_http) != 0 &&
-	       strcmp("https://",URN_https != 0)){
+
+
+	    if(strcmp("http://",URN_http) != 0 && strcmp("https://",URN_https) != 0){
 	      printf("this page depends on: <%s>\n", attr->children->content);
 	    }
 	  }
