@@ -173,30 +173,34 @@ int construct_graph(char *root){
 /*************************/
 /* methodes of filegraph */
 /*************************/
-
+ 
 int exist_element(char *file_path,struct context_unit* filestructure_start){
-  int i,j;
-  int number_of_links;
-  for(i = 0;i < filestructure_start->number_of_units; i++){
-    if(strcmp(file_path,filestructure_start->entry_point[i].path) == 0){
+      int i,j;
+      int number_of_links;
+      for(i = 0;i < filestructure_start->number_of_units; i++){
+      if(strcmp(file_path,filestructure_start->entry_point[i].path) == 0){
+#ifdef _DEBUG
       printf("%s \n","hier1");
+#endif
       return 0;
     }
-    for(j = 0; j < filestructure_start->entry_point[i].number_of_links; j++){
+      for(j = 0; j < filestructure_start->entry_point[i].number_of_links; j++){
       if(strcmp(file_path,filestructure_start->entry_point[i].links[j].path) == 0){
-	printf("%s \n","hier2");
-	return 0;
-      }
+#ifdef _DEBUG
+      printf("%s \n","hier2");
+#endif
+      return 0;
     }
-    printf("%s \n",filestructure_start->entry_point[i].path);
-  }
-    return -1;
-}
-
-void enumerate_file_graph(struct context_unit *filestructure_start){
-  int i;
-  for(i = 0;i < filestructure_start->number_of_units; i++){
-    printf("%s \n",filestructure_start->entry_point[i].path);
-  }
-
-}
+    }
+      printf("%s \n",filestructure_start->entry_point[i].path);
+    }
+      return -1;
+    }
+ 
+ void enumerate_file_graph(struct context_unit *filestructure_start){
+      int i;
+      for(i = 0;i < filestructure_start->number_of_units; i++){
+      printf("%s \n",filestructure_start->entry_point[i].path);
+    }
+      
+    }
