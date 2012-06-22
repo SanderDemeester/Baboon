@@ -5,6 +5,7 @@
 #include "libxml/HTMLparser.h"
 #include "libxml/HTMLtree.h"
 #include <dirent.h>
+#include <sys/stat.h>
 
 /**
 -1 not a directory
@@ -62,7 +63,7 @@ void construct_dependency(char *path_file, struct dirent* listing, context_unit 
   /* 1 = relax parsing 		        */
   /****************************************/
   
-  html_document = htmlReadFile((xmlChar*)path_file,NULL,0);
+  html_document = htmlReadFile((xmlChar*)path_file,NULL,97);
 #ifdef _DEBUG
   printf("starting to check: %s \n",path_file);
 #endif
@@ -82,9 +83,51 @@ void construct_dependency(char *path_file, struct dirent* listing, context_unit 
   xmlFreeDoc(html_document);
 }
 
+int dir_re(const char *path, context_unit *filestructure_start){
+  struct dirent *listing = NULL;
+  struct stat fstat;
+  DIR *root_d = NULL;
+  size_t path_len;
+  char path_file[_POSIX_PATH_MAX+1];
+
+  if(!path) 
+    return -1;
+  path_len = strlen(path);
+  if(!path || !path_len || (path_len > _POSIX_PATH_MAX))
+    return -1;
+
+  root_d= opendir(path);
+  if(root_d == NULL)
+    return -1;
+  
+  while((listing = readdir(root_d)) != NULL){
+    if((path_len + strlen(listing->d_name) +1) > _POSIX_PATH_MAX)
+      continue;
+
+    strcpy(path_file,path);
+    if(path_file[path_len -1 ] != '/')
+      strcat(path_file,"/");
+    strcat(path_file,listing->d_name);
+
+    if((strcmp(listing->d_name,".") == 0) ||
+       (strcmp(listing->d_name,"..") == 0))
+      continue;
+
+    if(stat(path_file,&fstat) < 0)
+      continue;
+    
+    if(S_ISDIR(fstat.st_mode)){
+      printf("%s \n",path_file);
+	dir_re(path_file,filestructure_start);
+    }else{
+      printf("%s \n",path_file);
+       construct_dependency(path_file,listing,filestructure_start); 
+    }
+  }
+  (void)closedir(root_d);
+}
+
 int construct_graph(char *root){
-  DIR *root_d;
-  struct dirent *listing;
   context_unit *filestructure_start = calloc(1, sizeof(context_unit));
   /* init context_unit */
   filestructure_start->number_of_units = 0;
@@ -92,22 +135,31 @@ int construct_graph(char *root){
   filestructure_start->fp_exist_element = exist_element;
   filestructure_start->fp_enumerate_file_graph = enumerate_file_graph;
 
-  root_d = opendir(root);
-  if(root_d != NULL){
-    while(listing = readdir(root_d)){
-      char *path_file = malloc(strlen(root) + strlen(listing->d_name) + 1);
-      memcpy(path_file,root,strlen(root));
-      memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);
-      if(opendir(path_file) == NULL){
-	construct_dependency(path_file,listing,filestructure_start);
-      }else{
-	if(strcmp(".",listing->d_name) != 0 && strcmp("..",listing->d_name) != 0){
-	  //found subdir
-	}
-      }
-    }
-  }
-  (void)closedir(root_d);
+  dir_re(root,filestructure_start);
+
+  /*******************************************************************************************/
+  /* root_d = opendir(root);								     */
+  /* if(root_d != NULL){								     */
+  /*   while(listing = readdir(root_d)){						     */
+  /*     char *path_file = malloc(strlen(root) + strlen(listing->d_name) + 1);		     */
+  /*     memcpy(path_file,root,strlen(root));						     */
+  /*     memcpy(path_file + strlen(root), listing->d_name,strlen(listing->d_name)+1);	     */
+  /*     printf("%s \n",path_file);							     */
+  /*     if(opendir(path_file) == NULL){						     */
+  /* 	construct_dependency(path_file,listing,filestructure_start);			     */
+  /*     }else{										     */
+  /* 	if(strcmp(".",listing->d_name) != 0 && strcmp("..",listing->d_name) != 0){	     */
+  /* 	  //found subdir								     */
+  /* 	  printf("%s \n",root);								     */
+  /* 	  printf("%s \n",listing->d_name);						     */
+  /* 	  root_d = opendir("subdir/");							     */
+  /* 	  root = "subdir/";								     */
+  /* 	}										     */
+  /*     }										     */
+  /*   }										     */
+  /* }											     */
+  /*******************************************************************************************/
+  /* (void)closedir(root_d); */
   printf("%d \n",filestructure_start->fp_exist_element("index.html",filestructure_start));
 }
 
