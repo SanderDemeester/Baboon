@@ -84,4 +84,20 @@ static void permute(unsigned char target[], const unsigned char src[], const int
   }
 }
 
-
+static void rotate_left(unsigned char* target){
+  
+  //while performing the rotate functions, we need to record a carry
+  int carry_left = 0;
+  int carry_right = 0;
+  
+  carry_left = (target[0] & 0x80) >> 3; //calculate carry bit
+  
+  
+  /* each byte of the key, a 7 byte array is left-shifted by one splace, and the MSB of the next byte is used as the LSB */
+  
+  target[0] = (target[0] << 1) | ((target[1] & 0x80) >> 7);
+  target[1] = (target[1] << 1) | ((target[2] & 0x80) >> 7);
+  target[0] = (target[0] << 1) | ((target[1] & 0x80) >> 7);
+  
+  
+}
