@@ -82,5 +82,6 @@ static void permute(unsigned char target[], const unsigned char src[], const int
     else
       CLEAR_BIT(target,i);
   }
-  }
 }
+
+
