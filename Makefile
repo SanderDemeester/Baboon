@@ -24,9 +24,9 @@ http_parsing.o:
 arguments.o:	
 	$(CC) $(CFLAGS) -Wall -I. -c unsecure_server/arguments.c
 filegraph.o:
-	$(CC) $(CFLAGS) -Wall -I. -I./libxml -c unsecure_server/filegraph.c
+	$(CC) $(CFLAGS) -Wall -I. -Lso/ -I./libxml -c unsecure_server/filegraph.c
 des.o:
-	$(CC) $(CFLAGS) -Wall -I. -I./libxml -c unsecure_server/filegraph.c
+	$(CC) $(CFLAGS) -Wall -I. -c DES/des.c
 clean:
 	rm -rf *.o 
 	rm -rf *.out 
