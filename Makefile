@@ -26,7 +26,7 @@ arguments.o:
 filegraph.o:
 	$(CC) $(CFLAGS) -Wall -I. -Lso/ -I./libxml -c unsecure_server/filegraph.c
 des.o:
-	$(CC) $(CFLAGS) -Wall -I. -c DES/des.c
+	$(CC) $(CFLAGS) -Wall -I. -c des/des.c
 clean:
 	rm -rf *.o 
 	rm -rf *.out 
