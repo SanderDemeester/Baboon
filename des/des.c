@@ -189,8 +189,8 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
   unsigned char ip_block[PC1_KEY_SIZE];
   unsigned char expansion_block[EXPANSION_BLOCK_SIZE];
   unsigned char subsitation_block[DES_BLOCK_SIZE];
-  unsigned char permutation_box_target[DES_BLOCK_SIZE];
-  unsigned char recomb_box[DES_BLOCK_SIZE];
+  unsigned char permutation_box_target[DES_BLOCK_SIZE/2];
+  unsigned char recomb_box[DES_BLOCK_SIZE/2];
 
   unsigned char pc1key[PC1_KEY_SIZE];
   unsigned char subkey[SUBKEY_SIZE];
@@ -232,14 +232,14 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     subsitation_block[3] |= sbox[7][(expansion_block[5] & 0x3F)];
 
     //permutate
-    permute(permutation_box_target,subsitation_block,p_table,DES_BLOCK_SIZE);
+    permute(permutation_box_target,subsitation_block,p_table,DES_BLOCK_SIZE/2);
     
     //recombine
-    memcpy((void *) recomb_box,(void *) ip_block,DES_BLOCK_SIZE);
-    memcpy((void *) ip_block,(void *) (ip_block + 4),DES_BLOCK_SIZE);
+    memcpy((void *) recomb_box,(void *) ip_block,DES_BLOCK_SIZE/2);
+    memcpy((void *) ip_block,(void *) (ip_block + 4),DES_BLOCK_SIZE/2);
     
     xor(recomb_box, permutation_box_target,DES_BLOCK_SIZE);
-    memcpy((void *) (ip_block + 4),(void *) recomb_box,DES_BLOCK_SIZE);
+    memcpy((void *) (ip_block + 4),(void *) recomb_box,DES_BLOCK_SIZE/2);
 
     //on more time.
     memcpy((void*) recomb_box,(void*) ip_block,DES_BLOCK_SIZE);
