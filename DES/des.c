@@ -106,8 +106,9 @@ static void rotate_left(unsigned char* target){
   
   /* and the rest */
   
-  target[4] = (target[4] = (target[4] << 1 ) | (( target[5] & 0x80) >> 7);
-	       
+  target[4] = (target[4] << 1) | ((target[5] & 0x80) >> 7);
+  target[5] = (target[5] << 1) | ((target[6] & 0x80) >> 7);
+  target[6] = (target[6] << 1) | carry_right;
 }
 
 
