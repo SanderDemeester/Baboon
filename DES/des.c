@@ -98,6 +98,14 @@ static void rotate_left(unsigned char* target){
   target[0] = (target[0] << 1) | ((target[1] & 0x80) >> 7);
   target[1] = (target[1] << 1) | ((target[2] & 0x80) >> 7);
   target[0] = (target[0] << 1) | ((target[1] & 0x80) >> 7);
+
+  /* special handling for byte 3 */
+  carry_right = (target[3] & 0x80) >> 3;
+  
+  target[3] = ((target[3] << 1) | ((target[4] & 0x80 ) >> 7)) & ~0x10) | carry_left;
+
+
+  
   
   
 }
