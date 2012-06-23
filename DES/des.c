@@ -1,8 +1,7 @@
 //specification: http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf
-//return non-zero
-#define GET_BIT (array,bit)   \ (array[(int) (bit / 8)] &   ( 0x80 >> (bit)))
-#define SET_BIT (array,bit)   \ (array[(int) (bit / 8)] |=  ( 0x80 >> (bit)))
-#define CLEAR_BIT (array,bit) \ (array[(int) (bit / 8)] &= ~( 0x80 >> (bit)))
+#ifndef _DES_H
+#include "header/des.h"
+#endif
 
 /********************************/
 /* DES inital permutation table */
@@ -141,7 +140,7 @@ static void permute(unsigned char target[], const unsigned char src[], const int
   }
 }
 
-static void rotate_left(unsigned char* target){
+static void rotate_left(unsigned char *target){
   
   //while performing the rotate functions, we need to record a carry
   int carry_left = 0;
