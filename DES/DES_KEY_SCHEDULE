@@ -1,2 +1,0 @@
-There are 16 different 48-bit keys witch are generated deterministically from the initial 64-bit key input
-The first byte of the output is equal to the first its of each inpute byte (backward). The second byte is equel to the second but of each input byte etc etc etc... We get the idea here :)

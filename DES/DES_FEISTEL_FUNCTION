@@ -1,7 +1,0 @@
-1. Expand bits 32-64 of the input to 48 bits.
-2. XOR the expaneded rifht half of the input with the provided key.
-3. Use the output of the XOR to look op eight entries in the s-box table and overwrite the input with these contends
-4. Permutate this output according to a specific p-table
-5. XOR this output with the let half of the input (bits 1-32) and swap sides so the XORed left half becomes the right half,
-   the next round with perform the same operations but on the other half
-

@@ -1,5 +1,0 @@
-S-BOX lookup (subsitation box)
-usage: obscure the relationship between key and ciphertext
-
-1. Its important that the output is not a linear function of the input.
-2. Sboxes are not permutations our rotations or XORed, there lookups into a set of of complete "random" data.
