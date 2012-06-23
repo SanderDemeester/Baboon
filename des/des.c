@@ -216,5 +216,37 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     }
     permute(subkey,pc1key,permutation_table_1,SUBKEY_SIZE);
     xor(expansion_block,subkey,6);
+    
+    //subsitution: from updated expantion block to ciphertext block
+    memset((void*) subsitation_block,0,DES_BLOCK_SIZE/2); //we already have memory, no need for calloc.
+    subsitation_block[0] =  sbox[0][(expansion_block[0] & 0xFC) >> 2] << 4;
+    subsitation_block[0] |= sbox[1][(expansion_block[0] & 0x03) << 4 | (expansion_block[1] & 0xF0) >> 4];
+
+    subsitation_block[1] =  sbox[2][(expansion_block[1] & 0x0F) << 2 | (expansion_block[2] & 0xC0) >> 6 ] << 4;
+    subsitation_block[1] |= sbox[3][(expansion_block[2] & 0x3F)];
+
+    subsitation_block[2] =  sbox[4][(expansion_block[3] & 0xFC) >> 2] << 4;
+    subsitation_block[2] |= sbox[5][(expansion_block[3] & 0x03) << 4 | (expansion_block[4] & 0xF0) >> 4];
+
+    subsitation_block[3] =  sbox[6][(expansion_block[4] & 0x0F) << 2 | (expansion_block[5] & 0xC0) >> 6] << 4;
+    subsitation_block[3] |= sbox[7][(expansion_block[5] & 0x3F)];
+
+    //permutate
+    permute(permutation_box_target,subsitation_block,p_table,DES_BLOCK_SIZE);
+    
+    //recombine
+    memcpy((void *) recomb_box,(void *) ip_block,DES_BLOCK_SIZE);
+    memcpy((void *) ip_block,(void *) (ip_block + 4),DES_BLOCK_SIZE);
+    
+    xor(recomb_box, permutation_box_target,DES_BLOCK_SIZE);
+    memcpy((void *) (ip_block + 4),(void *) recomb_box,DES_BLOCK_SIZE);
+
+    //on more time.
+    memcpy((void*) recomb_box,(void*) ip_block,DES_BLOCK_SIZE);
+    memcpy((void*) ip_block,  (void*) (ip_block+4),DES_BLOCK_SIZE);
+    memcpy((void*) (ip_block+4), (void*) recomb_box,DES_BLOCK_SIZE);
+
+    //final permutation
+    permute(ciphertext,ip_block,fp_table,DES_BLOCK_SIZE);
   }
 }
