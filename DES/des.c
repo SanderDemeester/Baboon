@@ -70,6 +70,7 @@ static const int expansion_table[] = {
 /***************************/
 
 static const int sbox[8][64] = {
+{ 
   14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
   0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8,
   4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0,
@@ -86,7 +87,7 @@ static const int sbox[8][64] = {
   1,10,13,0,6,9,8,7,4,15,14,3,11,5,2,12
 },{
   7,13,14,3,0,6,9,10,1,2,8,5,11,12,4,15,
-  13,8,11,5,6,15,0,3,4,7,2,12,1,10,14,9
+  13,8,11,5,6,15,0,3,4,7,2,12,1,10,14,9,
   10,6,9,0,12,11,7,13,15,1,3,14,5,2,8,4,
   3,15,0,6,10,1,13,8,9,4,5,11,12,7,2,14
 },{
@@ -109,7 +110,7 @@ static const int sbox[8][64] = {
   1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2,
   7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8,
   2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11
-};
+}};
 
   
 /*********************************************************************/
@@ -118,19 +119,19 @@ static const int sbox[8][64] = {
 
 static void xor(unsigned char *target, const unsigned char *source, int len){
   while(len--){
-    *target++ ^= *src++;
+    *target++ ^= *source++;
   }
 }
 
 /********************************************************************/
 /* Depending on the permute_table, this is the "<3" of our DES code.
-/* permute table SHOULD have exactly les and les * 8 number of entries.
-/* copy the second bit of the last byte into the first bit of the first byte of the output.
-/* the first byte of output comes from the second bits of each input byte.
-/* the second byte of output comes rom the fouth bits of each input byte
-/* You see where this is goning..
+ permute table SHOULD have exactly les and les * 8 number of entries.
+ copy the second bit of the last byte into the first bit of the first byte of the output.
+ the first byte of output comes from the second bits of each input byte.
+ the second byte of output comes rom the fouth bits of each input byte
+ You see where this is goning..
 /********************************************************************/
-static void permute(unsigned char target[], const unsigned char src[], const int parmute_table[], int len){
+static void permute(unsigned char target[], const unsigned char src[], const int permute_table[], int len){
   int i;
   for(i = 0; i < len * 8; i++){
     if(GET_BIT(src,(permute_table[i]-1)))
