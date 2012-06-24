@@ -182,6 +182,27 @@ static void rotate_left(unsigned char *target){
   target[6] = (target[6] << 1) | carry_right;
 }
 
+static void rotate_left(unsigned char *target){
+
+ //while performing the rotate functions, we need to record a carry
+  int carry_left = 0;
+  int carry_right = 0;
+
+  carry_right = (target[6] & 0x01) << 3;
+  
+  target[6] = (target[6] >> 1) | ((target[5] & 0x01) << 7);
+  target[5] = (target[5] >> 1) | ((target[4] & 0x01) << 7);
+  target[4] = (target[4] >> 1) | ((target[3] & 0x01) << 7);
+
+  carry_left = (target[3] & 0x10) << 3;
+  
+  target[3] = (((target[3] >> 1) | ((target[2] & 0x01) << 7)) & ~0x80) | carry_right;
+
+  target[2] = (target[2] >> 1) | ((target[1] & 0x01) << 7);
+  target[1] = (target[1] >> 1) | ((target[0] & 0x01) << 7);
+  target[0] = (target[0] >> 1) | carry_left;
+}
+
 static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 			      unsigned char ciphertext[DES_BLOCK_SIZE],
 			      const unsigned char key[DES_KEY_SIZE],
