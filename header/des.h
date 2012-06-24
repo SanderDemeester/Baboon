@@ -39,6 +39,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 			      unsigned char ciphertext[DES_BLOCK_SIZE],
 			      const unsigned char key[DES_KEY_SIZE],
 			      operation_type operation);
+
 static void des_operate(const unsigned char *input,
 			int input_len,
 			unsigned char *output,

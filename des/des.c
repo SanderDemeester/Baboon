@@ -251,6 +251,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
       }
     }
 
+    permute(subkey,pc1key,permutation_table_2,SUBKEY_SIZE);
     xor(expansion_block,subkey,6);
     
     //subsitution: from updated expantion block to ciphertext block
@@ -358,7 +359,7 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
 
-  des_operate(ciphertext,ciphertext_len,plaintext,iv,key,DECRYPT);
+  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT);
   //  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
 
 }
