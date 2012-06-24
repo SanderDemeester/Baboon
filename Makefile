@@ -13,8 +13,8 @@ unsecure_client: http.o http_command.o
 	$(CC) http.o http_command.o -o http_client
 unsecure_server: http_server.o http_parsing.o arguments.o filegraph.o
 	$(CC) $(CFLAGS) http_server.o http_parsing.o arguments.o filegraph.o -lpthread -lxml2 -lm -o http_server
-des_test: des.o des_test.o
-	$(CC) des.o test_DES.o -o des_test
+des_test: des.o des_test.o hex.o
+	$(CC) hex.o des.o test_DES.o -o des_test
 http.o:
 	$(CC) -Wall -I. -c unsecure_client/http.c
 http_command.o:
@@ -31,6 +31,8 @@ des.o:
 	$(CC) $(CFLAGS) -Wall -I. -c des/des.c
 des_test.o:
 	$(CC) $(CFLAGS) -Wall -I. -c crypto_test/des_test/test_DES.c
+hex.o:
+	$(CC) $(CFLAGS) -Wall -I. -c crypto_test/hex.c
 clean:
 	rm -rf *.o 
 	rm -rf *.out 
