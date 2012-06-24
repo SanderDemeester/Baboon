@@ -210,10 +210,12 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 
     /* Key mixing */
     /* rotation over both halfes of the inital key */
-    rotate_left(pc1key);
-    //rotate 2 times.
-    if(!(ronde <= 1 || ronde == 8 || ronde == 15)){
+    if(operation == ENCRYPT){
       rotate_left(pc1key);
+      //rotate 2 times.
+      if(!(ronde <= 1 || ronde == 8 || ronde == 15)){
+	rotate_left(pc1key);
+      }
     }
     permute(subkey,pc1key,permutation_table_1,SUBKEY_SIZE);
     xor(expansion_block,subkey,6);
