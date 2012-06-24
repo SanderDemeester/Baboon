@@ -8,14 +8,15 @@
 /********************************/
 
 static const int ip_table[] = {
-  58,50,42,34,26,18,10,2,
-  60,52,44,36,26,20,12,4,
-  62,54,46,38,30,22,14,6,
-  64,56,48,40,32,24,16,8,
-  57,49,41,33,25,17,9,1,
-  59,51,43,35,27,19,11,3,
-  61,53,45,37,29,21,13,5,
-  63,55,47,39,31,23,25,7};
+  58, 50, 42, 34, 26, 18, 10, 2,
+  60, 52, 44, 36, 28, 20, 12, 4,
+  62, 54, 46, 38, 30, 22, 14, 6,
+  64, 56, 48, 40, 32, 24, 16, 8,
+  57, 49, 41, 33, 25, 17, 9,  1,
+  59, 51, 43, 35, 27, 19, 11, 3,
+  61 ,53, 45, 37, 29, 21, 13, 5,
+  63, 55, 47, 39, 31, 23, 15, 7
+};
 
 /*****************************/
 /* this inverts the ip_table */
@@ -229,7 +230,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
   for(ronde = 0; ronde < 16; ronde++){
     /* feitel function on the first half of the block in 'ip_block */
     /* "expansion" (32 bits of ip_block); 16 of those are repeated */
-    permute(expansion_block,ip_block+4, expansion_table,6); //4 bytes
+    permute(expansion_block, ip_block+4, expansion_table, 6); //4 bytes
 
     /* Key mixing */
     /* rotation over both halfes of the inital key */
@@ -253,7 +254,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     xor(expansion_block,subkey,6);
     
     //subsitution: from updated expantion block to ciphertext block
-    memset((void*) subsitation_block,0,DES_BLOCK_SIZE/2); //we already have memory, no need for calloc.
+    memset((void*) subsitation_block, 0, DES_BLOCK_SIZE/2); //we already have memory, no need for calloc.
     subsitation_block[0] =  sbox[0][(expansion_block[0] & 0xFC) >> 2] << 4;
     subsitation_block[0] |= sbox[1][(expansion_block[0] & 0x03) << 4 | (expansion_block[1] & 0xF0) >> 4];
 
@@ -267,11 +268,11 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     subsitation_block[3] |= sbox[7][(expansion_block[5] & 0x3F)];
 
     //permutate
-    permute(permutation_box_target,subsitation_block,p_table,DES_BLOCK_SIZE/2);
+    permute(permutation_box_target, subsitation_block, p_table, DES_BLOCK_SIZE/2);
     
     //recombine
-    memcpy((void *) recomb_box,(void *) ip_block,DES_BLOCK_SIZE/2);
-    memcpy((void *) ip_block,(void *) (ip_block + 4),DES_BLOCK_SIZE/2);
+    memcpy((void *) recomb_box, (void *) ip_block,DES_BLOCK_SIZE/2);
+    memcpy((void *) ip_block,   (void *) (ip_block + 4),DES_BLOCK_SIZE/2);
     
     xor(recomb_box, permutation_box_target,DES_BLOCK_SIZE);
     memcpy((void *) (ip_block + 4),(void *) recomb_box,DES_BLOCK_SIZE/2);
