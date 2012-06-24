@@ -22,28 +22,28 @@ static const int ip_table[] = {
 /* this inverts the ip_table */
 /*****************************/
 static const int fp_table[] = {
-  40,8,48,16,56,24,64,32,
-  39,7,47,15,55,23,63,31,
-  38,6,46,14,54,22,62,30,
-  37,5,45,13,53,21,61,29,
-  36,4,44,12,52,20,60,28,
-  35,3,43,11,51,19,59,27,
-  34,2,42,10,50,18,58,26,
-  33,1,41,9,49,17,57,25
+  40, 8, 48, 16, 56, 24, 64, 32,
+  39, 7, 47, 15, 55, 23, 63, 31,
+  38, 6, 46, 14, 54, 22, 62, 30,
+  37, 5, 45, 13, 53, 21, 61, 29,
+  36, 4, 44, 12, 52, 20, 60, 28,
+  35, 3, 43, 11, 51, 19, 59, 27,
+  34, 2, 42, 10, 50, 18, 58, 26,
+  33, 1, 41, 9, 49,  17, 57, 25
 };
 
 /***********************************************************************************/
 /* This table is for the left half of the key as wel for the right half of the key */
 /***********************************************************************************/
 static const int permutation_table_1[] = {
-  57,49,41, 33, 25, 17, 9,
-  1, 58, 50, 42, 34, 26, 18,
-  10, 2, 59, 51, 43, 35, 27,
-  19, 11, 3, 60, 52, 44, 36,
-  63, 55, 47, 39, 31, 23, 15,
-  7, 62, 54, 46, 38, 30, 22,
-  14, 6, 61, 53, 45, 37, 29,
-  21, 13, 5, 28, 20, 12, 4,
+  57, 49, 41, 33, 25, 17, 9,  1,
+  58, 50, 42, 34, 26, 18, 10, 2,
+  59, 51, 43, 35, 27, 19, 11, 3,
+  60, 52, 44, 36,
+  63, 55, 47, 39, 31, 23, 15, 7,
+  62, 54, 46, 38, 30, 22, 14, 6,
+  61, 53, 45, 37, 29, 21, 13, 5,
+  28, 20, 12, 4
 };
 
 static const int permutation_table_2[] = {
@@ -56,7 +56,7 @@ static const int permutation_table_2[] = {
 };
 
 static const int expansion_table[] = {
-  32,1, 2, 3, 4, 5,
+  32, 1, 2, 3, 4, 5,
   4, 5, 6, 7, 8, 9,
   8, 9, 10, 11, 12, 13,
   12, 13, 14, 15, 16, 17,
@@ -70,14 +70,14 @@ static const int expansion_table[] = {
 /* final input block permutation */
 /*********************************/
 static const int p_table[] = {
-  16,7,20,21,
-  29,12,28,17,
-  1,15,23,26,
-  5,18,31,10,
-  2,8,24,14,
-  32,27,3,9,
-  19,13,30,6,
-  22,11,4,25
+  16, 7, 20, 21,
+  29, 12, 28, 17,
+  1, 15, 23, 26,
+  5, 18, 31, 10,
+  2, 8, 24, 14,
+  32, 27, 3, 9,
+  19, 13, 30, 6,
+  22, 11, 4, 25
 };
 
 /***************************/
@@ -301,13 +301,13 @@ static void des_operate(const unsigned char *input,
   assert(!(input_len % DES_BLOCK_SIZE));
 
   while(input_len){
-    memcpy( (void*) input_block, (void*) input,DES_BLOCK_SIZE);
+    memcpy( (void*) input_block, (void*) input, DES_BLOCK_SIZE);
 
     if(operation == ENCRYPT){
 
       xor(input_block,iv,DES_BLOCK_SIZE); //CBC
       des_block_operate(input_block,output,key,operation);
-      memcpy( (void*) iv, (void*) output,DES_BLOCK_SIZE); //CBC
+      memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
     }
 
@@ -318,11 +318,6 @@ static void des_operate(const unsigned char *input,
       memcpy( (void*) iv, (void*) input, DES_BLOCK_SIZE); //CBC
 
     }
-
-    xor(input_block,iv,DES_BLOCK_SIZE); //CBC
-    des_block_operate(input_block,output,key,operation);
-    
-    memcpy( (void*) iv, (void*) output,DES_BLOCK_SIZE);
 
     input += DES_BLOCK_SIZE;
     output += DES_BLOCK_SIZE;
@@ -345,14 +340,14 @@ void des_encrypt(const unsigned char* plaintext,
   padded_plaintext = (char*) malloc(plaintext_len + padding_len);
 
   //implementation of NIST 800-3A padding (what you can learn from reading the spec)
-  memset(padded_plaintext,0x0,plaintext_len + padding_len);
+  memset(padded_plaintext, padding_len, plaintext_len + padding_len);
   
   /* this is our "anker" so we know were out padding begins */
   padded_plaintext[plaintext_len] = 0x80;
 
   memcpy(padded_plaintext,plaintext,plaintext_len);
   
-  des_operate(padded_plaintext ,plaintext_len + padding_len ,ciphertext,iv ,key ,ENCRYPT);
+  des_operate(padded_plaintext, plaintext_len + padding_len, ciphertext, iv, key, ENCRYPT);
   free(padded_plaintext);
 }
 
