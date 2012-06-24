@@ -278,9 +278,9 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     memcpy((void *) (ip_block + 4),(void *) recomb_box,DES_BLOCK_SIZE/2);
 
     //on more time.
-    memcpy((void*) recomb_box,(void*) ip_block,DES_BLOCK_SIZE);
-    memcpy((void*) ip_block,  (void*) (ip_block+4),DES_BLOCK_SIZE);
-    memcpy((void*) (ip_block+4), (void*) recomb_box,DES_BLOCK_SIZE);
+    memcpy((void*) recomb_box,(void*) ip_block ,DES_BLOCK_SIZE / 2 );
+    memcpy((void*) ip_block,  (void*) (ip_block+4),DES_BLOCK_SIZE / 2);
+    memcpy((void*) (ip_block+4), (void*) recomb_box,DES_BLOCK_SIZE / 2);
 
     //final permutation
     permute(ciphertext,ip_block,fp_table,DES_BLOCK_SIZE);
@@ -305,16 +305,16 @@ static void des_operate(const unsigned char *input,
 
     if(operation == ENCRYPT){
 
-      xor(input_block,iv,DES_BLOCK_SIZE); //CBC
-      des_block_operate(input_block,output,key,operation);
+      xor(input_block, iv, DES_BLOCK_SIZE); //CBC
+      des_block_operate(input_block, output ,key, operation);
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
     }
 
     if(operation == DECRYPT){
 
-      des_block_operate(input_block,output,key,operation);
-      xor(output,iv,DES_BLOCK_SIZE);
+      des_block_operate(input_block, output, key, operation);
+      xor(output, iv, DES_BLOCK_SIZE);
       memcpy( (void*) iv, (void*) input, DES_BLOCK_SIZE); //CBC
 
     }
@@ -359,6 +359,6 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *key){
 
   des_operate(ciphertext,ciphertext_len,plaintext,iv,key,DECRYPT);
-  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
+  //  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
 
 }
