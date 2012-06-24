@@ -304,5 +304,28 @@ static void des_operate(const unsigned char *input,
     output += DES_BLOCK_SIZE;
     input_len -= DES_BLOCK_SIZE;
   }
+}
+
+void des_encrypt(const unsigned char* plaintext,
+		 const int plaintext_len,
+		 unsigned char *ciphertext,
+		 const unsigned char*key){
+  unsigned char *padded_plaintext;
+  int padding_len;
   
+  //Padding length.
+  padding_len = DES_BLOCK_SIZE - (plaintext_len % DES_BLOCK_SIZE);
+
+  padded_plaintext = (char*) malloc(plaintext_len + padding_len);
+
+  //implementation of NIST 800-3A padding (what you can learn from reading the spec)
+  memset(padded_plaintext,0x0,plaintext_len + padding_len);
+  
+  /* this is our "anker" so we know were out padding begins */
+  padded_plaintext[plaintext_len] = 0x80;
+
+  memcpy(padded_plaintext,plaintext,plaintext_len);
+  
+  des_operate(padded_plaintext,plaintext_len + padding_len,ciphertext,key,ENCRYPT);
+  free(padded_plaintext);
 }

@@ -43,3 +43,15 @@ static void des_operate(const unsigned char *input,
 			unsigned char *output,
 			const unsigned *key,
 			operation_type operation);
+
+/**************************************************************************************************************/
+/* We first figure out how much padding is needed. It will be between one and eight bytes.		      */
+/* If the input is already eight-byte aligned, we must add a "dummy" block of eight byte.		      */
+/*   we use the byte 0x80 to specify where out padding starts and fill up with zero bytes. 		      */
+/* The dummy padding for input with is eight-byte aligned is four when the the plain-text ends with 0x80 byte */
+/**************************************************************************************************************/
+
+void des_encrypt(const unsigned char* plaintext,
+		 const int plaintext_len,
+		 unsigned char *ciphertext,
+		 const unsigned char*key);
