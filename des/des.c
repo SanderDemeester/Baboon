@@ -244,7 +244,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
       rotate_right(pc1key);
       if(!(ronde >= 14 || ronde == 7 || ronde == 0)){
 	//rotate 2 times
-	rotat_right(pc1key);
+	rotate_right(pc1key);
       }
     }
 
@@ -356,6 +356,7 @@ void des_encrypt(const unsigned char* plaintext,
 
 void des_decrypt(const unsigned char *ciphertext,
 		 unsigned int ciphertext_len,
+		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
 

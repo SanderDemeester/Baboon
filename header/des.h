@@ -1,4 +1,5 @@
 #define _DES_H
+#include <assert.h>
 //return non-zero
 /***********/
 /* MACRO'S */
@@ -65,5 +66,6 @@ void des_encrypt(const unsigned char* plaintext,
 
 void des_decrypt(const unsigned char *ciphertext,
 		 unsigned int ciphertext_len,
+		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		 const unsigned char *key);
