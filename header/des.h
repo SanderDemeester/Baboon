@@ -13,6 +13,7 @@
 #define SUBKEY_SIZE 6
 #define EXPANSION_BLOCK_SIZE 6
 
+typedef enum {ENCRYPT,DECRYPT} operation_type;
 
 /*********************************************************************/
 /* Overwirtes the target array with the XOR of it and the src array. */
