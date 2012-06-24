@@ -5,6 +5,9 @@
 
 /********************************/
 /* DES inital permutation table */
+/* transpose the input block    */
+/* move bit 58 to pos1,         */
+/* move bit 50 to pos2 etc      */
 /********************************/
 
 static const int ip_table[] = {
@@ -18,9 +21,10 @@ static const int ip_table[] = {
   63, 55, 47, 39, 31, 23, 15, 7
 };
 
-/*****************************/
-/* this inverts the ip_table */
-/*****************************/
+/*******************************/
+/* Final DES permutation table */
+/* this inverts the ip_table   */
+/*******************************/
 static const int fp_table[] = {
   40, 8, 48, 16, 56, 24, 64, 32,
   39, 7, 47, 15, 55, 23, 63, 31,
@@ -32,9 +36,10 @@ static const int fp_table[] = {
   33, 1, 41, 9, 49,  17, 57, 25
 };
 
-/***********************************************************************************/
-/* This table is for the left half of the key as wel for the right half of the key */
-/***********************************************************************************/
+/*********************************************************************/
+/* Key transformation table.					     */
+/* 64-bit key to 56-bit key, this table describe this transformation */
+/*********************************************************************/
 static const int permutation_table_1[] = {
   57, 49, 41, 33, 25, 17, 9,  1,
   58, 50, 42, 34, 26, 18, 10, 2,
@@ -46,6 +51,11 @@ static const int permutation_table_1[] = {
   28, 20, 12, 4
 };
 
+/*************************************************************************/
+/* Compression permutation table.					 */
+/* Provides a subset of 48 bits.					 */
+/* exmpl: bit in pos 33 of the shifted key moves to pos 35 of the output */
+/*************************************************************************/
 static const int permutation_table_2[] = {
   14, 17, 11, 24, 1, 5, 3, 28,
   15, 6, 21, 10, 23, 19, 12, 4,
@@ -55,6 +65,10 @@ static const int permutation_table_2[] = {
   34, 53, 46, 42, 50, 36, 29, 32,
 };
 
+/********************************************************************/
+/* Expantions table.						    */
+/* shows wich output positions corresponds to with input position.  */
+/********************************************************************/
 static const int expansion_table[] = {
   32, 1, 2, 3, 4, 5,
   4, 5, 6, 7, 8, 9,
@@ -82,6 +96,7 @@ static const int p_table[] = {
 
 /***************************/
 /* Lookup table for sboxes */
+/* the magic sboxes        */
 /***************************/
 
 static const int sbox[8][64] = {
