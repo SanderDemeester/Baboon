@@ -239,9 +239,13 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
       //rotate 2 times.
       if(!(ronde <= 1 || ronde == 8 || ronde == 15)){
 	rotate_left(pc1key);
+	#ifdef _DEBUG
+	printf("%.02x \n",pc1key);
+	#endif
       }
     }
-    permute(subkey,pc1key,permutation_table_1,SUBKEY_SIZE);
+
+    permute(subkey,pc1key,permutation_table_2,SUBKEY_SIZE);
     
     if(operation == DECRYPT){
       rotate_right(pc1key);
@@ -251,11 +255,10 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
       }
     }
 
-    permute(subkey,pc1key,permutation_table_2,SUBKEY_SIZE);
-    xor(expansion_block,subkey,6);
+    xor(expansion_block, subkey, 6);
     
     //subsitution: from updated expantion block to ciphertext block
-    memset((void*) subsitation_block, 0, DES_BLOCK_SIZE/2); //we already have memory, no need for calloc.
+    memset((void*) subsitation_block, 0, DES_BLOCK_SIZE / 2); //we already have memory, no need for calloc.
     subsitation_block[0] =  sbox[0][(expansion_block[0] & 0xFC) >> 2] << 4;
     subsitation_block[0] |= sbox[1][(expansion_block[0] & 0x03) << 4 | (expansion_block[1] & 0xF0) >> 4];
 
@@ -338,13 +341,13 @@ void des_encrypt(const unsigned char* plaintext,
   //Padding length.
   padding_len = DES_BLOCK_SIZE - (plaintext_len % DES_BLOCK_SIZE);
 
-  padded_plaintext = (char*) malloc(plaintext_len + padding_len);
+  padded_plaintext = (char*)  malloc(plaintext_len + padding_len);
 
   //implementation of NIST 800-3A padding (what you can learn from reading the spec)
   memset(padded_plaintext, padding_len, plaintext_len + padding_len);
   
   /* this is our "anker" so we know were out padding begins */
-  padded_plaintext[plaintext_len] = 0x80;
+  /* padded_plaintext[plaintext_len] = 0x80; */
 
   memcpy(padded_plaintext,plaintext,plaintext_len);
   
@@ -360,6 +363,6 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *key){
 
   des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT);
-  //  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
+  // plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
 
 }
