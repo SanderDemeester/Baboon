@@ -182,7 +182,7 @@ static void rotate_left(unsigned char *target){
   target[6] = (target[6] << 1) | carry_right;
 }
 
-static void rotate_left(unsigned char *target){
+static void rotate_right(unsigned char *target){
 
  //while performing the rotate functions, we need to record a carry
   int carry_left = 0;
@@ -282,4 +282,27 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
     //final permutation
     permute(ciphertext,ip_block,fp_table,DES_BLOCK_SIZE);
   }
+}
+
+
+static void des_operate(const unsigned char *input,
+			int input_len,
+			unsigned char *output,
+			const unsigned *key,
+			operation_type operation){
+
+  unsigned char input_block[DES_BLOCK_SIZE];
+  
+  //make assertation that the input_len is div by the blocksize
+  assert(!(input_len % DES_BLOCK_SIZE));
+
+  while(input_len){
+    memcpy( (void*) input_block, (void*) input,DES_BLOCK_SIZE);
+    des_block_operate(input_block,output,key,operation);
+    
+    input += DES_BLOCK_SIZE;
+    output += DES_BLOCK_SIZE;
+    input_len -= DES_BLOCK_SIZE;
+  }
+  
 }
