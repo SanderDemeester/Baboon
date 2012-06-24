@@ -210,7 +210,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
   //holding area's, out working stream goes through all of them
   unsigned char ip_block[PC1_KEY_SIZE];
   unsigned char expansion_block[EXPANSION_BLOCK_SIZE];
-  unsigned char subsitation_block[DES_BLOCK_SIZE];
+  unsigned char subsitation_block[DES_BLOCK_SIZE/2];
   unsigned char permutation_box_target[DES_BLOCK_SIZE/2];
   unsigned char recomb_box[DES_BLOCK_SIZE/2];
 
