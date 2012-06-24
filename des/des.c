@@ -299,6 +299,23 @@ static void des_operate(const unsigned char *input,
 
   while(input_len){
     memcpy( (void*) input_block, (void*) input,DES_BLOCK_SIZE);
+
+    if(operation == ENCRYPT){
+
+      xor(input_block,iv,DES_BLOCK_SIZE); //CBC
+      des_block_operate(input_block,output,key,operation);
+      memcpy( (void*) iv, (void*) output,DES_BLOCK_SIZE); //CBC
+
+    }
+
+    if(operation == DECRYPT){
+
+      des_block_operate(input_block,output,key,operation);
+      xor(output,iv,DES_BLOCK_SIZE);
+      memcpy( (void*) iv, (void*) input, DES_BLOCK_SIZE); //CBC
+
+    }
+
     xor(input_block,iv,DES_BLOCK_SIZE); //CBC
     des_block_operate(input_block,output,key,operation);
     
