@@ -41,6 +41,7 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 static void des_operate(const unsigned char *input,
 			int input_len,
 			unsigned char *output,
+			const unsigned *iv, //initialization vector for CBC
 			const unsigned *key,
 			operation_type operation);
 
@@ -54,4 +55,5 @@ static void des_operate(const unsigned char *input,
 void des_encrypt(const unsigned char* plaintext,
 		 const int plaintext_len,
 		 unsigned char *ciphertext,
+		 const unsigned char *iv,
 		 const unsigned char*key);
