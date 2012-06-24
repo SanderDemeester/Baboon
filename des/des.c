@@ -218,6 +218,15 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
       }
     }
     permute(subkey,pc1key,permutation_table_1,SUBKEY_SIZE);
+    
+    if(operation == DECRYPT){
+      rotate_right(pc1key);
+      if(!(ronde >= 14 || ronde == 7 || ronde == 0)){
+	//rotate 2 times
+	rotat_right(pc1key);
+      }
+    }
+
     xor(expansion_block,subkey,6);
     
     //subsitution: from updated expantion block to ciphertext block

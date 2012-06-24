@@ -32,6 +32,7 @@ static void xor(unsigned char *target, const unsigned char *source, int len);
 static void permute(unsigned char target[], const unsigned char src[], const int parmute_table[], int len);
 
 static void rotate_left(unsigned char *target);
+static void rotate_right(unsigned char *target);
 
 static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 			      unsigned char ciphertext[DES_BLOCK_SIZE],
