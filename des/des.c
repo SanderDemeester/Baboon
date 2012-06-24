@@ -171,9 +171,9 @@ static void rotate_left(unsigned char *target){
   target[2] = (target[2] << 1) | ((target[3] & 0x80) >> 7);
 
   /* special handling for byte 3 */
-  carry_right = (target[3] & 0x80) >> 3;
+  carry_right = (target[3] & 0x08) >> 3;
   
-  target[3] = (((target[3] << 1) | ((target[4] & 0x08 ) >> 7)) & ~0x10) | carry_left;
+  target[3] = (((target[3] << 1) | ((target[4] & 0x80 ) >> 7)) & ~0x10) | carry_left;
   
   /* and the rest */
   
