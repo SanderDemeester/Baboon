@@ -352,3 +352,10 @@ void des_encrypt(const unsigned char* plaintext,
   des_operate(padded_plaintext ,plaintext_len + padding_len ,ciphertext,iv ,key ,ENCRYPT);
   free(padded_plaintext);
 }
+
+
+void des_decrypt(const unsigned char *ciphertext,
+		 unsigned int ciphertext_len,
+		 const unsigned char *iv,
+		 const unsigned char *key){
+}
