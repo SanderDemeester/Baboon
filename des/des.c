@@ -363,6 +363,6 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *key){
 
   des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT);
-  // plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
+  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
 
 }
