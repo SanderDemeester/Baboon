@@ -57,7 +57,7 @@ void des_encrypt(const unsigned char* plaintext,
 		 const int plaintext_len,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
-		 const unsigned char*key);
+		 const unsigned char *key);
 
 /*********************/
 /* DES-decrypt code. */

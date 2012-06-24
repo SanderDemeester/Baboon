@@ -330,8 +330,8 @@ static void des_operate(const unsigned char *input,
 void des_encrypt(const unsigned char* plaintext,
 		 const int plaintext_len,
 		 unsigned char *ciphertext,
-		 const unsigned *iv,
-		 const unsigned char*key){
+		 const unsigned char *iv,
+		 const unsigned char *key){
   
   unsigned char *padded_plaintext;
   int padding_len;
@@ -358,4 +358,8 @@ void des_decrypt(const unsigned char *ciphertext,
 		 unsigned int ciphertext_len,
 		 const unsigned char *iv,
 		 const unsigned char *key){
+
+  des_operate(ciphertext,ciphertext_len,plaintext,iv,key,DECRYPT);
+  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
+
 }
