@@ -184,7 +184,8 @@ static void rotate_left(unsigned char *target){
 
 static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 			      unsigned char ciphertext[DES_BLOCK_SIZE],
-			      const unsigned char key[DES_KEY_SIZE]){
+			      const unsigned char key[DES_KEY_SIZE],
+			      operation_type operation){
   //holding area's, out working stream goes through all of them
   unsigned char ip_block[PC1_KEY_SIZE];
   unsigned char expansion_block[EXPANSION_BLOCK_SIZE];
