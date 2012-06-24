@@ -222,6 +222,8 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
   /****************************************************/
   /* LADY'S AND GENT, START YOUR PERMUTATION ENGINE!! */
   /****************************************************/
+  
+  permutate(ip_block ,plaintext, ip_table,DES_BLOCK_SIZE);
 
   permute(pc1key, key, permutation_table_1,PC1_KEY_SIZE);
   for(ronde = 0; ronde < 16; ronde++){
