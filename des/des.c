@@ -330,9 +330,10 @@ static void des_operate(const unsigned char *input,
       if(trip){
 
 	memcpy(input_block,output,DES_BLOCK_SIZE);
-	des_block_operate(input_block, output, key, DECRYPT);
+	des_block_operate(input_block, output, key + DES_KEY_SIZE, DECRYPT);
 	memcpy(input_block, output, DES_BLOCK_SIZE);
-	des_block_operate(input_block, output, key,operation);
+	des_block_operate(input_block, output, key + (DES_KEY_SIZE * 2),
+			  operation);
 
       }
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
@@ -343,10 +344,16 @@ static void des_operate(const unsigned char *input,
 
       if(trip){
 
-	des_block_operate(input_block, output, key,operatoin);
+	des_block_operate(input_block, output, key + (DES_KEY_SIZE*2), 
+			  operation);
 	memcpy(input_block, output, DES_BLOCK_SIZE);
-	des_block_operate(input_block, output, key,ENCRYPT);
-	memcpy(input_block, DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key + DES_KEY_SIZE, 
+			  ENCRYPT);
+	memcpy(input_block, output, DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key, operation);
+
+      }else{
+
 	des_block_operate(input_block, output, key, operation);
 
       }
@@ -385,7 +392,7 @@ void des_encrypt(const unsigned char* plaintext,
 
   memcpy(padded_plaintext,plaintext,plaintext_len);
   
-  des_operate(padded_plaintext, plaintext_len + padding_len, ciphertext, iv, key, ENCRYPT);
+  des_operate(padded_plaintext, plaintext_len + padding_len, ciphertext, iv, key, ENCRYPT,0);
   free(padded_plaintext);
 }
 
@@ -396,7 +403,7 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
 
-  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT);
+  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT,0);
   plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
 
 }

@@ -17,7 +17,7 @@ int hex_decode( const unsigned char *input,
 
       (*decoded)[((i/2)-1)] =((( input[i] <= '9') ? input[i] - '0' :
 	    ((tolower(input[i])) - 'a' + 10 )) << 4 ) |
-	((input[i+1  <= '9' ) ? input[i+1] - '0' :
+	((input[i+1]  <= '9' ) ? input[i+1] - '0' :
 	  ((tolower(input[i+1]))-'a'+10)) ;
     }
   }
