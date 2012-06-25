@@ -1,5 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef _GENERAL_
+#include "header/general.h"
+#endif
+
+#include "header/hex.h"
+#include "header/des.h"
 
 int main(int argc, char *argv[]){
 

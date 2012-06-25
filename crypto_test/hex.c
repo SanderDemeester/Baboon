@@ -1,3 +1,7 @@
+#ifndef _GENERAL_H
+#include "header/general.h"
+#endif
+
 int hex_decode( const unsigned char *input,
 		unsigned char **decoded){
   int i;

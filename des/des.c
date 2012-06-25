@@ -3,6 +3,10 @@
 #include "header/des.h"
 #endif
 
+#ifndef _GENERAL_
+#include "header/general.h"
+#endif
+
 /********************************/
 /* DES inital permutation table */
 /* transpose the input block    */
