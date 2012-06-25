@@ -74,11 +74,12 @@ void des_decrypt(const unsigned char *ciphertext,
 
 void des3_encrypt(const unsigned char* plaintext,
 		  const int plaintext_len,
-		  const unsigned char* iv;
+		  unsigned char *ciphertext,
+		  const unsigned char* iv,
 		  const unsigned char *key);
 
 
 void des3_decrypt(const unsigned char* plaintext,
 		  const int plaintext_len,
-		  const unsigned char* iv;
-		  const unsigned char *key)
+		  const unsigned char* iv,
+		  const unsigned char *key);
