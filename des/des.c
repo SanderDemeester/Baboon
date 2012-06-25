@@ -312,7 +312,8 @@ static void des_operate(const unsigned char *input,
 			unsigned char *output,
 			const unsigned *iv,
 			const unsigned *key,
-			operation_type operation){
+			operation_type operation,
+			int trip){
 
   unsigned char input_block[DES_BLOCK_SIZE];
   
@@ -326,6 +327,13 @@ static void des_operate(const unsigned char *input,
 
       xor(input_block, iv, DES_BLOCK_SIZE); //CBC
       des_block_operate(input_block, output ,key, operation);
+      if(trip){
+	memcpy(input_block,output,DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key, DECRYPT);
+	memcpy(input_block, output, DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key,operation);
+			  
+      }
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
     }
