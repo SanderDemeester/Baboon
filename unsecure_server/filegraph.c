@@ -11,7 +11,6 @@
 -1 not a directory
 **/
 document_unit* links(htmlNodePtr htm_node){
-  int i = 0; //index for loop usage
   int skip = 1; //skip if dependency is not in same-origin as current context
   htmlNodePtr node = NULL;
   //  xmlAttrPtr attr = NULL;

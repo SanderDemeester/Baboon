@@ -1,6 +1,5 @@
 #include "header/arguments.h"
 #ifndef _GENERAL
-#define _GENERAL
 #include "header/general.h"
 #endif
 #ifndef _ARGUMENT_H
