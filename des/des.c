@@ -433,3 +433,12 @@ void des3_encrypt(const unsigned char* plaintext,
   des_operate(padded_plaintext, plaintext_len + padding_len, ciphertext, iv, key, ENCRYPT,1);
   free(padded_plaintext);
 }
+
+void des3_decrypt(const unsigned char* plaintext,
+		  const int plaintext_len,
+		  const unsigned char* iv,
+		  const unsigned char *key){
+
+  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT,1);
+  plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte
+}

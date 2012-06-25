@@ -56,15 +56,20 @@ static void des_operate(const unsigned char *input,
 /* The dummy padding for input with is eight-byte aligned is four when the the plain-text ends with 0x80 byte */
 /**************************************************************************************************************/
 
+/***********************/
+/* DES-encrypt code.   */
+/* key-length: 56-bits */
+/***********************/
 void des_encrypt(const unsigned char* plaintext,
 		 const int plaintext_len,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key);
 
-/*********************/
-/* DES-decrypt code. */
-/*********************/
+/***********************/
+/* DES-decrypt code.   */
+/* key-length: 56-bits */
+/***********************/
 
 void des_decrypt(const unsigned char *ciphertext,
 		 unsigned int ciphertext_len,
@@ -72,12 +77,22 @@ void des_decrypt(const unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key);
 
+
+/*************************/
+/* 3DES-encrypt code .   */
+/* key-length: 168-bits  */
+/*************************/
+
 void des3_encrypt(const unsigned char* plaintext,
 		  const int plaintext_len,
 		  unsigned char *ciphertext,
 		  const unsigned char* iv,
 		  const unsigned char *key);
 
+/*************************/
+/* 3DES-encrypt code.    */
+/* key-length: 168-bits  */
+/*************************/
 
 void des3_decrypt(const unsigned char* plaintext,
 		  const int plaintext_len,
