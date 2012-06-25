@@ -330,10 +330,12 @@ static void des_operate(const unsigned char *input,
       if(trip){
 	
 	memcpy(input_block, output, DES_BLOCK_SIZE);
-	des_block_operate(input_block, output, key + DES_KEY_SIZE, DECRYPT);
-	memcpy(input_block, output, DES_BLOCK_SIZE);
-	des_block_operate(input_block, output, key + (DES_KEY_SIZE * 2),
+	des_block_operate(input_block,output, key + DES_KEY_SIZE,
+			  DECRYPT);
+	memcpy(input_block,output,DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key + (DES_KEY_SIZE*2),
 			  operation);
+
       }
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
