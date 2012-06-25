@@ -328,17 +328,28 @@ static void des_operate(const unsigned char *input,
       xor(input_block, iv, DES_BLOCK_SIZE); //CBC
       des_block_operate(input_block, output ,key, operation);
       if(trip){
+
 	memcpy(input_block,output,DES_BLOCK_SIZE);
 	des_block_operate(input_block, output, key, DECRYPT);
 	memcpy(input_block, output, DES_BLOCK_SIZE);
 	des_block_operate(input_block, output, key,operation);
-			  
+
       }
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
     }
 
     if(operation == DECRYPT){
+
+      if(trip){
+
+	des_block_operate(input_block, output, key,operatoin);
+	memcpy(input_block, output, DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key,ENCRYPT);
+	memcpy(input_block, DES_BLOCK_SIZE);
+	des_block_operate(input_block, output, key, operation);
+
+      }
 
       des_block_operate(input_block, output, key, operation);
       xor(output, iv, DES_BLOCK_SIZE);
