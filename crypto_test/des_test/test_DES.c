@@ -33,13 +33,33 @@ int main(int argc, char *argv[]){
   output = (unsigned char*) malloc(output_len+1);
   
   if((!strcmp(argv[1], "-e"))){
-    des_encrypt(input, input_len, output, iv, key);
+    if(key_len == 24){
+      
+      printf("hier\n");
+      des3_encrypt(input, input_len, output, iv, key);
+      
+    }else{
+
+      des_encrypt(input, input_len, output, iv, key);
+      
+    }
     show_hex(output,output_len);
   }else if(!(strcmp(argv[1],"-d"))){
-    des_decrypt(input, input_len, output, iv, key);
+    if(key_len == 24){
+
+      des3_decrypt(input, input_len, output, iv, key);
+      
+    }else{
+      
+      des_decrypt(input, input_len, output, iv, key);
+
+    }
+    
     show_hex(output, output_len);
   }else{
+    
     fprintf(stderr,"Usage: %s [-e|-d] <key> <iv> <input>\n",argv[0]);
+    
   }
 
   free(input);

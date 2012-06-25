@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wimplicit-function-declaration 
+CFLAGS=-Wimplicit-function-declaration -std=c99
 NAME=baboon
 builddir=build/
 obj=obj

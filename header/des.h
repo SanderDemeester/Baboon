@@ -94,7 +94,8 @@ void des3_encrypt(const unsigned char* plaintext,
 /* key-length: 168-bits  */
 /*************************/
 
-void des3_decrypt(const unsigned char* plaintext,
-		  const int plaintext_len,
-		  const unsigned char* iv,
-		  const unsigned char *key);
+void des3_decrypt(const unsigned char *ciphertext,
+		 unsigned int ciphertext_len,
+		 unsigned char *plaintext,
+		 const unsigned char *iv,
+		 const unsigned char *key);
