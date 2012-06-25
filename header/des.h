@@ -45,7 +45,8 @@ static void des_operate(const unsigned char *input,
 			unsigned char *output,
 			const unsigned *iv, //initialization vector for CBC
 			const unsigned *key,
-			operation_type operation);
+			operation_type operation,
+			int trip);
 
 /**************************************************************************************************************/
 /* DES-encrypt code.
