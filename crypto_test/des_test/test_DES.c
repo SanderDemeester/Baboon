@@ -17,25 +17,22 @@ int main(int argc, char *argv[]){
     fprintf(stderr,"Usage: %s [-e|-d] <key> <iv> <input>\n,",argv[0]);
     return 0;
   }
-  
-  printf("%s \n",argv[4]);
+
+
+
   
   key_len = hex_decode(argv[2],&key);
   iv_len = hex_decode(argv[3],&iv);
   input_len = hex_decode(argv[4],&input);
 
-
-
-
-
   output_len = input_len;
 
   output = (unsigned char*) malloc(output_len+1);
-  
+
   if((!strcmp(argv[1], "-e"))){
+
     if(key_len == 24){
       
-      printf("hier\n");
       des3_encrypt(input, input_len, output, iv, key);
       
     }else{
@@ -45,14 +42,15 @@ int main(int argc, char *argv[]){
     }
     show_hex(output,output_len);
   }else if(!(strcmp(argv[1],"-d"))){
-    if(key_len == 24){
 
+
+    if(key_len == 24){
       des3_decrypt(input, input_len, output, iv, key);
-      
+
     }else{
       
       des_decrypt(input, input_len, output, iv, key);
-
+      
     }
     
     show_hex(output, output_len);
@@ -66,6 +64,7 @@ int main(int argc, char *argv[]){
   free(iv);
   free(key);
   free(output);
+
   
   return 0;
   
