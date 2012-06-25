@@ -324,10 +324,9 @@ static void des_operate(const unsigned char *input,
     memcpy( (void*) input_block, (void*) input, DES_BLOCK_SIZE);
 
     if(operation == ENCRYPT){
-
       xor(input_block, iv, DES_BLOCK_SIZE); //CBC
       des_block_operate(input_block, output ,key, operation);
-      
+  
       if(trip){
 	
 	memcpy(input_block, output, DES_BLOCK_SIZE);
@@ -335,9 +334,7 @@ static void des_operate(const unsigned char *input,
 	memcpy(input_block, output, DES_BLOCK_SIZE);
 	des_block_operate(input_block, output, key + (DES_KEY_SIZE * 2),
 			  operation);
-
       }
-
       memcpy( (void*) iv, (void*) output, DES_BLOCK_SIZE); //CBC
 
     }
