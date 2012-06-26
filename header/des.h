@@ -4,12 +4,9 @@
 /***********/
 /* MACRO'S */
 /***********/
-#define GET_BIT( array, bit ) \
-    ( array[ ( int ) ( bit / 8 ) ] & ( 0x80 >> ( bit % 8 ) ) )
-#define SET_BIT( array, bit ) \
-    ( array[ ( int ) ( bit / 8 ) ] |= ( 0x80 >> ( bit % 8 ) ) )
-#define CLEAR_BIT( array, bit ) \
-    ( array[ ( int ) ( bit / 8 ) ] &= ~( 0x80 >> ( bit % 8 ) ) )
+#define GET_BIT(array, bit) (array[(int) (bit / 8)] & (0x80 >> (bit % 8)))
+#define SET_BIT(array, bit) (array[(int) (bit / 8)] |= (0x80 >> (bit % 8)))
+#define CLEAR_BIT(array, bit) (array[(int) (bit / 8)] &= ~(0x80 >> (bit % 8)))
 
 
 #define DES_BLOCK_SIZE 8 //64 bits, defined in DES standard
@@ -18,8 +15,7 @@
 #define SUBKEY_SIZE 6
 #define EXPANSION_BLOCK_SIZE 6
 
-//typedef enum { OP_ENCRYPT, OP_DECRYPT } op_type;
-typedef enum { OP_ENCRYPT, OP_DECRYPT } op_type;
+typedef enum { ENCRYPT, DECRYPT } operation_type;
 
 /*********************************************************************/
 /* Overwirtes the target array with the XOR of it and the src array. */
@@ -43,14 +39,14 @@ static void rotate_right(unsigned char *target);
 static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 			      unsigned char ciphertext[DES_BLOCK_SIZE],
 			      const unsigned char key[DES_KEY_SIZE],
-			      op_type operation);
+			      operation_type operation);
 
 static void des_operate( const unsigned char *input,
              int input_len,
              unsigned char *output,
              const unsigned char *iv,
              const unsigned char *key,
-             op_type operation,
+             operation_type operation,
              int triplicate );
 
 /**************************************************************************************************************/
