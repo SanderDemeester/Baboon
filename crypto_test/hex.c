@@ -6,7 +6,7 @@ int hex_decode( const unsigned char *input,
 		unsigned char **decoded){
   int i;
   int len;
-  
+
   if(strncmp( "0x",input,2)){
     len = strlen(input)+1;
     *decoded = malloc(len);
@@ -17,7 +17,7 @@ int hex_decode( const unsigned char *input,
     *decoded = malloc(len);
 
     for(i = 2; i < strlen(input); i+= 2){
-      (*decoded)[((i/2)-1)] = 
+      (*decoded)[((i/2)-1)] =
 	(((input[i] <= '9') ? input[i] - '0' :
 	  ((tolower(input[i])) - 'a' + 10)) << 4) |
 	((input[i+1] <= '9') ? input[i+1] - '0' : ((tolower(input[i+1])) - 'a' + 10));
@@ -28,7 +28,7 @@ int hex_decode( const unsigned char *input,
 
 
 
-void show_hex(const unsigned char *array, 
+void show_hex(const unsigned char *array,
 	      int len){
   while(len--){
     printf("%.02x",*array++);

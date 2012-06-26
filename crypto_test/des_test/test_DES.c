@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
 
 
 
-  
+
   key_len = hex_decode(argv[2],&key);
   iv_len = hex_decode(argv[3],&iv);
   input_len = hex_decode(argv[4],&input);
@@ -36,13 +36,13 @@ int main(int argc, char *argv[]){
   if((!strcmp(argv[1], "-e"))){
 
     if(key_len == 24){
-      
+
       des3_encrypt(input, input_len, output, iv, key);
-      
+
     }else{
 
       des_encrypt(input, input_len, output, iv, key);
-      
+
     }
     show_hex(output,output_len);
   }else if(!(strcmp(argv[1],"-d"))){
@@ -52,16 +52,16 @@ int main(int argc, char *argv[]){
       des3_decrypt(input, input_len, output, iv, key);
 
     }else{
-      
+
       des_decrypt(input, input_len, output, iv, key);
-      
+
     }
-    
+
     show_hex(output, output_len);
   }else{
-    
+
     fprintf(stderr,"Usage: %s [-e|-d] <key> <iv> <input>\n",argv[0]);
-    
+
   }
 
   free(input);
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
   free(key);
   free(output);
 
-  
+
   return 0;
-  
+
 }
