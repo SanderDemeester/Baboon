@@ -378,7 +378,7 @@ void des_encrypt(const unsigned char* plaintext,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-  des_operate(plaintext, plaintext_len, ciphertext, iv, key, ENCRYPT,0);
+  des_operate(plaintext, plaintext_len, ciphertext,  (const unsigned char*)iv, key, ENCRYPT,0);
 }
 
 
@@ -387,7 +387,7 @@ void des_decrypt(const unsigned char *ciphertext,
 		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT,0);
+  des_operate(ciphertext, ciphertext_len, plaintext, (const unsigned char*)iv, key, DECRYPT,0);
 
 }
 
@@ -396,7 +396,7 @@ void des3_encrypt(const unsigned char* plaintext,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-  des_operate(plaintext, plaintext_len, ciphertext, iv, key, ENCRYPT,1);
+  des_operate(plaintext, plaintext_len, ciphertext,  (const unsigned char*)iv, key, ENCRYPT,1);
 }
 
 
@@ -405,5 +405,5 @@ void des3_decrypt(const unsigned char *ciphertext,
 		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		  const unsigned char *key){
-  des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT, 1);
+  des_operate(ciphertext, ciphertext_len, plaintext, (const unsigned char*)iv, key, DECRYPT, 1);
 }
