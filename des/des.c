@@ -216,7 +216,7 @@ static void rotate_right(unsigned char *target){
 
   carry_left = (target[3] & 0x10) << 3;
   
-  target[3] = (((target[3] >> 1) | ((target[2] & 0x01) << 7)) & ~0x80) | carry_right;
+  target[3] = (((target[3] >> 1) | ((target[2] & 0x01) << 7)) & ~0x08) | carry_right;
 
   target[2] = (target[2] >> 1) | ((target[1] & 0x01) << 7);
   target[1] = (target[1] >> 1) | ((target[0] & 0x01) << 7);
