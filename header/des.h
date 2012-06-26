@@ -36,46 +36,38 @@ static void rotate_left(unsigned char *target);
 static void rotate_right(unsigned char *target);
 
 static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
-			      unsigned char ciphertext[DES_BLOCK_SIZE],
-			      const unsigned char key[DES_KEY_SIZE],
-			      operation_type operation);
+		unsigned char ciphertext[DES_BLOCK_SIZE],
+		const unsigned char key[DES_KEY_SIZE],
+		operation_type operation);
 
-static void des_operate(const unsigned char *input,
-			int input_len,
-			unsigned char *output,
-			const unsigned *iv, //initialization vector for CBC
-			const unsigned *key,
-			operation_type operation,
-			int trip);
-
-/**************************************************************************************************************/
-/* DES-encrypt code.
-/* We first figure out how much padding is needed. It will be between one and eight bytes.		      */
-/* If the input is already eight-byte aligned, we must add a "dummy" block of eight byte.		      */
-/*   we use the byte 0x80 to specify where out padding starts and fill up with zero bytes. 		      */
-/* The dummy padding for input with is eight-byte aligned is four when the the plain-text ends with 0x80 byte */
-/**************************************************************************************************************/
+static void des_operate( const unsigned char *input,
+		int input_len,
+		unsigned char *output,
+		const unsigned char *iv,
+		const unsigned char *key,
+		operation_type operation,
+		int trip );
 
 /***********************/
 /* DES-encrypt code.   */
 /* key-length: 56-bits */
 /***********************/
-void des_encrypt(const unsigned char* plaintext,
-		 const int plaintext_len,
-		 unsigned char *ciphertext,
-		 const unsigned char *iv,
-		 const unsigned char *key);
+void des_encrypt( const unsigned char *plaintext,
+		const int plaintext_len,
+		unsigned char *ciphertext,
+		void *iv,
+		const unsigned char *key);
 
 /***********************/
 /* DES-decrypt code.   */
 /* key-length: 56-bits */
 /***********************/
 
-void des_decrypt(const unsigned char *ciphertext,
-		 unsigned int ciphertext_len,
-		 unsigned char *plaintext,
-		 const unsigned char *iv,
-		 const unsigned char *key);
+void des_decrypt( const unsigned char *ciphertext,
+		const int ciphertext_len,
+		unsigned char *plaintext,
+		void *iv,
+		const unsigned char *key);
 
 
 /*************************/
@@ -83,19 +75,19 @@ void des_decrypt(const unsigned char *ciphertext,
 /* key-length: 168-bits  */
 /*************************/
 
-void des3_encrypt(const unsigned char* plaintext,
-		  const int plaintext_len,
-		  unsigned char *ciphertext,
-		  const unsigned char* iv,
-		  const unsigned char *key);
+void des3_encrypt( const unsigned char *plaintext,
+		const int plaintext_len,
+		unsigned char *ciphertext,
+		void *iv,
+		const unsigned char *key);
 
 /*************************/
-/* 3DES-encrypt code.    */
+/* 3DES-decrypt code.    */
 /* key-length: 168-bits  */
 /*************************/
 
 void des3_decrypt(const unsigned char *ciphertext,
-		 unsigned int ciphertext_len,
-		 unsigned char *plaintext,
-		 const unsigned char *iv,
-		 const unsigned char *key);
+		const int ciphertext_len,
+		unsigned char *plaintext,
+		void *iv,
+		const unsigned char *key);

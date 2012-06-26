@@ -322,12 +322,12 @@ static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
 
 
 static void des_operate( const unsigned char *input,
-             int input_len,
-             unsigned char *output,
-             const unsigned char *iv,
-             const unsigned char *key,
-             operation_type operation,
-             int trip ){
+		int input_len,
+		unsigned char *output,
+		const unsigned char *iv,
+		const unsigned char *key,
+		operation_type operation,
+		int trip ){
 
 	unsigned char input_block[DES_BLOCK_SIZE];
 
@@ -367,16 +367,13 @@ static void des_operate( const unsigned char *input,
 				des_block_operate(input_block, output, key, operation);
 
 			}else{
-
 				des_block_operate(input_block, output, key, operation);
-
 			}
 
 			xor(output, iv, DES_BLOCK_SIZE);
 			memcpy( (void*) iv, (void*) input, DES_BLOCK_SIZE); //CBC
 
 		}
-
 		input += DES_BLOCK_SIZE;
 		output += DES_BLOCK_SIZE;
 		input_len -= DES_BLOCK_SIZE;
@@ -389,39 +386,32 @@ void des_encrypt( const unsigned char *plaintext,
 		const int plaintext_len,
 		unsigned char *ciphertext,
 		void *iv,
-		const unsigned char *key )
-{
+		const unsigned char *key){
 	des_operate( plaintext, plaintext_len, ciphertext,
-			( const unsigned char * ) iv, key, ENCRYPT, 0 );
+			(const unsigned char *) iv, key, ENCRYPT, 0 );
 }
 
 void des3_encrypt( const unsigned char *plaintext,
 		const int plaintext_len,
 		unsigned char *ciphertext,
 		void *iv,
-		const unsigned char *key )
-{
-	des_operate( plaintext, plaintext_len, ciphertext,
-			( const unsigned char * ) iv, key, ENCRYPT, 1 );
+		const unsigned char *key){
+	des_operate( plaintext, plaintext_len, ciphertext,(const unsigned char *) iv, key, ENCRYPT, 1 );
 }
 
 void des_decrypt( const unsigned char *ciphertext,
 		const int ciphertext_len,
 		unsigned char *plaintext,
 		void *iv,
-		const unsigned char *key )
-{
-	des_operate( ciphertext, ciphertext_len, plaintext,
-			( const unsigned char * ) iv, key, DECRYPT, 0 );
+		const unsigned char *key){
+	des_operate( ciphertext, ciphertext_len, plaintext,(const unsigned char *) iv, key, DECRYPT, 0 );
 }
 
-void des3_decrypt( const unsigned char *ciphertext,
+void des3_decrypt(const unsigned char *ciphertext,
 		const int ciphertext_len,
 		unsigned char *plaintext,
 		void *iv,
-		const unsigned char *key )
-{
-	des_operate( ciphertext, ciphertext_len, plaintext,
-			( const unsigned char * ) iv, key, DECRYPT, 1 );
+		const unsigned char *key){
+	des_operate( ciphertext, ciphertext_len, plaintext,(const unsigned char *) iv, key, DECRYPT, 1 );
 }
 
