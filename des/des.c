@@ -378,25 +378,7 @@ void des_encrypt(const unsigned char* plaintext,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-  
-  unsigned char *padded_plaintext;
-  int padding_len;
-  
-  //Padding length.
-  padding_len = DES_BLOCK_SIZE - (plaintext_len % DES_BLOCK_SIZE);
-
-  padded_plaintext = (char*)  malloc(plaintext_len + padding_len);
-
-  //implementation of NIST 800-3A padding (what you can learn from reading the spec)
-  memset(padded_plaintext, padding_len, plaintext_len + padding_len);
-  
-  /* this is our "anker" so we know were out padding begins */
-  /* padded_plaintext[plaintext_len] = 0x80; */
-
-  memcpy(padded_plaintext,plaintext,plaintext_len);
-  
   des_operate(plaintext, plaintext_len, ciphertext, iv, key, ENCRYPT,0);
-  free(padded_plaintext);
 }
 
 
@@ -405,9 +387,7 @@ void des_decrypt(const unsigned char *ciphertext,
 		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-
   des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT,0);
-  /* plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte */
 
 }
 
@@ -416,27 +396,7 @@ void des3_encrypt(const unsigned char* plaintext,
 		 unsigned char *ciphertext,
 		 const unsigned char *iv,
 		 const unsigned char *key){
-  
-  unsigned char *padded_plaintext;
-  int padding_len;
-  
-  //Padding length.
-  padding_len = DES_BLOCK_SIZE - (plaintext_len % DES_BLOCK_SIZE);
-
-  padded_plaintext = (char*)  malloc(plaintext_len + padding_len);
-
-  //implementation of NIST 800-3A padding (what you can learn from reading the spec)
-  memset(padded_plaintext, padding_len, plaintext_len + padding_len);
-  
-  /* this is our "anker" so we know were out padding begins */
-  /* padded_plaintext[plaintext_len] = 0x80; */
-
-  memcpy(padded_plaintext,plaintext,plaintext_len);
-  
-  /* the "1" is to enable 3des -> 168bit key */
-  /* des_operate(padded_plaintext, plaintext_len + padding_len, ciphertext, iv, key, ENCRYPT, 1); */
   des_operate(plaintext, plaintext_len, ciphertext, iv, key, ENCRYPT,1);
-  free(padded_plaintext);
 }
 
 
@@ -445,8 +405,5 @@ void des3_decrypt(const unsigned char *ciphertext,
 		 unsigned char *plaintext,
 		 const unsigned char *iv,
 		  const unsigned char *key){
-
   des_operate(ciphertext, ciphertext_len, plaintext, iv, key, DECRYPT, 1);
-
-  /* plaintext[ciphertext_len-plaintext[ciphertext_len-1]] = 0x0; //NULL byte */
 }
