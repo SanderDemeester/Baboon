@@ -199,7 +199,9 @@ int exist_element(char *file_path,struct context_unit* filestructure_start){
  void enumerate_file_graph(struct context_unit *filestructure_start){
       int i;
       for(i = 0;i < filestructure_start->number_of_units; i++){
+#ifdef _DEBUG
       printf("%s \n",filestructure_start->entry_point[i].path);
+#endif
     }
       
     }
