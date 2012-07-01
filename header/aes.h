@@ -59,5 +59,20 @@ static void aes_block_encrypt(const unsigned char *input_block,
 			      int key_size);
 
 
+/****************************/
+/* AES INVERSION FUNCTIONS  */
+/****************************/
+
+/********************/
+/* Unshift the rows */
+/********************/
+static void inversion_shift_rows(unsigned char state[][4]);
+
+/*******************************/
+/* Inversion subsitution bytes */
+/*******************************/
+static void inversion_subsitution_bytes(unsigned char state[][4]);
+
+
 
 
