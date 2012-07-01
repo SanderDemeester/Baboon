@@ -87,6 +87,22 @@ static void aes_block_decrypt(const unsigned char *input_block,
 			      const unsigned char *key,
 			      int key_size);
 
+/******************/
+/* AES encryption */
+/******************/
+static void aes_encrypt(const unsigned char *input,
+			int input_len,
+			unsigned char *output,
+			const unsigned char *iv,
+			const unsigned char *key,
+			int key_length);
 
-
-
+/******************/
+/* AES decryption */
+/******************/
+static void aes_decrypt(const unsigned char *input,
+			int input_len,
+			unsigned char *output,
+			const unsigned char *iv,
+			const unsigned char *key,
+			int key_lengte);
