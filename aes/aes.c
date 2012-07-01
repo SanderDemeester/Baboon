@@ -42,12 +42,28 @@ static void subsitute_word(unsigned char *w){
 /***********************/
 static void add_round_key(unsigned char state[][4],
 			  unsigned char w[][4]){
+
   int i;
   int j;
 
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
       state[j][i] = state[j][i] ^ w[i][j];
+    }
+  }
+}
+
+/****************************************/
+/* subsitute sbox for encryption step1  */
+/****************************************/
+static void subsitute_bytes(unsigned char state[][4]){
+  
+  int i;
+  int j;
+  
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      state[i][j] = sbox[(state[i][j] & 0xF0) >> 4][state[i][j] & 0x0F];
     }
   }
 }
