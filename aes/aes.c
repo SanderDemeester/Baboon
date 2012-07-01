@@ -27,7 +27,12 @@ static void subsitute_word(unsigned char *w){
   
   int i = 0;
   for(;i < 4; i++){
-    w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F]; //calculate offset with ORing 0xF0 to jump get the pos.
+    /***************************************************************************************************/
+    /* we performe the subsitution by using the high-order four bits of each byte as input the the row */
+    /*   and the low order four bits as column							       */
+    /***************************************************************************************************/
+    w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F]; 
+    
   }
   
 }
