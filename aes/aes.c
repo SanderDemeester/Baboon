@@ -32,7 +32,22 @@ static void subsitute_word(unsigned char *w){
     /*   and the low order four bits as column							       */
     /***************************************************************************************************/
     w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F]; 
-    
+      }
   }
-  
+
+
+
+/***********************/
+/* AES key combination */
+/***********************/
+static void add_round_key(unsigned char state[][4],
+			  unsigned char w[][4]){
+  int i;
+  int j;
+
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      state[j][i] = state[j][i] ^ w[i][j];
+    }
+  }
 }
