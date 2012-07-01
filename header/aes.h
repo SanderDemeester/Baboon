@@ -1,4 +1,5 @@
 #define _AES_H
+#define AES_BLOCK_SIZE 16
 /**************************/
 /* rotate the 4 byte word */
 /**************************/
@@ -72,6 +73,19 @@ static void inversion_shift_rows(unsigned char state[][4]);
 /* Inversion subsitution bytes */
 /*******************************/
 static void inversion_subsitution_bytes(unsigned char state[][4]);
+
+/****************************/
+/* Inversion mixing columns */
+/****************************/
+static void inversion_mix_columns(unsigned char s[][4]);
+
+/************************/
+/* AES block decryption */
+/************************/
+static void aes_block_decrypt(const unsigned char *input_block, 
+			      unsigned char *output_block,
+			      const unsigned char *key,
+			      int key_size);
 
 
 
