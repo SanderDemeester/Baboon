@@ -320,4 +320,21 @@ static void aes_block_encrypt(const unsigned char *input_block,
       state[i][j] = input_block[i + (4*j)];
     }
   }
+  number = (key_size >> 2) + 6;
+  
+  compute_key_schedule(state,&w[0]);
+  
+  for(round = 0; round < number; round++){
+    subsitute_bytes(state);
+    shift_rows(state);
+    if(round < (nr-1)){
+      mix_columns(state);
+    }
+    add_round_key(state,&w[(round+1)*4]);
+  }
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      output_block[r + (4 * j)] = state[i][j];
+    }
+  }
 }
