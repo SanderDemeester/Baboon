@@ -36,6 +36,13 @@ static void subsitute_bytes(unsigned char state[][4]);
 /*****************/
 static void shift_rows(unsigned char state[][4]);
 
+/***********************/
+/* AES Matrix multiply */
+/***********************/
+static void matrix_multiply(unsigned char matrix1[4][4],
+			    unsigned char matrix2[4][4],
+			    unsigned char target[4][4]);
+
 /*************************************************/
 /* left shift n times, with XOR 0x1B on overflow */
 /*************************************************/
