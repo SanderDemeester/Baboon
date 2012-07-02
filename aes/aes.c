@@ -259,9 +259,10 @@ static void matrix_multiply(unsigned char matrix1[4][4],
 unsigned char ntime(unsigned char n){
   return (x << 1) ^ ((x & 0x80) ? 0x1b : 0x00);
 }
-/******************/
-/* AES dotproduct */
-/******************/
+/*************************/
+/* AES dotproduct        */
+/* binary multiplication */
+/*************************/
 unsigned char inproduct(unsigned char x, unsigned char y){
   unsigned char mask;
   unsigned char p;
