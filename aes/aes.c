@@ -300,3 +300,23 @@ static void mix_columns(unsigned char s[][4]){
     s[3][i] = temp[3];
   }
 }
+
+/************************/
+/* AES Block Encryption */
+/************************/
+static void aes_block_encrypt(const unsigned char *input_block, 
+			      unsigned char *output_block,
+			      const unsigned char *key,
+			      int key_size){
+  int i;
+  int j;
+  int round;
+  int number;
+  unsigned char state[4][4];
+  unsigned char w[60][4];
+
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+    }
+  }
+}
