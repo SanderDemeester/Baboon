@@ -199,3 +199,35 @@ static void shift_rows(unsigned char state[][4]){
 	state[3][1] = state[3][0];
 	state[3][0] = temp;
 }
+
+/**************************************************/
+/* AES key scheduling                             */
+/* the key_lengte is in bytes.                    */
+/* the number of iterations: ((key_lengte/4)+6)*4 */
+/**************************************************/
+
+static void compute_key_schedule(const unsigned char *key,
+				 int key_lengte,
+				 unsigned char w[][4]){
+
+	int i;
+	int key_words = key_lengte >> 2;
+	unsigned char round_constant = 0x01;
+
+	//copy key
+	memcpy(w,key,key_lengte);
+	for(i = key_words; i < 4 * (key_words + 7);i++){
+		if(!(i % key_words)){
+			rotate_word(w[i]);
+			subsitute_word(w[i]);
+			if(!(i%key_words)){
+				round_constant = 0x1b;
+			}
+			w[i][0] ^= round_constant;
+			round_constant <<= 1;
+		}else if((key_words > 6) && ((i % key_words) == 4)){
+			subsitute_word(w[i]);
+		}
+		//add xor rows (those AES redefined opertions).
+	}
+}
