@@ -317,6 +317,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
 
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
+      state[i][j] = input_block[i + (4*j)];
     }
   }
 }
