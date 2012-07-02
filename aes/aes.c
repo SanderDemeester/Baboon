@@ -252,3 +252,10 @@ static void matrix_multiply(unsigned char matrix1[4][4],
     }
   }
 }
+
+/******************/
+/* AES dotproduct */
+/******************/
+unsigned char inproduct(unsigned char x, unsigned char y){
+  return (x << 1) ^ ((x & 0x80) ? 0x1b : 0x00);
+}
