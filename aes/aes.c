@@ -234,3 +234,21 @@ static void compute_key_schedule(const unsigned char *key,
 		w[i][3] ^= w[i-key_words][3]
 	}
 }
+
+/***********************/
+/* AES Matrix multiply */
+/***********************/
+static void matrix_multiply(unsigned char matrix1[4][4],
+			    unsigned char matrix2[4][4],
+			    unsigned char target[4][4]){
+  int i;
+  int j;
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      target[i][j] = matrix1[i][0] * matrix2[0][j] + 
+	matrix1[i][1] * matrix2[1][j] + 
+	matrix1[i][2] * matrix2[2][j] + 
+	matrix1[i][3] * matrix2[3][j];
+    }
+  }
+}
