@@ -286,6 +286,9 @@ static void mix_columns(unsigned char s[][4]){
   for(i = 0; i < 4; i++){
     temp[0] = inproduct(2,s[0][i]) ^ inproduct(3,s[1][i]) ^ 
       s[2][i] ^ s[3][i];
+    
+    temp[1] = s[0][i] ^ inproduct(2,s[1][i]) ^ 
+      inproduct(3,s[2][i]) ^ s[3][i];
   }
 
 }
