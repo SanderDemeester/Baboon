@@ -368,3 +368,17 @@ static void inversion_shift_rows(unsigned char state[][4]){
   state[3][2] = state[3][3];
   state[3][3] = temp;
 }
+
+/*******************************/
+/* Inversion subsitution bytes */
+/*******************************/
+static void inversion_subsitution_bytes(unsigned char state[][4]){
+  int i;
+  int j;
+
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      state[i][j] = inversion_box[state[i][j] & 0xF0) >> 4][state[i][j] & 0x0F];
+    }
+  }
+}
