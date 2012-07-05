@@ -481,7 +481,7 @@ static void aes_decrypt(const unsigned char *input,
 			const unsigned char *key,
 			int key_lengte){
   while(input_len >= AES_BLOCK_SIZE){
-    aes_block_decrypt(input, output, key ,key_length);
+    aes_block_decrypt(input, output, key ,key_lengte);
     xor(output, iv, AES_BLOCK_SIZE);
     memcpy((void*) iv, (void*) input, AES_BLOCK_SIZE); //CBC
     input += AES_BLOCK_SIZE;
@@ -500,7 +500,7 @@ void aes_128_encrypt(const unsigned char *plaintext,
 		     const unsigned char *iv,
 		     const unsigned char *key){
   //specific key_length;
-  aes_encrypt(plaintext, plaintext_len, iv key, 16);
+  aes_encrypt(plaintext, plaintext_len, iv, key, 16);
 }
 /*************************************/
 /* AES final 128 decryption function */
