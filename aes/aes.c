@@ -257,7 +257,7 @@ static void matrix_multiply(unsigned char matrix1[4][4],
 /* left shift n times, with XOR 0x1B on overflow */
 /*************************************************/
 unsigned char ntime(unsigned char n){
-  return (x << 1) ^ ((x & 0x80) ? 0x1b : 0x00);
+  return (n << 1) ^ ((n & 0x80) ? 0x1b : 0x00);
 }
 /*************************/
 /* AES dotproduct        */
