@@ -29,6 +29,8 @@ filegraph.o:
 	$(CC) $(CFLAGS) -Wall -I. -Lso/ -I./libxml -c unsecure_server/filegraph.c
 des.o:
 	$(CC) $(CFLAGS) -Wall -I. -c des/des.c
+aes.o:
+	$(CC) $(CFLAGS) -Wall -I. -c aes/aes.c
 des_test.o:
 	$(CC) $(CFLAGS) -Wall -I. -c crypto_test/des_test/test_DES.c
 hex.o:
