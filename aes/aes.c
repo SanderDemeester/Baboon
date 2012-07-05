@@ -229,9 +229,9 @@ static void compute_key_schedule(const unsigned char *key,
 			subsitute_word(w[i]);
 		}
 		w[i][0] ^= w[i-key_words][0];
-		w[i][1] ^= w[i-key_words][1]
-		w[i][2] ^= w[i-key_words][2]
-		w[i][3] ^= w[i-key_words][3]
+		w[i][1] ^= w[i-key_words][1];
+		w[i][2] ^= w[i-key_words][2];
+		w[i][3] ^= w[i-key_words][3];
 	}
 }
 
