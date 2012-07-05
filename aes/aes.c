@@ -161,7 +161,7 @@ static void xor(unsigned char *target, const unsigned char *source, int len){
 
 	for(i = 0; i < 4; i++){
 		for(j = 0; j < 4; j++){
-			state[j][i] = state[j][i] ^ w[i][j];
+			state[i][j] = state[i][j] ^ w[i][j];
 		}
 	}
 }
