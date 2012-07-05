@@ -2,23 +2,26 @@ CC=gcc
 CFLAGS=-Wimplicit-function-declaration -std=c99
 NAME=baboon
 builddir=build/
-obj=obj
+OBJ_UNSECURE_SERVER=http_server.o http_parsing.o arguments.o filegraph.o
+OBJ_UNSECURE_CLIENT=http.o http_command.o
+OBJ_DES=des.o hex.o
+OBJ_DES_TEST=des_test.o
 
 $(builddir)/%.o: 
 all:
 	baboon
 baboon: 
 
-unsecure_client: http.o http_command.o
-	$(CC) http.o http_command.o -o http_client
-unsecure_server: http_server.o http_parsing.o arguments.o filegraph.o
-	$(CC) $(CFLAGS) http_server.o http_parsing.o arguments.o filegraph.o -lpthread -lxml2 -lm -o http_server
-des_test: des.o des_test.o hex.o
-	$(CC) hex.o des.o test_DES.o -o des_test
-http.o:
+unsecure_client: $(OBJ_UNSECURE_CLIENT)
+	$(CC) $(OBJ_UNSECURE_CLIENT) -o http_client
+unsecure_server: $(OBJ_UNSECURE_SERVER);
+	$(CC) $(CFLAGS) $(OBJ_UNSECURE_SERVER) -lpthread -lxml2 -lm -o http_server
+des_test: $(OBJ_DES) $(OBJ_DES_TEST)
+	$(CC) $(OBJ_DES) $(OBJ_DES_TEST) -o des_test
+http.o: $(builddir)/%.o : 
 	$(CC) -Wall -I. -c unsecure_client/http.c
 http_command.o:
-	$(CC) $(CFLAGS) -Wall -I. -c http_protocol/http_command.c
+	$(CC) $(CFLAGS) -Wall -I. -c header/http_command.h
 http_server.o:
 	$(CC) $(CFLAGS) -Wall -I. -c unsecure_server/http_server.c 
 http_parsing.o:
