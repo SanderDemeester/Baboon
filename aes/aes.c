@@ -108,7 +108,7 @@
 		 },{
 				 0x17,0x2b,0x04,0x7e,0xba,0x77,0xd6,0x26,
 				 0xe1,0x69,0x14,0x63,0x55,0x21,0x0c,0x7d
-		 }};
+		 },};
 
 /*********************************************************************/
 /* Overwirtes the target array with the XOR of it and the src array. */
@@ -230,7 +230,7 @@ static void compute_key_schedule(const unsigned char *key,
 		if(!(i % key_words)){
 			rotate_word(w[i]);
 			subsitute_word(w[i]);
-			if(!(i%key_words)){
+			if(!( i % 36 )){
 				round_constant = 0x1b;
 			}
 			w[i][0] ^= round_constant;
