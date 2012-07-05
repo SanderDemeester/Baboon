@@ -223,27 +223,29 @@ static void compute_key_schedule(const unsigned char *key,
 	int i;
 	int key_words = key_lengte >> 2;
 	unsigned char round_constant = 0x01;
-
-
-
+	
+	
+	
 	//copy key
 	memcpy(w,key,key_lengte);
-
+	
 	for(i = key_words; i < 4 * (key_words + 7);i++){
 	  memcpy(w,key, key_lengte);
-		if(!(i % key_words)){
 
-			rotate_word(w[i]);
-			subsitute_word(w[i]);
+	  if(!(i % key_words)){
+	    
 
-
-			if(!( i % 36 )){
-				round_constant = 0x1b;
-			}
-			w[i][0] ^= round_constant;
-			round_constant <<= 1;
+		  rotate_word(w[i]);
+		  subsitute_word(w[i]);
+		  
+		  
+		  if(!( i % 36 )){
+		    round_constant = 0x1b;
+		  }
+		  w[i][0] ^= round_constant;
+		  round_constant <<= 1;
 		}else if((key_words > 6) && ((i % key_words) == 4)){
-			subsitute_word(w[i]);
+		  subsitute_word(w[i]);
 		}
 		w[i][0] ^= w[i-key_words][0];
 		w[i][1] ^= w[i-key_words][1];
@@ -342,7 +344,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
 
   number = (key_size >> 2) + 6;
 
-  
+
   compute_key_schedule(key, key_size, w);
 
   add_round_key(state,&w[0]);
@@ -482,7 +484,6 @@ static void aes_encrypt(const unsigned char *input,
 			const unsigned char *key,
 			int key_length){
   unsigned char input_block[AES_BLOCK_SIZE];
-
 
   while(input_len >= AES_BLOCK_SIZE){
     memcpy(input_block, input, AES_BLOCK_SIZE);
