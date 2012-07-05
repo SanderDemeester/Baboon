@@ -382,3 +382,91 @@ static void inversion_subsitution_bytes(unsigned char state[][4]){
     }
   }
 }
+
+/****************************/
+/* Inversion mixing columns */
+/****************************/
+static void inversion_mix_columns(unsigned char s[][4]){
+  int i;
+  unsigned char temp[4];
+  
+  for(i = 0; i < 4; i++){
+    temp[0] = inproduct(0x0e,s[0][i]) ^ inproduct(0x0b, s[1][i]) ^ 
+      inproduct(0x0d, s[2][i]) ^ 
+      inproduct(0x09, s[3][i]);
+    temp[1] = inproduct(0x09,s[0][i]) ^ inproduct(0x0e,s[1][i]) ^ 
+      inproduct(0x0b, s[2][i]) ^ inproduct(0x0d, s[3][c]);
+    temp[2] = inproduct(0x0d, s[0][i]) ^ inproduct(0x0b, s[3][i]) ^
+      inproduct(0x0e, s[2][i]) ^ inproduct(0x0b, s[1][i]);
+    temp[3] = inproduct(0x0b, s[0][i]) ^ inproduct(0x0d, s[1][i]) ^ 
+      inproduct(0x09, s[2][i]) ^ inproduct(0x0e, s[3][i]);
+    
+    s[0][i] = temp[0];
+    s[1][i] = temp[1];
+    s[2][i] = temp[2];
+    s[3][i] = temp[3];
+  }
+}
+
+/************************/
+/* AES block decryption */
+/************************/
+static void aes_block_decrypt(const unsigned char *input_block, 
+			      unsigned char *output_block,
+			      const unsigned char *key,
+			      int key_size){
+  
+  int i;
+  int j;
+
+  int ronde;
+  int number;
+  unsigned char state[4][4];
+  unsigned char w[60][4];
+
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      state[i][j] = input_block[r+(j*4)];
+    }
+  }
+
+  number = (key_size >> 2) + 6;
+  compute_key_schedule(key,key_size,w);
+  add_round_key(state,&w[number*4]);
+  
+  for(ronde = number; ronde > 0; ronde--){
+    inversion_shift_rows(state);
+    inversion_subsitution_bytes(state);
+    add_round_key(state,&w[(ronde-1)*4]);
+    if(ronde > 1){
+      inversion_mix_columns(state);
+    }
+  }
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      output_block[r+(4*j)] = state[i][j]);
+    }
+  }
+}
+
+/******************/
+/* AES encryption */
+/******************/
+static void aes_encrypt(const unsigned char *input,
+			int input_len,
+			unsigned char *output,
+			const unsigned char *iv,
+			const unsigned char *key,
+			int key_length){
+  unsigned char input_block[AES_BLOCK_SIZE];
+  while(input_len >= AES_BLOCK_SIZE){
+    memcpy(input_block, input, AES_BLOCK_SIZE);
+    xor(input_block, iv, AES_BLOCK_SIZE);
+    aes_block_encrypt(input_block, output, key,key_length);
+    memcpy((void*) iv, (void*) output, AES_BLOCK_SIZE);
+    input += AES_BLOCK_SIZE;
+    output += AES_BLOCK_SIZE;
+    input_len -= AES_BLOCK_SIZE;
+  }
+  
+}
