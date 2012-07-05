@@ -468,5 +468,23 @@ static void aes_encrypt(const unsigned char *input,
     output += AES_BLOCK_SIZE;
     input_len -= AES_BLOCK_SIZE;
   }
-  
+}
+
+/******************/
+/* AES decryption */
+/******************/
+static void aes_decrypt(const unsigned char *input,
+			int input_len,
+			unsigned char *output,
+			const unsigned char *iv,
+			const unsigned char *key,
+			int key_lengte){
+  while(intput_len >= AES_BLOCK_SIZE){
+    aes_block_decrypt(input, output, key ,key_length);
+    xor(output, iv, AES_BLOCK_SIZE);
+    memcpy((void*) iv, (void*) input, AES_BLOCK_SIZE); //CBC
+    input += AES_BLOCK_SIZE;
+    output += AES_BLOCK_SIZE;
+    input_len -= AES_BLOCK_SIZE;
+  }
 }
