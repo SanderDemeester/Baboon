@@ -335,7 +335,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
   }
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      output_block[r + (4 * j)] = state[i][j];
+      output_block[i + (4 * j)] = state[i][j];
     }
   }
 }
@@ -379,7 +379,7 @@ static void inversion_subsitution_bytes(unsigned char state[][4]){
 
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      state[i][j] = inversion_box[state[i][j] & 0xF0) >> 4][state[i][j] & 0x0F];
+      state[i][j] = inversion_sbox[(state[i][j] & 0xF0) >> 4][state[i][j] & 0x0F];
     }
   }
 }
@@ -396,7 +396,7 @@ static void inversion_mix_columns(unsigned char s[][4]){
       inproduct(0x0d, s[2][i]) ^ 
       inproduct(0x09, s[3][i]);
     temp[1] = inproduct(0x09,s[0][i]) ^ inproduct(0x0e,s[1][i]) ^ 
-      inproduct(0x0b, s[2][i]) ^ inproduct(0x0d, s[3][c]);
+      inproduct(0x0b, s[2][i]) ^ inproduct(0x0d, s[3][i]);
     temp[2] = inproduct(0x0d, s[0][i]) ^ inproduct(0x0b, s[3][i]) ^
       inproduct(0x0e, s[2][i]) ^ inproduct(0x0b, s[1][i]);
     temp[3] = inproduct(0x0b, s[0][i]) ^ inproduct(0x0d, s[1][i]) ^ 
@@ -427,7 +427,7 @@ static void aes_block_decrypt(const unsigned char *input_block,
 
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      state[i][j] = input_block[r+(j*4)];
+      state[i][j] = input_block[i+(j*4)];
     }
   }
 
@@ -445,7 +445,7 @@ static void aes_block_decrypt(const unsigned char *input_block,
   }
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      output_block[r+(4*j)] = state[i][j]);
+      output_block[i+(4*j)] = state[i][j]);
     }
   }
 }
