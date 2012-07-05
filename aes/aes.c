@@ -328,7 +328,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
   for(round = 0; round < number; round++){
     subsitute_bytes(state);
     shift_rows(state);
-    if(round < (nr-1)){
+    if(round < (number-1)){
       mix_columns(state);
     }
     add_round_key(state,&w[(round+1)*4]);
