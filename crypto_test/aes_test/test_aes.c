@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
   
   if( !strcmp(argv[1], "-e")){
     unsigned char *ciphertext = (unsigned char*) malloc(input_len); //reverse space
-    if(key == 16){
+    if(key_len == 16){
       aes_128_encrypt(input, input_len, ciphertext, iv, key);
     }else if(key_len == 32){
       aes_256_encrypt(input, input_len, ciphertext, iv, key);

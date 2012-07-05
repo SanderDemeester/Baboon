@@ -255,7 +255,8 @@ static void matrix_multiply(unsigned char matrix1[4][4],
   int j;
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      target[i][j] = matrix1[i][0] * matrix2[0][j] + 
+      target[i][j] = 
+	matrix1[i][0] * matrix2[0][j] + 
 	matrix1[i][1] * matrix2[1][j] + 
 	matrix1[i][2] * matrix2[2][j] + 
 	matrix1[i][3] * matrix2[3][j];
@@ -299,7 +300,7 @@ static void mix_columns(unsigned char s[][4]){
     
     temp[1] = s[0][i] ^ inproduct(2,s[1][i]) ^ 
       inproduct(3,s[2][i]) ^ s[3][i];
-
+    
     temp[2] = s[0][i] ^ s[1][i] ^ inproduct(2,s[2][i]) ^ inproduct(3,s[3][i]);
     
     temp[3] = inproduct(3,s[0][i]) ^ s[1][i] ^ s[2][i] ^ inproduct(2, s[3][i]);
@@ -472,7 +473,7 @@ static void aes_encrypt(const unsigned char *input,
   unsigned char input_block[AES_BLOCK_SIZE];
   while(input_len >= AES_BLOCK_SIZE){
     memcpy(input_block, input, AES_BLOCK_SIZE);
-    xor(input_block, iv, AES_BLOCK_SIZE);
+    xor(input_block, iv, AES_BLOCK_SIZE); //CBC
     aes_block_encrypt(input_block, output, key,key_length);
     memcpy((void*) iv, (void*) output, AES_BLOCK_SIZE);
     input += AES_BLOCK_SIZE;
@@ -511,6 +512,7 @@ void aes_128_encrypt(const unsigned char *plaintext,
 		     const unsigned char *key){
   //specific key_length;
   aes_encrypt(plaintext, plaintext_len, ciphertext,iv, key, 16);
+  printf("hier\n");
 }
 /*************************************/
 /* AES final 128 decryption function */
