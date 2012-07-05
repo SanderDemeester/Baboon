@@ -445,7 +445,7 @@ static void aes_block_decrypt(const unsigned char *input_block,
   }
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      output_block[i+(4*j)] = state[i][j]);
+      output_block[i+(4*j)] = state[i][j];
     }
   }
 }
@@ -480,7 +480,7 @@ static void aes_decrypt(const unsigned char *input,
 			const unsigned char *iv,
 			const unsigned char *key,
 			int key_lengte){
-  while(intput_len >= AES_BLOCK_SIZE){
+  while(input_len >= AES_BLOCK_SIZE){
     aes_block_decrypt(input, output, key ,key_length);
     xor(output, iv, AES_BLOCK_SIZE);
     memcpy((void*) iv, (void*) input, AES_BLOCK_SIZE); //CBC
