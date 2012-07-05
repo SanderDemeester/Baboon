@@ -506,6 +506,7 @@ void aes_128_encrypt(const unsigned char *plaintext,
 /* AES final 128 decryption function */
 /*************************************/
 void aes_128_decrypt(const unsigned char *ciphertext,
+		     const int ciphertext_len,
 		     unsigned char plaintext[],
 		     const unsigned char *iv,
 		     const unsigned char *key){
@@ -530,6 +531,7 @@ void aes_256_encrypt(const unsigned char *plaintext,
 /*************************************/
 void aes_256_decrypt(const unsigned char *ciphertext,
 		     const int ciphertext_len,
+		     unsigned char plaintext[],
 		     const unsigned char *iv,
 		     const unsigned char *key){
   //specific key_length;
