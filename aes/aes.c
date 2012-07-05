@@ -138,14 +138,14 @@ static void xor(unsigned char *target, const unsigned char *source, int len){
  /**************************/
  static void subsitute_word(unsigned char *w){
 
-	 int i = 0;
-	 for(;i < 4; i++){
-		 /***************************************************************************************************/
-		 /* we performe the subsitution by using the high-order four bits of each byte as input the the row */
-		 /*   and the low order four bits as column							       */
-		 /***************************************************************************************************/
-		 w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F];
-	 }
+   int i;
+   for(i=0;i < 4; i++){
+     /***************************************************************************************************/
+     /* we performe the subsitution by using the high-order four bits of each byte as input the the row */
+     /*   and the low order four bits as column							       */
+     /***************************************************************************************************/
+     w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F];
+   }
  }
 
 
@@ -224,12 +224,19 @@ static void compute_key_schedule(const unsigned char *key,
 	int key_words = key_lengte >> 2;
 	unsigned char round_constant = 0x01;
 
+
+
 	//copy key
 	memcpy(w,key,key_lengte);
+
 	for(i = key_words; i < 4 * (key_words + 7);i++){
+	  memcpy(w,key, key_lengte);
 		if(!(i % key_words)){
+
 			rotate_word(w[i]);
 			subsitute_word(w[i]);
+
+
 			if(!( i % 36 )){
 				round_constant = 0x1b;
 			}
@@ -326,14 +333,18 @@ static void aes_block_encrypt(const unsigned char *input_block,
   unsigned char state[4][4];
   unsigned char w[60][4];
 
+
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
       state[i][j] = input_block[i + (4*j)];
     }
   }
+
   number = (key_size >> 2) + 6;
+
   
   compute_key_schedule(key, key_size, w);
+
   add_round_key(state,&w[0]);
   
   for(round = 0; round < number; round++){
@@ -471,6 +482,8 @@ static void aes_encrypt(const unsigned char *input,
 			const unsigned char *key,
 			int key_length){
   unsigned char input_block[AES_BLOCK_SIZE];
+
+
   while(input_len >= AES_BLOCK_SIZE){
     memcpy(input_block, input, AES_BLOCK_SIZE);
     xor(input_block, iv, AES_BLOCK_SIZE); //CBC
@@ -491,6 +504,7 @@ static void aes_decrypt(const unsigned char *input,
 			const unsigned char *iv,
 			const unsigned char *key,
 			int key_lengte){
+
   while(input_len >= AES_BLOCK_SIZE){
     aes_block_decrypt(input, output, key ,key_lengte);
     xor(output, iv, AES_BLOCK_SIZE);
@@ -512,7 +526,6 @@ void aes_128_encrypt(const unsigned char *plaintext,
 		     const unsigned char *key){
   //specific key_length;
   aes_encrypt(plaintext, plaintext_len, ciphertext,iv, key, 16);
-  printf("hier\n");
 }
 /*************************************/
 /* AES final 128 decryption function */
