@@ -143,7 +143,7 @@ void aes_256_encrypt(const unsigned char *plaintext,
 /*************************************/
 /* AES final 256 decryption function */
 /*************************************/
-void aes_256_decrypt(const unsigned car *ciphertext,
+void aes_256_decrypt(const unsigned char *ciphertext,
 		     const int ciphertext_len,
 		     const unsigned char *iv,
 		     const unsigned char *key);
