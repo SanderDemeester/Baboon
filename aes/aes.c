@@ -144,7 +144,7 @@ static void xor(unsigned char *target, const unsigned char *source, int len){
      /* we performe the subsitution by using the high-order four bits of each byte as input the the row */
      /*   and the low order four bits as column							       */
      /***************************************************************************************************/
-     w[i] = sbox[(w[i] & 0xF0) << 4][w[i] & 0x0F];
+     w[i] = sbox[(w[i] & 0xF0) >> 4][w[i] & 0x0F];
    }
  }
 
@@ -223,34 +223,29 @@ static void compute_key_schedule(const unsigned char *key,
 	int i;
 	int key_words = key_lengte >> 2;
 	unsigned char round_constant = 0x01;
-	
-	
-	
+
 	//copy key
 	memcpy(w,key,key_lengte);
 	
 	for(i = key_words; i < 4 * (key_words + 7);i++){
-	  memcpy(w,key, key_lengte);
-
+	  memcpy(w[i],w[i-1],4);
 	  if(!(i % key_words)){
-	    
+	    rotate_word(w[i]);
 
-		  rotate_word(w[i]);
-		  subsitute_word(w[i]);
+	    subsitute_word(w[i]);
 		  
-		  
-		  if(!( i % 36 )){
+	    if(!( i % 36 )){
 		    round_constant = 0x1b;
-		  }
-		  w[i][0] ^= round_constant;
+	    }
+	    w[i][0] ^= round_constant;
 		  round_constant <<= 1;
-		}else if((key_words > 6) && ((i % key_words) == 4)){
-		  subsitute_word(w[i]);
-		}
-		w[i][0] ^= w[i-key_words][0];
-		w[i][1] ^= w[i-key_words][1];
-		w[i][2] ^= w[i-key_words][2];
-		w[i][3] ^= w[i-key_words][3];
+	  }else if((key_words > 6) && ((i % key_words) == 4)){
+	    subsitute_word(w[i]);
+	  }
+	  w[i][0] ^= w[i-key_words][0];
+	  w[i][1] ^= w[i-key_words][1];
+	  w[i][2] ^= w[i-key_words][2];
+	  w[i][3] ^= w[i-key_words][3];
 	}
 }
 
@@ -335,16 +330,12 @@ static void aes_block_encrypt(const unsigned char *input_block,
   unsigned char state[4][4];
   unsigned char w[60][4];
 
-
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
       state[i][j] = input_block[i + (4*j)];
     }
   }
-
   number = (key_size >> 2) + 6;
-
-
   compute_key_schedule(key, key_size, w);
 
   add_round_key(state,&w[0]);
@@ -484,7 +475,7 @@ static void aes_encrypt(const unsigned char *input,
 			const unsigned char *key,
 			int key_length){
   unsigned char input_block[AES_BLOCK_SIZE];
-
+  
   while(input_len >= AES_BLOCK_SIZE){
     memcpy(input_block, input, AES_BLOCK_SIZE);
     xor(input_block, iv, AES_BLOCK_SIZE); //CBC
