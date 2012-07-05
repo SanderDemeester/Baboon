@@ -322,7 +322,8 @@ static void aes_block_encrypt(const unsigned char *input_block,
   }
   number = (key_size >> 2) + 6;
   
-  compute_key_schedule(state,&w[0]);
+  compute_key_schedule(key, key_size, w);
+  add_round_key(state,&w[0]);
   
   for(round = 0; round < number; round++){
     subsitute_bytes(state);
