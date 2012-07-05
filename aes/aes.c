@@ -110,6 +110,16 @@
 				 0xe1,0x69,0x14,0x63,0x55,0x21,0x0c,0x7d
 		 }};
 
+/*********************************************************************/
+/* Overwirtes the target array with the XOR of it and the src array. */
+/*********************************************************************/
+
+static void xor(unsigned char *target, const unsigned char *source, int len){
+	while(len--){
+		*target++ ^= *source++;
+	}
+}
+
  /***********************************/
  /* AES rotation of the 4 byte word */
  /***********************************/

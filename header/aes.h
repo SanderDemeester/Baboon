@@ -1,5 +1,10 @@
 #define _AES_H
 #define AES_BLOCK_SIZE 16
+/*********************************************************************/
+/* Overwirtes the target array with the XOR of it and the src array. */
+/*********************************************************************/
+
+static void xor(unsigned char *target, const unsigned char *source, int len);
 /**************************/
 /* rotate the 4 byte word */
 /**************************/
