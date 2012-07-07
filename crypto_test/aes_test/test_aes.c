@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
     }else if(key_len == 32){
       aes_256_encrypt(input, input_len, ciphertext, iv, key);
     }else{
-      fprintf(stderr, "Unsupported key length: %d\n",key_len);
+      fprintf(stderr, "ENCRYPT: Unsupported key length: %d\n",key_len);
       return 2;
     }
     show_hex(ciphertext, input_len);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
     }else if(key_len == 32){
       aes_256_decrypt(input, input_len, plaintext, iv, key);
     }else{
-      fprintf(stderr, "Unsupported key length: %d\n",key_len);
+      fprintf(stderr, "DECRYPT: Unsupported key length: %d\n",key_len);
       return 3;
     }
     show_hex(plaintext, input_len);

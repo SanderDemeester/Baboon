@@ -528,6 +528,7 @@ void aes_128_decrypt(const unsigned char *ciphertext,
 		     const unsigned char *iv,
 		     const unsigned char *key){
   //specific key_length;
+  printf("Start decryption proces\n");
   aes_decrypt(ciphertext, ciphertext_len, plaintext, iv, key, 16);
 }
 
