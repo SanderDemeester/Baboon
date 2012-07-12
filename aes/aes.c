@@ -407,14 +407,14 @@ static void inversion_mix_columns(unsigned char s[][4]){
   unsigned char temp[4];
 
   for(i = 0; i < 4; i++){
-    temp[0] = 	inproduct(0x0e, s[0][i]) ^	inproduct(0x0b, s[1][i]) ^
-    			inproduct(0x0d, s[2][i]) ^  inproduct(0x09, s[3][i]);
-    temp[1] = 	inproduct(0x09, s[0][i]) ^	inproduct(0x0e, s[1][i]) ^
-    			inproduct(0x0b, s[2][i]) ^ 	inproduct(0x0d, s[3][i]);
-    temp[2] = 	inproduct(0x0d, s[0][i]) ^  inproduct(0x00, s[1][i]) ^
-    			inproduct(0x0e, s[2][i]) ^  inproduct(0x0b, s[3][i]);
-    temp[3] = 	inproduct(0x0b, s[0][i]) ^  inproduct(0x0d, s[1][i]) ^
-    			inproduct(0x09, s[2][i]) ^  inproduct(0x0e, s[3][i]);
+    temp[0] = 	inproduct(0x0e, s[0][i]) ^ inproduct(0x0b, s[1][i]) ^
+    			inproduct(0x0d, s[2][i]) ^ inproduct(0x09, s[3][i]);
+    temp[1] = 	inproduct(0x09, s[0][i]) ^ inproduct(0x0e, s[1][i]) ^
+    			inproduct(0x0b, s[2][i]) ^ inproduct(0x0d, s[3][i]);
+    temp[2] = 	inproduct(0x0d, s[0][i]) ^ inproduct(0x09, s[1][i]) ^
+    			inproduct(0x0e, s[2][i]) ^ inproduct(0x0b, s[3][i]);
+    temp[3] = 	inproduct(0x0b, s[0][i]) ^ inproduct(0x0d, s[1][i]) ^
+    			inproduct(0x09, s[2][i]) ^ inproduct(0x0e, s[3][i]);
 
     s[0][i] = temp[0];
     s[1][i] = temp[1];
