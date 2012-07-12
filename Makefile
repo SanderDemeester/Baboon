@@ -8,8 +8,10 @@ OBJ_UNSECURE_SERVER=http_server.o http_parsing.o arguments.o filegraph.o
 OBJ_UNSECURE_CLIENT=http.o http_command.o
 OBJ_DES=des.o 
 OBJ_AES=aes.o
+OBJ_RC4=rc4.o
 OBJ_DES_TEST=des.o hex.o test_des.o
 OBJ_AES_TEST=aes.o hex.o test_aes.o
+OBJ_RC4_TEST=rc4.o hex.o test_rc4.o
 BIN_FILE= test_aes test_des unsecure_server unsecure_client http_server
 
 $(builddir)/%.o: 
@@ -25,6 +27,8 @@ test_des: $(OBJ_DES_TEST)
 	$(CC) $(OBJ_DES_TEST) -o test_des
 test_aes: $(OBJ_AES_TEST)
 	$(CC) $(OBJ_AES_TEST) -o test_aes
+test_rc4: $(OBJ_RC4_TEST)
+	$(CC) $(OBJ_RC4_TEST) -o test_rc4
 http.o:	
 	$(CC) -Wall -I. -c $(SRC)/unsecure_client/http.c
 http_command.o:
@@ -41,10 +45,14 @@ des.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/des/des.c
 aes.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/aes/aes.c
+rc4.o:
+	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/rc4/rc4.c
 test_des.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/des_test/test_des.c -o test_des.o
 test_aes.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/aes_test/test_aes.c -o test_aes.o
+test_rc4.o:
+	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/rc4_test/test_rc4.c -o test_rc4.o
 hex.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/hex.c
 clean:
