@@ -226,14 +226,14 @@ static void compute_key_schedule(const unsigned char *key,
 
 	//copy key
 	memcpy(w,key,key_lengte);
-	
+
 	for(i = key_words; i < 4 * (key_words + 7);i++){
 	  memcpy(w[i],w[i-1],4);
 	  if(!(i % key_words)){
 	    rotate_word(w[i]);
 
 	    subsitute_word(w[i]);
-		  
+
 	    if(!( i % 36 )){
 		    round_constant = 0x1b;
 	    }
@@ -259,10 +259,10 @@ static void matrix_multiply(unsigned char matrix1[4][4],
   int j;
   for(i = 0; i < 4; i++){
     for(j = 0; j < 4; j++){
-      target[i][j] = 
-	matrix1[i][0] * matrix2[0][j] + 
-	matrix1[i][1] * matrix2[1][j] + 
-	matrix1[i][2] * matrix2[2][j] + 
+      target[i][j] =
+	matrix1[i][0] * matrix2[0][j] +
+	matrix1[i][1] * matrix2[1][j] +
+	matrix1[i][2] * matrix2[2][j] +
 	matrix1[i][3] * matrix2[3][j];
     }
   }
@@ -280,8 +280,8 @@ unsigned char ntime(unsigned char n){
 /*************************/
 unsigned char inproduct(unsigned char x, unsigned char y){
   unsigned char mask;
-  unsigned char p;
-  
+  unsigned char p = 0;
+
   for(mask = 0x01; mask; mask <<= 1){
     if(y & mask){
       p ^= x;
@@ -297,16 +297,16 @@ unsigned char inproduct(unsigned char x, unsigned char y){
 static void mix_columns(unsigned char s[][4]){
   int i;
   unsigned char temp[4];
-  
+
   for(i = 0; i < 4; i++){
-    temp[0] = inproduct(2,s[0][i]) ^ inproduct(3,s[1][i]) ^ 
+    temp[0] = inproduct(2,s[0][i]) ^ inproduct(3,s[1][i]) ^
       s[2][i] ^ s[3][i];
-    
-    temp[1] = s[0][i] ^ inproduct(2,s[1][i]) ^ 
+
+    temp[1] = s[0][i] ^ inproduct(2,s[1][i]) ^
       inproduct(3,s[2][i]) ^ s[3][i];
-    
+
     temp[2] = s[0][i] ^ s[1][i] ^ inproduct(2,s[2][i]) ^ inproduct(3,s[3][i]);
-    
+
     temp[3] = inproduct(3,s[0][i]) ^ s[1][i] ^ s[2][i] ^ inproduct(2, s[3][i]);
 
     s[0][i] = temp[0];
@@ -319,7 +319,7 @@ static void mix_columns(unsigned char s[][4]){
 /************************/
 /* AES Block Encryption */
 /************************/
-static void aes_block_encrypt(const unsigned char *input_block, 
+static void aes_block_encrypt(const unsigned char *input_block,
 			      unsigned char *output_block,
 			      const unsigned char *key,
 			      int key_size){
@@ -339,7 +339,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
   compute_key_schedule(key, key_size, w);
 
   add_round_key(state,&w[0]);
-  
+
   for(round = 0; round < number; round++){
     subsitute_bytes(state);
     shift_rows(state);
@@ -363,7 +363,7 @@ static void aes_block_encrypt(const unsigned char *input_block,
 /********************/
 static void inversion_shift_rows(unsigned char state[][4]){
   int temp;
-  
+
   temp = state[1][2];
   state[1][2] = state[1][1];
   state[1][1] = state[1][0];
@@ -373,7 +373,7 @@ static void inversion_shift_rows(unsigned char state[][4]){
   temp = state[2][0];
   state[2][0] = state[2][2];
   state[2][2] = temp;
-  
+
   temp = state[2][1];
   state[2][1] = state[2][3];
   state[2][3] = temp;
@@ -405,18 +405,18 @@ static void inversion_subsitution_bytes(unsigned char state[][4]){
 static void inversion_mix_columns(unsigned char s[][4]){
   int i;
   unsigned char temp[4];
-  
+
   for(i = 0; i < 4; i++){
-    temp[0] = inproduct(0x0e,s[0][i]) ^ inproduct(0x0b, s[1][i]) ^ 
-      inproduct(0x0d, s[2][i]) ^ 
+    temp[0] = inproduct(0x0e,s[0][i]) ^ inproduct(0x0b, s[1][i]) ^
+      inproduct(0x0d, s[2][i]) ^
       inproduct(0x09, s[3][i]);
-    temp[1] = inproduct(0x09,s[0][i]) ^ inproduct(0x0e,s[1][i]) ^ 
+    temp[1] = inproduct(0x09,s[0][i]) ^ inproduct(0x0e,s[1][i]) ^
       inproduct(0x0b, s[2][i]) ^ inproduct(0x0d, s[3][i]);
     temp[2] = inproduct(0x0d, s[0][i]) ^ inproduct(0x0b, s[3][i]) ^
       inproduct(0x0e, s[2][i]) ^ inproduct(0x0b, s[1][i]);
-    temp[3] = inproduct(0x0b, s[0][i]) ^ inproduct(0x0d, s[1][i]) ^ 
+    temp[3] = inproduct(0x0b, s[0][i]) ^ inproduct(0x0d, s[1][i]) ^
       inproduct(0x09, s[2][i]) ^ inproduct(0x0e, s[3][i]);
-    
+
     s[0][i] = temp[0];
     s[1][i] = temp[1];
     s[2][i] = temp[2];
@@ -427,11 +427,11 @@ static void inversion_mix_columns(unsigned char s[][4]){
 /************************/
 /* AES block decryption */
 /************************/
-static void aes_block_decrypt(const unsigned char *input_block, 
+static void aes_block_decrypt(const unsigned char *input_block,
 			      unsigned char *output_block,
 			      const unsigned char *key,
 			      int key_size){
-  
+
   int i;
   int j;
 
@@ -449,7 +449,7 @@ static void aes_block_decrypt(const unsigned char *input_block,
   number = (key_size >> 2) + 6;
   compute_key_schedule(key,key_size,w);
   add_round_key(state,&w[number*4]);
-  
+
   for(ronde = number; ronde > 0; ronde--){
     inversion_shift_rows(state);
     inversion_subsitution_bytes(state);
@@ -511,35 +511,34 @@ static void aes_decrypt(const unsigned char *input,
 /*************************************/
 /* AES final 128 encryption function */
 /*************************************/
-void aes_128_encrypt(const unsigned char *plaintext,
-		     const int plaintext_len,
-		     unsigned char ciphertext[],
-		     const unsigned char *iv,
-		     const unsigned char *key){
+void aes_128_encrypt( const unsigned char *plaintext,
+           const int plaintext_len,
+           unsigned char ciphertext[],
+           void *iv,
+           const unsigned char *key){
   //specific key_length;
   aes_encrypt(plaintext, plaintext_len, ciphertext,iv, key, 16);
 }
 /*************************************/
 /* AES final 128 decryption function */
 /*************************************/
-void aes_128_decrypt(const unsigned char *ciphertext,
-		     const int ciphertext_len,
-		     unsigned char plaintext[],
-		     const unsigned char *iv,
-		     const unsigned char *key){
+void aes_128_decrypt( const unsigned char *ciphertext,
+           const int ciphertext_len,
+           unsigned char plaintext[],
+           void *iv,
+           const unsigned char *key){
   //specific key_length;
-  printf("Start decryption proces\n");
   aes_decrypt(ciphertext, ciphertext_len, plaintext, iv, key, 16);
 }
 
 /****************************/
 /* AES final 256 encryption */
 /****************************/
-void aes_256_encrypt(const unsigned char *plaintext,
-		     const int plaintext_len,
-		     unsigned char ciphertext[],
-		     const unsigned char *iv,
-		     const unsigned char *key){
+void aes_256_encrypt( const unsigned char *plaintext,
+           const int plaintext_len,
+           unsigned char ciphertext[],
+           void *iv,
+           const unsigned char *key){
   //specific key_length;
   aes_encrypt(plaintext, plaintext_len, ciphertext, iv, key, 32);
 }
@@ -547,11 +546,11 @@ void aes_256_encrypt(const unsigned char *plaintext,
 /*************************************/
 /* AES final 256 decryption function */
 /*************************************/
-void aes_256_decrypt(const unsigned char *ciphertext,
-		     const int ciphertext_len,
-		     unsigned char plaintext[],
-		     const unsigned char *iv,
-		     const unsigned char *key){
+void aes_256_decrypt( const unsigned char *ciphertext,
+           const int ciphertext_len,
+           unsigned char plaintext[],
+           void *iv,
+           const unsigned char *key){
   //specific key_length;
   aes_decrypt(ciphertext, ciphertext_len, plaintext, iv, key, 32);
 }
