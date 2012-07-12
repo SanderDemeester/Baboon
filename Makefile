@@ -10,7 +10,7 @@ OBJ_DES=des.o
 OBJ_AES=aes.o
 OBJ_DES_TEST=des.o hex.o test_des.o
 OBJ_AES_TEST=aes.o hex.o test_aes.o
-BIN_FILE= test_aes test_des unsecure_server unsecure_client
+BIN_FILE= test_aes test_des unsecure_server unsecure_client http_server
 
 $(builddir)/%.o: 
 all:
@@ -36,7 +36,7 @@ http_parsing.o:
 arguments.o:	
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/unsecure_server/arguments.c
 filegraph.o:
-	$(CC) $(CFLAGS) -Wall -I. -Lso/ -I $(SRC)/libxml -c $(SRC)/unsecure_server/filegraph.c
+	$(CC) $(CFLAGS) -Wall -I. -Lobject_files/ -I src/ -c $(SRC)/unsecure_server/filegraph.c
 des.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/des/des.c
 aes.o:
