@@ -5,6 +5,7 @@
 void *process_http_request(int *connection_socket){
   char *request_line;
   request_line = read_line(*connection_socket);
+  printf("%s n",request_line);
   if(strncmp(request_line,"GET",3)){
     build_error_response(*connection_socket,501); //HTTP 501 response
   }else{
