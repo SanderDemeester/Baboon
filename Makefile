@@ -12,7 +12,7 @@ OBJ_RC4=rc4.o
 OBJ_DES_TEST=des.o hex.o test_des.o
 OBJ_AES_TEST=aes.o hex.o test_aes.o
 OBJ_RC4_TEST=rc4.o hex.o test_rc4.o
-BIN_FILE= test_aes test_des unsecure_server unsecure_client http_server
+BIN_FILE= test_aes test_des test_rc4 unsecure_server unsecure_client http_server baboon
 
 $(builddir)/%.o: 
 all:
