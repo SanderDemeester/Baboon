@@ -3,17 +3,17 @@
 #include "header/general.h"
 #endif
 void *process_http_request(int *connection_socket){
-    char *request_line;
+  char *request_line;
   request_line = read_line(*connection_socket);
   if(strncmp(request_line,"GET",3)){
-      build_error_response(*connection_socket,501); //HTTP 501 response
-    }else{
-      while(strcmp(read_line(*connection_socket), "" ));
-      build_succes_response(*connection_socket);
-    }
-    if(close(*connection_socket) == -1){
-      perror("Unable to close connection");
-    }
+    build_error_response(*connection_socket,501); //HTTP 501 response
+  }else{
+    while(strcmp(read_line(*connection_socket), "" ));
+    build_succes_response(*connection_socket);
+  }
+  if(close(*connection_socket) == -1){
+    perror("Unable to close connection");
+  }
 }
 
 void build_error_response(int connection_socket, int http_reponse_code){
