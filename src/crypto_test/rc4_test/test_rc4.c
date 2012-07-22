@@ -2,8 +2,8 @@
 #include "header/general.h"
 #endif
 
-#include "header/rc4.h"
 #include "header/hex.h"
+#include "header/rc4.h"
 
 int main(int argc, char *argv[]){
   unsigned char *key;
