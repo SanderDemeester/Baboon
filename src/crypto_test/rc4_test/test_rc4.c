@@ -21,7 +21,6 @@ int main(int argc, char *argv[]){
   
   output = malloc(input_len);
   rc4_operate(input,input_len,output,key,key_len);
-  printf("Resultaat: ");
   show_hex(output, input_len);
   
   free(key);
