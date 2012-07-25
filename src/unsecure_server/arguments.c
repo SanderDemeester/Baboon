@@ -29,7 +29,7 @@ void display_help(char *prog_name){
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt;
-  opt = getopt(argc,argv, "f:p:vdc:");
+  opt = getopt(argc,argv, "f:p:vdc:h");
   while(opt != -1){
     switch(opt){
     case 'f':
@@ -47,7 +47,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     case 'v':
       arg_->v = 1;
       break;
-    case '?':
+    case 'h':
       display_help(argv[0]);
       break;
     default:
