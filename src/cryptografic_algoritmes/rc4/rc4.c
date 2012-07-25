@@ -78,5 +78,5 @@ void rc4_128_decrypt(const unsigned char *ciphertext,
 		     void *state,
 		     const unsigned char *key){
   rc4_operate(ciphertext, ciphertext_len, plaintext, key, 16,
-	      (rc4_operate *) state);
+	      (rc4_state *) state);
 }
