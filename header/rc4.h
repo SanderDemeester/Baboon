@@ -11,4 +11,5 @@ void rc4_operate(const unsigned char *plaintext,
 typedef struct { 
   int i;
   int j;
+  unsigned char S[RC4_STATE_ARRAY_LEN];
 }rc4_state;
