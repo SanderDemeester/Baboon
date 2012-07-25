@@ -51,7 +51,7 @@ void rc4_40_encrypt(const unsigned char *plaintext,
 		    void *state,
 		    const unsigned char *key){
   rc4_operate(plaintext, plaintext_len, ciphertext, key, 5,
-	      (rc4_state *), state);
+	      (rc4_state *) state);
 }
 
 void rc4_40_decrypt(const unsigned char *ciphertext,
