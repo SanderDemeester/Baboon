@@ -176,7 +176,6 @@ int construct_graph(char *root){
  
 int exist_element(char *file_path,struct context_unit* filestructure_start){
       int i,j;
-      int number_of_links;
       for(i = 0;i < filestructure_start->number_of_units; i++){
       if(strcmp(file_path,filestructure_start->entry_point[i].path) == 0){
 #ifdef _DEBUG
