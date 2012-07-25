@@ -546,10 +546,10 @@ void aes_256_encrypt( const unsigned char *plaintext,
 /* AES final 256 decryption function */
 /*************************************/
 void aes_256_decrypt( const unsigned char *ciphertext,
-           const int ciphertext_len,
-           unsigned char plaintext[],
-           void *iv,
-           const unsigned char *key){
+		      const int ciphertext_len,
+		      unsigned char plaintext[],
+		      void *iv,
+		      const unsigned char *key){
   //specific key_length;
   aes_decrypt(ciphertext, ciphertext_len, plaintext, iv, key, 32);
 }

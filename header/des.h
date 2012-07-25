@@ -17,46 +17,25 @@
 typedef enum {ENCRYPT,DECRYPT} operation_type;
 
 /*********************************************************************/
-/* Overwirtes the target array with the XOR of it and the src array. */
+/* HEADER FILE CRYPTO FUNCTIONS SIGNATURE LAYOUT		     */
+/* All cryptografic functions SHOULD have the same layout structuren */
+/* 								     */
+/*   first arugment,  type: const unsigned char			     */
+/*   second argument, type: const int				     */
+/*   third argument,  type: unsigned char			     */
+/*   fourth argument, type: void *				     */
+/*   fifth argument,  type: const unsigned char			     */
 /*********************************************************************/
-static void xor(unsigned char *target, const unsigned char *source, int len);
-
-
-/********************************************************************/
-/* Depending on the permute_table, this is the "<3" of our DES code.
- permute table SHOULD have exactly les and les * 8 number of entries.
- copy the second bit of the last byte into the first bit of the first byte of the output.
- the first byte of output comes from the second bits of each input byte.
- the second byte of output comes rom the fouth bits of each input byte
- You see where this is goning..
-/********************************************************************/
-static void permute(unsigned char target[], const unsigned char src[], const int parmute_table[], int len);
-
-static void rotate_left(unsigned char *target);
-static void rotate_right(unsigned char *target);
-
-static void des_block_operate(const unsigned char plaintext[DES_BLOCK_SIZE],
-		unsigned char ciphertext[DES_BLOCK_SIZE],
-		const unsigned char key[DES_KEY_SIZE],
-		operation_type operation);
-
-static void des_operate( const unsigned char *input,
-		int input_len,
-		unsigned char *output,
-		const unsigned char *iv,
-		const unsigned char *key,
-		operation_type operation,
-		int trip );
 
 /***********************/
 /* DES-encrypt code.   */
 /* key-length: 56-bits */
 /***********************/
 void des_encrypt( const unsigned char *plaintext,
-		const int plaintext_len,
-		unsigned char *ciphertext,
-		void *iv,
-		const unsigned char *key);
+		  const int plaintext_len,
+		  unsigned char *ciphertext,
+		  void *iv,
+		  const unsigned char *key);
 
 /***********************/
 /* DES-decrypt code.   */
@@ -64,10 +43,10 @@ void des_encrypt( const unsigned char *plaintext,
 /***********************/
 
 void des_decrypt( const unsigned char *ciphertext,
-		const int ciphertext_len,
-		unsigned char *plaintext,
-		void *iv,
-		const unsigned char *key);
+		  const int ciphertext_len,
+		  unsigned char *plaintext,
+		  void *iv,
+		  const unsigned char *key);
 
 
 /*************************/
@@ -76,18 +55,18 @@ void des_decrypt( const unsigned char *ciphertext,
 /*************************/
 
 void des3_encrypt( const unsigned char *plaintext,
-		const int plaintext_len,
-		unsigned char *ciphertext,
-		void *iv,
-		const unsigned char *key);
+		   const int plaintext_len,
+		   unsigned char *ciphertext,
+		   void *iv,
+		   const unsigned char *key);
 
 /*************************/
 /* 3DES-decrypt code.    */
 /* key-length: 168-bits  */
 /*************************/
 
-void des3_decrypt(const unsigned char *ciphertext,
-		const int ciphertext_len,
-		unsigned char *plaintext,
-		void *iv,
-		const unsigned char *key);
+void des3_decrypt( const unsigned char *ciphertext,
+		   const int ciphertext_len,
+		   unsigned char *plaintext,
+		   void *iv,
+		   const unsigned char *key);
