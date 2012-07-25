@@ -1,11 +1,13 @@
 #ifndef _RC4_H
 #include "header/rc4.h"
 #endif
+
 void rc4_operate(const unsigned char *plaintext,
-			int plaintext_len,
-			unsigned char *cijfertext,
-			unsigned char *key,
-			int key_len){
+		 int plaintext_len,
+		 unsigned char *cijfertext,
+		 unsigned char *key,
+		 int key_len,
+		 rc4_state *state){
   int i;
   int j;
   unsigned char S[256];
