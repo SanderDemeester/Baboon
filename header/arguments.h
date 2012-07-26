@@ -1,4 +1,5 @@
 #define _ARGUMENT_H
+#include <getopt.h>
 struct arguments{
   int f; //file argument enable
   char *file_directory; //argument
@@ -7,6 +8,7 @@ struct arguments{
   int v; //verbose
   int c; //config file
   char *configfile;
+  int crypt; //switch to usermode crypto function
 
 };
 
