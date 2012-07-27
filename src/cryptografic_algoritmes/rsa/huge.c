@@ -2,7 +2,7 @@
 #include <header/general.h>
 #endif
 
-#ifnddef _HUGE_G
+#ifndef _HUGE_G
 #include <header/huge.h>
 #endif
 
@@ -20,8 +20,27 @@ void add(huge *huge1, huge* huge2){
     unsigned char *temp = huge1->representation;
     huge1->representation = (unsigned char *) calloc(huge2->size,
 						     sizeof(unsigned char));
-    memcpy(huge1->representation + (huge2->size - huge1->size),temp huge1->size);
-    huge->size = huge2->size;
+    memcpy(huge1->representation + (huge2->size - huge1->size),temp,huge1->size);
+    huge1->size = huge2->size;
     free(temp);
+  }
+
+  i = huge1->size;
+  j = huge2->size;
+
+  do{
+    i--;
+    if(j){
+      j--;
+      sum = huge1->representation[i]+huge2->representation[j] + carry;
+    }else{
+      sum = huge1->representation[i] + carry;
+    }
+    carry = sum > 0xFF; //shift byte in
+    huge1->representation[i] = sum;
+  }while(i);
+  if(carry){
+    //still overflow, need to expand
+    expand(huge1);
   }
 }

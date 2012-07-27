@@ -54,7 +54,9 @@ test_aes.o:
 test_rc4.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/rc4_test/test_rc4.c -o test_rc4.o
 hex.o:
-	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/hex.c
+	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/hex.c	
+huge.o:
+	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/rsa/huge.c
 clean:
 	rm -rf *.o 
 	rm -rf *.out 

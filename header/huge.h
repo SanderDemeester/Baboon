@@ -9,3 +9,8 @@ typedef struct {
 /* Add two huges - overwrite huge1 with the result */
 /***************************************************/
 void add(huge *huge1, huge* huge2);
+
+/**********************/
+/* expand huge struct */
+/**********************/
+void expaned(huge *huge1);
