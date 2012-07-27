@@ -68,11 +68,20 @@ static void substract(huge *huge1, huge *huge2){
     i--;
     if(j){
       j--;
-      difference = huge1->representation[i] - huge->representation[j] - borrow;
+      difference = huge1->representation[i] - huge1->representation[j] - borrow;
     }else{
       difference = huge1->representation[i] - borrow;
     }
     borrow = (difference < 0);
     huge1->representation[i] = difference;
   }while(i);
+  if(borrow && i){
+    if(!(huge1->representation[i-1])){
+      //ERROR
+      printf("Error, substract is negative\n");
+      exit(0);
+    }
+    huge1->representation[i-1]--;
+  }
+  remove_unused_lsb(huge1);
 }
