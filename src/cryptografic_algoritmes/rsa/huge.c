@@ -56,3 +56,23 @@ void expaned(huge *huge1){
   huge1->representation[0] = 0x01;
   free(temp);
 }
+
+static void substract(huge *huge1, huge *huge2){
+  int i = huge1->size;
+  int j = huge2->size;
+
+  int difference; //signed.
+  unsigned int borrow = 0;
+
+  do{
+    i--;
+    if(j){
+      j--;
+      difference = huge1->representation[i] - huge->representation[j] - borrow;
+    }else{
+      difference = huge1->representation[i] - borrow;
+    }
+    borrow = (difference < 0);
+    huge1->representation[i] = difference;
+  }while(i);
+}
