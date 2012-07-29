@@ -30,6 +30,7 @@ void display_help(char *prog_name){
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt;
+  int option_index;
   static int long_verbose_flag;
   static int long_crypto_usermode_flag;
   static int long_help_flag
