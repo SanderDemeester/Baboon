@@ -9,8 +9,10 @@ struct arguments{
   int c; //config file
   char *configfile;
   int crypt; //switch to usermode crypto function
+  int d; //go in brackground
 
 };
 
 void parse_arguments(int argc, char *argv[],struct arguments* ar);
+void parse_crypto_arguments(int argc, char *argv[], int option_index);
 
