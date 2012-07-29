@@ -30,8 +30,9 @@ void display_help(char *prog_name){
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt;
-  static int verbose_flag;
-  static int crypto_usermode_flag;
+  static int long_verbose_flag;
+  static int long_crypto_usermode_flag;
+  static int long_help_flag
   static struct option long_optoins[]={
     { "verbose", no_argument,        &verbose_flag,          1},
     { "crypt",   required_argument,  &crypto_usermode_flag,  1},
