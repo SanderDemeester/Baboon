@@ -47,7 +47,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   static int long_help_flag;
   static struct option long_optoins[]={
     { "verbose", no_argument,        &long_verbose_flag,          1},
-    { "crypt",   required_argument,  &long_crypto_usermode_flag,  1},
+    { "crypto",  required_argument,  &long_crypto_usermode_flag,  1},
     { "help",    no_argument,        0,          'h'},
     { "background",  no_argument,        0,         'd'},
     { "port",    required_argument,  0,         'p'},
@@ -80,8 +80,15 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     case 'd':
       arg_->d = 1;
     default:
-      if(long_verbose_flag) arg_->v=1; break;
-      if(long_crypto_usermode_flag) parse_crypto_arguments(argc, argv, option_index); break;
+      if(long_verbose_flag){ 
+	arg_->v=1; 
+	break;
+      }
+      if(long_crypto_usermode_flag){
+	arg_->crypt = 1;
+	parse_crypto_arguments(argc, argv, option_index); 
+	break;
+      }
       display_help(argv[0]);
       break;
     }
