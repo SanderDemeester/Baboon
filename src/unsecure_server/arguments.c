@@ -36,6 +36,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   static struct option long_optoins[]={
     { "verbose", no_argument,        &verbose_flag,          1},
     { "crypt",   required_argument,  &crypto_usermode_flag,  1},
+    { "help",    no_argument,        0          'h'},
     { "deamon",  no_argument,        0,         'd'},
     { "port",    required_argument,  0,         'p'},
     { "file",    required_argument,  0,         'f'},
