@@ -1,3 +1,4 @@
+#define _DEBUG
 #include "header/arguments.h"
 #ifndef _GENERAL
 #include "header/general.h"
@@ -16,6 +17,13 @@ void display_help(char *prog_name){
   printf("-f|--file: \t\t file directory to serve files from\n");
   printf("-c|--config: \t\t specify configuration file\n");
   exit(0);
+}
+
+/***************************/
+/* parse crypto arguments  */
+/***************************/
+void parse_crypto_arguments(int argc, char *argv[], int option_index){
+  
 }
 
 
@@ -90,3 +98,5 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   printf("background flag  : %d \n", arg_->d); 
   #endif
 }
+
+
