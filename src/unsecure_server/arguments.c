@@ -24,7 +24,9 @@ void display_help(char *prog_name){
 /* parse crypto arguments  */
 /***************************/
 void parse_crypto_arguments(int argc, char *argv[], int option_index){
-  printf("index: %d \n", option_index);
+  while(argc > option_index){
+    printf("%s \n", argv[option_index++]);
+  }
 }
 
 
