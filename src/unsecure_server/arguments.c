@@ -16,6 +16,7 @@ void display_help(char *prog_name){
   printf("-p|--port: \t\t port override\n");
   printf("-f|--file: \t\t file directory to serve files from\n");
   printf("-c|--config: \t\t specify configuration file\n");
+  printf("--crypto: \t\t usermode crypto\n");
   exit(0);
 }
 
@@ -23,7 +24,7 @@ void display_help(char *prog_name){
 /* parse crypto arguments  */
 /***************************/
 void parse_crypto_arguments(int argc, char *argv[], int option_index){
-  
+  printf("index: %d \n", option_index);
 }
 
 
