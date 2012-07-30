@@ -6,6 +6,7 @@
 #ifndef _ARGUMENT_H
 #include "header/arguments.h"
 #endif
+#define CRYPTO_OPTIONS 8
 /* #include <getopt.h> */
 
 void display_help(char *prog_name){
@@ -24,6 +25,18 @@ void display_help(char *prog_name){
 /* parse crypto arguments  */
 /***************************/
 void parse_crypto_arguments(int argc, char *argv[], int option_index){
+  static int crypto_enable_flags[CRYPTO_OPTIONS];
+  struct option crypto_long_option[] = {
+    {"block-cipher",  no_argument, &crypto_enable_flags[0], 1},
+    {"stream-cipher", no_argument, &crypto_enable_flags[1], 1},
+    {"list",          no_argument, &crypto_enable_flags[2], 1},
+    {"help",          no_argument, &crypto_enable_flags[3], 1},
+    {"aes",           no_argument, &crypto_enable_flags[4], 1},
+    {"3des",          no_argument, &crypto_enable_flags[5], 1},
+    {"des",           no_argument, &crypto_enable_flags[6], 1}, 
+    {"rc4",           no_argument, &crypto_enable_flags[7], 1},
+  };
+
   while(argc > option_index){
     printf("%s \n", argv[option_index++]);
   }
