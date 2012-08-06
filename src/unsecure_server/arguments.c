@@ -36,7 +36,8 @@ void parse_crypto_arguments(int argc, char *argv[], int option_index){
     {"des",           no_argument, &crypto_enable_flags[6], 1}, 
     {"rc4",           no_argument, &crypto_enable_flags[7], 1},
   };
-
+  
+  printf("%d \n", option_index);
   while(argc > option_index){
     printf("%s \n", argv[option_index++]);
   }
@@ -56,6 +57,7 @@ void parse_crypto_arguments(int argc, char *argv[], int option_index){
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt;
+  int c_index = 0;
   int option_index;
   static int long_verbose_flag;
   static int long_crypto_usermode_flag;
@@ -73,7 +75,6 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     
   opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
   while(opt != -1){
-    printf("%s \n","enter switch");
     switch(opt){
     case 'f':
       arg_->f = 1;
@@ -102,10 +103,11 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       }
     }
     opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
+    c_index++;
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
-    parse_crypto_arguments(argc, argv, option_index); 
+    parse_crypto_arguments(argc, argv, c_index); 
   }
 #ifdef _DEBUG
   printf("file argument    : %d \n", arg_->f);
