@@ -73,6 +73,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     
   opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
   while(opt != -1){
+    printf("%s \n","enter switch");
     switch(opt){
     case 'f':
       arg_->f = 1;
@@ -99,17 +100,14 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
 	arg_->v=1; 
 	break;
       }
-      if(long_crypto_usermode_flag){
-	arg_->crypt = 1;
-	parse_crypto_arguments(argc, argv, option_index); 
-	break;
-      }
-      display_help(argv[0]);
-      break;
     }
     opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
   }
-  #ifdef _DEBUG
+  if(long_crypto_usermode_flag){
+    arg_->crypt = 1;
+    parse_crypto_arguments(argc, argv, option_index); 
+  }
+#ifdef _DEBUG
   printf("file argument    : %d \n", arg_->f);
   printf("filedir_argument : %s \n", arg_->file_directory);
   printf("port argument en : %d \n", arg_->p);
