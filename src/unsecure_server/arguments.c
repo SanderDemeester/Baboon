@@ -24,6 +24,8 @@ void display_help(char *prog_name){
   exit(0);
 }
 
+void init_function_pointer(argument_block* crypto_handlers);
+
  /******************************/
  /*  Possible options for now: */
  /* -d: backgrond	       */
@@ -39,6 +41,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt = 0;
   int option_index = 0;
   int uniq_functionpointer_identifier = 1;
+  argument_block *crypto_handlers = (argument_block*) malloc(sizeof(argument_block)*CRYPTO_OPTIONS);
   static int long_verbose_flag = 0;
   static int long_crypto_usermode_flag = 0;
   static int long_help_flag = 0;
@@ -115,5 +118,6 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   printf("background flag  : %d \n", arg_->d); 
   #endif
 }
-
+void init_function_pointer(argument_block* crypto_handlers){
+}
 
