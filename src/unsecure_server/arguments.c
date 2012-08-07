@@ -21,29 +21,6 @@ void display_help(char *prog_name){
   exit(0);
 }
 
-/***************************/
-/* parse crypto arguments  */
-/***************************/
-void parse_crypto_arguments(int argc, char *argv[], int option_index){
-  static int crypto_enable_flags[CRYPTO_OPTIONS];
-  struct option crypto_long_option[] = {
-    {"block-cipher",  no_argument, &crypto_enable_flags[0], 1},
-    {"stream-cipher", no_argument, &crypto_enable_flags[1], 1},
-    {"list",          no_argument, &crypto_enable_flags[2], 1},
-    {"help",          no_argument, &crypto_enable_flags[3], 1},
-    {"aes",           no_argument, &crypto_enable_flags[4], 1},
-    {"3des",          no_argument, &crypto_enable_flags[5], 1},
-    {"des",           no_argument, &crypto_enable_flags[6], 1}, 
-    {"rc4",           no_argument, &crypto_enable_flags[7], 1},
-  };
-  
-  printf("%d \n", option_index);
-  while(argc > option_index){
-    printf("%s \n", argv[option_index++]);
-  }
-}
-
-
  /******************************/
  /*  Possible options for now: */
  /* -d: backgrond	       */
@@ -56,21 +33,29 @@ void parse_crypto_arguments(int argc, char *argv[], int option_index){
  /******************************/
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
-  int opt;
-  int c_index = 0;
-  int option_index;
-  static int long_verbose_flag;
-  static int long_crypto_usermode_flag;
-  static int long_help_flag;
+  int opt = 0;
+  int option_index = 0;
+  int uniq_functionpointer_identifier = 0;
+  static int long_verbose_flag = 0;
+  static int long_crypto_usermode_flag = 0
+  static int long_help_flag = 0;
+  static int crypto_enable_flags[CRYPTO_OPTIONS] = {1};
   static struct option long_optoins[]={
-    { "verbose", no_argument,        &long_verbose_flag,          1},
-    { "crypto",  required_argument,  &long_crypto_usermode_flag,  1},
-    { "help",    no_argument,        0,          'h'},
-    { "background",  no_argument,        0,         'd'},
-    { "port",    required_argument,  0,         'p'},
-    { "file",    required_argument,  0,         'f'},
-    { "config",  required_argument,  0,         'c'},
-    {0,0,0,0}
+    { "verbose",       no_argument,        &long_verbose_flag,          1},
+    { "crypto",        required_argument,  &long_crypto_usermode_flag,  1},
+    { "help",          no_argument,        0,                           'h'},
+    { "background",    no_argument,        0,                           'd'},
+    { "port",          required_argument,  0,                           'p'},
+    { "file",          required_argument,  0,                           'f'},
+    { "config",        required_argument,  0,                           'c'},
+    { "block-cipher",  no_argument,        &crypto_enable_flags[0],      2},
+    { "stream-cipher", no_argument,        &crypto_enable_flags[1],      3},
+    { "list",          no_argument,        &crypto_enable_flags[2],      5},
+    { "help",          no_argument,        &crypto_enable_flags[3],      7},
+    { "aes",           no_argument,        &crypto_enable_flags[4],      11},
+    { "3des",          no_argument,        &crypto_enable_flags[5],      13},
+    { "des",           no_argument,        &crypto_enable_flags[6],      17}, 
+    { "rc4",           no_argument,        &crypto_enable_flags[7],      19},
   };
     
   opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
@@ -103,11 +88,10 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       }
     }
     opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
-    c_index++;
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
-    parse_crypto_arguments(argc, argv, c_index); 
+    //    parse_crypto_arguments(argc, argv, c_index); 
   }
 #ifdef _DEBUG
   printf("file argument    : %d \n", arg_->f);
