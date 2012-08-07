@@ -55,9 +55,9 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     { "file",          required_argument,  0,                           'f'},
     { "config",        required_argument,  0,                           'c'},
     { "block-cipher",  no_argument,        &crypto_enable_flags[0],      2},
-    { "blockcipher",   no_argument,        &crypto_enable_flags[0],      2}
+    { "blockcipher",   no_argument,        &crypto_enable_flags[0],      2},
     { "stream-cipher", no_argument,        &crypto_enable_flags[1],      3},
-    { "streamcipher", no_argument,        &crypto_enable_flags[1],      3},
+    { "streamcipher", no_argument,         &crypto_enable_flags[1],      3},
     { "list",          no_argument,        &crypto_enable_flags[2],      5},
     { "help",          no_argument,        &crypto_enable_flags[3],      7},
     { "aes",           no_argument,        &crypto_enable_flags[4],      11},
@@ -120,17 +120,6 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       }
     }
   }
-#ifdef _DEBUG
-  printf("file argument    : %d \n", arg_->f);
-  printf("filedir_argument : %s \n", arg_->file_directory);
-  printf("port argument en : %d \n", arg_->p);
-  printf("port override    : %d \n", arg_->port);
-  printf("verbose          : %d \n", arg_->v);
-  printf("config file enab : %d \n", arg_->c);
-  printf("config file loc  : %s \n", arg_->configfile);
-  printf("crytp            : %d \n", arg_->crypt);
-  printf("background flag  : %d \n", arg_->d); 
-  #endif
 }
 void init_function_pointer(argument_block** crypto_handlers){
   crypto_handlers[0]->value = 22;
