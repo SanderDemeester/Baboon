@@ -19,10 +19,13 @@ void usermode_3des(int argc, char** argv){
 }
 void usermode_list_blockcipher(int argc, char** argv){
   printf("%s \n", "CRYPTO USERMODE LIST BLOCK CIPHERS");
+  exit(0);
 }
 void usermode_list_streamcipher(int argc, char** argv){
   printf("%s \n", "CRYPTO USERMODE LIST STREAM CIPHERS");
+  exit(0);
 }
 void usermode_crypto_help(int argc, char** argv){
   printf("%s \n", "USERMOD CRYPTO HELP SECTION");
+  exit(0);
 }
