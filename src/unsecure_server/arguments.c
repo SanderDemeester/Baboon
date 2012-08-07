@@ -79,7 +79,9 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     case 'h':
       if(!long_crypto_usermode_flag){
 	display_help(argv[0]);
-      }else{crypto_enable_flags[3] = 7; }
+      }else{
+	crypto_enable_flags[3] = 7; 
+      }
       break;
     case 'd':
       arg_->d = 1;

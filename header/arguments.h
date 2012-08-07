@@ -10,8 +10,16 @@ struct arguments{
   char *configfile;
   int crypt; //switch to usermode crypto function
   int d; //go in brackground
-
 };
+typedef struct{
+  int arg1;
+  int arg2;
+}arguments;
+
+typedef struct{
+  int value;
+  void (*function_pointer)(arguments*);
+}argument_block;
 
 void parse_arguments(int argc, char *argv[],struct arguments* ar);
 void parse_crypto_arguments(int argc, char *argv[], int option_index);
