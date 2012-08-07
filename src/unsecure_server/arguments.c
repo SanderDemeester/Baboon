@@ -6,6 +6,9 @@
 #ifndef _ARGUMENT_H
 #include "header/arguments.h"
 #endif
+#ifndef _USERMODE_CRYPTO_MANAGEMENT
+#include "header/usermod_cryptomanagement.h"
+#endif
 #define CRYPTO_OPTIONS 8
 /* #include <getopt.h> */
 
@@ -58,7 +61,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     { "rc4",           no_argument,        &crypto_enable_flags[7],      19},
   };
     
-  opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
+  opt = getopt_long(argc, argv, "f:p:vdc:he::d::", long_optoins, &option_index);
   while(opt != -1){
     switch(opt){
     case 'f':
@@ -91,7 +94,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
 	break;
       }
     }
-    opt = getopt_long(argc, argv, "f:p:vdc:h", long_optoins, &option_index);
+    opt = getopt_long(argc, argv, "f:p:vdc:he::d::", long_optoins, &option_index);
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
