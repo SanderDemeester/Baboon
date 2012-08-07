@@ -39,10 +39,10 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   static int long_verbose_flag = 0;
   static int long_crypto_usermode_flag = 0;
   static int long_help_flag = 0;
-  static int crypto_enable_flags[CRYPTO_OPTIONS] = {1};
+  static int crypto_enable_flags[CRYPTO_OPTIONS] = {1,1,1,1,1,1,1,1};
   static struct option long_optoins[]={
     { "verbose",       no_argument,        &long_verbose_flag,          1},
-    { "crypto",        required_argument,  &long_crypto_usermode_flag,  1},
+    { "crypto",        no_argument,  &long_crypto_usermode_flag,  1},
     { "help",          no_argument,        0,                           'h'},
     { "background",    no_argument,        0,                           'd'},
     { "port",          required_argument,  0,                           'p'},
@@ -77,7 +77,9 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       arg_->v = 1;
       break;
     case 'h':
-      display_help(argv[0]);
+      if(!long_crypto_usermode_flag){
+	display_help(argv[0]);
+      }else{crypto_enable_flags[3] = 7; }
       break;
     case 'd':
       arg_->d = 1;
@@ -91,7 +93,9 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
-    for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++) uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
+    for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
+      uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
+    }
     printf("%d \n", uniq_functionpointer_identifier);
   }
 #ifdef _DEBUG
