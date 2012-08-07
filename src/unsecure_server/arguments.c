@@ -35,7 +35,7 @@ void display_help(char *prog_name){
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt = 0;
   int option_index = 0;
-  int uniq_functionpointer_identifier = 0;
+  int uniq_functionpointer_identifier = 1;
   static int long_verbose_flag = 0;
   static int long_crypto_usermode_flag = 0;
   static int long_help_flag = 0;
@@ -91,7 +91,8 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
-    for(option_index = 0; i < CRYPTO_OPTIONS; i++) uniq_functionpointer_identifier *= crypto_enable_flags[i];
+    for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++) uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
+    printf("%d \n", uniq_functionpointer_identifier);
   }
 #ifdef _DEBUG
   printf("file argument    : %d \n", arg_->f);
