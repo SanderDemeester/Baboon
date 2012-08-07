@@ -12,13 +12,8 @@ struct arguments{
   int d; //go in brackground
 };
 typedef struct{
-  int arg1;
-  int arg2;
-}arguments;
-
-typedef struct{
   int value;
-  void (*function_pointer)(arguments*);
+  void (*function_pointer)(int argc, char** argv);
 }argument_block;
 
 void parse_arguments(int argc, char *argv[],struct arguments* ar);
