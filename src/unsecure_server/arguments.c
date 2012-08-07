@@ -66,6 +66,8 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++)
     crypto_handlers[option_index] = (argument_block*) malloc(sizeof(argument_block));
   init_function_pointer(crypto_handlers);
+  
+  printf("%d \n", crypto_handlers[0]->value);
   opt = getopt_long(argc, argv, "f:p:vdc:he::d::", long_optoins, &option_index);
   while(opt != -1){
     switch(opt){
@@ -106,9 +108,11 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
+   
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
-      if(crypto_handlers[option_index]->value = uniq_functionpointer_identifier)
+      if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
     	crypto_handlers[option_index]->function_pointer(NULL,NULL);
+      }
     }
   }
 #ifdef _DEBUG
