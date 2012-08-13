@@ -91,6 +91,15 @@ static void substract(huge *huge1, huge *huge2){
 void multiply(huge* huge1, huge* huge2){
   unsigned char mask;
   unsigned int i;
+  huge temp;
+  
+  set_huge(&temp, 0);
+  copy_huge(&temp, huge1);
+  
+  i = huge2->size;
+  do{
+  }while(i);
+  
 }
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
