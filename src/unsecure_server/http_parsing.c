@@ -14,6 +14,7 @@ void *process_http_request(int *connection_socket){
   if(close(*connection_socket) == -1){
     perror("Unable to close connection");
   }
+  return 0;
 }
 
 void build_error_response(int connection_socket, int http_reponse_code){

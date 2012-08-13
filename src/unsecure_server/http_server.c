@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
   if(argc > 1){
     parse_arguments(argc,argv,&ar);
     
-    if(ar.p == 1) port = ar.port;      // use port provided from cli
+    if(ar.p == 1) port = &ar.port;      // use port provided from cli
   }
   if(ar.f == 0){
     ar.file_directory=get_current_dir_name();
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   local_addr.sin_family = AF_INET;
-  if(ar.p == 1) local_addr.sin_port = htons(atoi(ar.port));
+  if(ar.p == 1) local_addr.sin_port = (int)htons(atoi(ar.port));
   else local_addr.sin_port = htons(HTTP_PORT);
   local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 

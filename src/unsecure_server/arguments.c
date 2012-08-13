@@ -44,7 +44,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   argument_block **crypto_handlers = (argument_block**) malloc(sizeof(argument_block*)*CRYPTO_OPTIONS);
   static int long_verbose_flag = 0;
   static int long_crypto_usermode_flag = 0;
-  static int long_help_flag = 0;
+  //static int long_help_flag = 0;
   static int crypto_enable_flags[CRYPTO_OPTIONS] = {1,1,1,1,1,1,1,1};
   static struct option long_optoins[]={
     { "verbose",       no_argument,        &long_verbose_flag,          1},

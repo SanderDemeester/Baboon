@@ -4,7 +4,7 @@ struct arguments{
   int f; //file argument enable
   char *file_directory; //argument
   int p; //port argument enable
-  int *port; //port
+  int port; //port
   int v; //verbose
   int c; //config file
   char *configfile;
