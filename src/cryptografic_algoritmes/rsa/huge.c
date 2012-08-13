@@ -85,6 +85,10 @@ static void substract(huge *huge1, huge *huge2){
   }
   remove_unused_lsb(huge1);
 }
+/********************************************************/
+/* Multiply huge1, huge2 overwriting the value of huge1 */
+/********************************************************/
+void multiply(huge* huge1, huge* huge2);
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
 /*******************************************************************/
