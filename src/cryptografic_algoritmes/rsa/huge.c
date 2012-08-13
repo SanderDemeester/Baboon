@@ -85,3 +85,15 @@ static void substract(huge *huge1, huge *huge2){
   }
   remove_unused_lsb(huge1);
 }
+/*******************************************************************/
+/* remove unused bits in left most handside of the binary sequence */
+/*******************************************************************/
+remove_unused_lsb(huge* h){
+  int i = 0;
+  while(!(h->rep[i]) && (i < h->size)) i++;
+  if(i && i < h->size){
+    unsigned char *temp = &h->rep[i];
+    h->rep = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
+    memcpy(h->rep,temp, h->size-i);
+  }
+}
