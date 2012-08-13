@@ -85,3 +85,31 @@ static void substract(huge *huge1, huge *huge2){
   }
   remove_unused_lsb(huge1);
 }
+/********************************************************/
+/* Multiply huge1, huge2 overwriting the value of huge1 */
+/********************************************************/
+void multiply(huge* huge1, huge* huge2){
+  unsigned char mask;
+  unsigned int i;
+  huge temp;
+  
+  set_huge(&temp, 0);
+  copy_huge(&temp, huge1);
+  
+  i = huge2->size;
+  do{
+  }while(i);
+  
+}
+/*******************************************************************/
+/* remove unused bits in left most handside of the binary sequence */
+/*******************************************************************/
+remove_unused_lsb(huge* h){
+  int i = 0;
+  while(!(h->rep[i]) && (i < h->size)) i++;
+  if(i && i < h->size){
+    unsigned char *temp = &h->rep[i];
+    h->rep = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
+    memcpy(h->rep,temp, h->size-i);
+  }
+}

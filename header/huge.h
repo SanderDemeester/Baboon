@@ -19,3 +19,18 @@ void expaned(huge *huge1);
 /* remove then and resize h appropriately			   */
 /*******************************************************************/
 void remove_unused_lsb(huge *h);
+
+/********************************************************/
+/* Multiply huge1, huge2 overwriting the value of huge1 */
+/********************************************************/
+void multiply(huge* huge1, huge* huge2);
+
+/**************************/
+/* copy int to byte array */
+/**************************/
+void set_huge(huge *h, unsigned int value);
+
+/*********************/
+/* copy huge to hyge */
+/*********************/
+void copy_huge(huge *target, huge *source);
