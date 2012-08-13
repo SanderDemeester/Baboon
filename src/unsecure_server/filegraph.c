@@ -168,6 +168,7 @@ int construct_graph(char *root){
   #ifndef _DEBUG
   //printf("%d \n",filestructure_start->fp_exist_element("index.html",filestructure_start));
   #endif
+  return 0;
 }
 
 /*************************/

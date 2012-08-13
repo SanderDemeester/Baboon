@@ -8,7 +8,7 @@ void build_succes_response(int connection_socket);
 void *process_http_request(int *connection_socket);
 char *read_line(int connection_socket);
 
-typedef struct http_header{
+typedef struct {
   char *accept_header; /*Accept new incoming connection*/
   char *accept_charset; /*specify */
   char *accept_encoding;
@@ -40,6 +40,6 @@ typedef struct http_header{
   char *user_agent;
   char *via;
   char *warning;
-};
+}http_header;
 
 #endif
