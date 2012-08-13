@@ -19,3 +19,8 @@ void expaned(huge *huge1);
 /* remove then and resize h appropriately			   */
 /*******************************************************************/
 void remove_unused_lsb(huge *h);
+
+/********************************************************/
+/* Multiply huge1, huge2 overwriting the value of huge1 */
+/********************************************************/
+void multiply(huge* huge1, huge* huge2);
