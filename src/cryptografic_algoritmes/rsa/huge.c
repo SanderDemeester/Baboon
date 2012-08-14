@@ -89,7 +89,7 @@ static void substract(huge *huge1, huge *huge2){
 /* Multiply huge1, huge2 overwriting the value of huge1 */
 /********************************************************/
 void multiply(huge* huge1, huge* huge2){
-  unsigned char mask;
+  unsigned char mask = 0x01;
   unsigned int i;
   huge temp;
   
@@ -98,6 +98,9 @@ void multiply(huge* huge1, huge* huge2){
   
   i = huge2->size;
   do{
+    i--;
+    for(;;mask <<= 1){
+    }
   }while(i);
   
 }
