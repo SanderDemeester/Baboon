@@ -100,6 +100,9 @@ void multiply(huge* huge1, huge* huge2){
   do{
     i--;
     for(;;mask <<= 1){
+      if(mask & huge2->representation[i]){
+	//need shift
+      }
     }
   }while(i);
   
@@ -112,7 +115,7 @@ remove_unused_lsb(huge* h){
   while(!(h->rep[i]) && (i < h->size)) i++;
   if(i && i < h->size){
     unsigned char *temp = &h->rep[i];
-    h->rep = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
+    h->representation = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
     memcpy(h->rep,temp, h->size-i);
   }
 }
