@@ -104,7 +104,6 @@ void multiply(huge* huge1, huge* huge2){
 	add(huge1, &temp);
       }
 	//need shift
-      }
     }
   }while(i);
   
