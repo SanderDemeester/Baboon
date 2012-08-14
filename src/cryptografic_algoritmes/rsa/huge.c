@@ -101,6 +101,8 @@ void multiply(huge* huge1, huge* huge2){
     i--;
     for(;;mask <<= 1){
       if(mask & huge2->representation[i]){
+	add(huge1, &temp);
+      }
 	//need shift
       }
     }
