@@ -150,3 +150,5 @@ void free_huge(huge *n){
     free(n->representation);
   }
 }
+void set_huge(huge *huge, unsigned int val){
+}
