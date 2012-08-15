@@ -122,6 +122,18 @@ remove_unused_lsb(huge* h){
   }
 }
 void left_shift(huge *huge1){
+  int i = huge1->size;
+  int old_carry = 0;
+  int carry = 0;
+  do{
+    i--;
+    old_carry = carry;
+    carry = (huge1->representation[i] & 0x80) == 0x80; //0x80 -> 128, the representation is unsigned
+    huge1->representation[i] = (huge1->representation[i] << 1) | old_carry; //shift and or carry
+  }while(i);
+  if(carry){
+    expand(huge1); 
+  }
 }
 
 void copy_huge(huge *target, huge *source){
