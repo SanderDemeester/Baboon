@@ -120,3 +120,5 @@ remove_unused_lsb(huge* h){
     memcpy(h->rep,temp, h->size-i);
   }
 }
+void left_shift(huge *huge1){
+}
