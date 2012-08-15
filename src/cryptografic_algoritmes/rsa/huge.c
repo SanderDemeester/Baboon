@@ -103,7 +103,7 @@ void multiply(huge* huge1, huge* huge2){
       if(mask & huge2->representation[i]){
 	add(huge1, &temp);
       }
-	//need shift
+      left_shift(&temp);
     }
   }while(i);
   
@@ -122,3 +122,6 @@ remove_unused_lsb(huge* h){
 }
 void left_shift(huge *huge1){
 }
+
+void copy_huge(huge *target, huge *source){}
+void free_huge(huge *n){}
