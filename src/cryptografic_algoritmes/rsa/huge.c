@@ -133,4 +133,8 @@ void copy_huge(huge *target, huge *source){
   memcpy(target->representation, source->representation, (source->size * sizeof(unsigned char)));
       
 }
-void free_huge(huge *n){}
+void free_huge(huge *n){
+  if(n->representation){
+    free(n->representation);
+  }
+}
