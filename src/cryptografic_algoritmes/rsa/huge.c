@@ -151,4 +151,7 @@ void free_huge(huge *n){
   }
 }
 void set_huge(huge *huge, unsigned int val){
+  unsigned int mask;
+  unsigned int i;
+  unsigned int shift;
 }
