@@ -151,7 +151,18 @@ void free_huge(huge *n){
   }
 }
 void set_huge(huge *huge, unsigned int val){
-  unsigned int mask;
-  unsigned int i;
-  unsigned int shift;
+  unsigned int mask = 0xFF000000;
+  unsigned int i = 0;
+  unsigned int shift = 0;
+  
+  huge->size = 4; //4 bytes
+
+  /**************************************************************/
+  /* we will go in steps of 1 byte masking off the value        */
+  /*   to find what the minimum size will be. We leave at least */
+  /*   1 byte over					        */
+  /**************************************************************/
+  for(; mask > 0x000000FF; mask >>=8){
+  }
+  
 }
