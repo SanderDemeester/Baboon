@@ -163,6 +163,8 @@ void set_huge(huge *huge, unsigned int val){
   /*   1 byte over					        */
   /**************************************************************/
   for(; mask > 0x000000FF; mask >>=8){
+    if(val & mask) break;
+    h->size--;
   }
   
 }
