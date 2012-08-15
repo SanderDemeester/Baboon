@@ -124,5 +124,13 @@ remove_unused_lsb(huge* h){
 void left_shift(huge *huge1){
 }
 
-void copy_huge(huge *target, huge *source){}
+void copy_huge(huge *target, huge *source){
+  if(target->representation){
+    free(target->representation);
+  }
+  target->size = source->size;
+  target->representation = (unsigned char*) calloc(source->size, sizeof(unsigned char));
+  memcpy(target->representation, source->representation, (source->size * sizeof(unsigned char)));
+      
+}
 void free_huge(huge *n){}
