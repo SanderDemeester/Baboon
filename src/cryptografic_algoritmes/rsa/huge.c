@@ -95,6 +95,7 @@ void multiply(huge* huge1, huge* huge2){
   
   set_huge(&temp, 0);
   copy_huge(&temp, huge1);
+  set_huge(huge1, 0);
   
   i = huge2->size;
   do{
