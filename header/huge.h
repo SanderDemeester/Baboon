@@ -34,3 +34,23 @@ void set_huge(huge *h, unsigned int value);
 /* copy huge to hyge */
 /*********************/
 void copy_huge(huge *target, huge *source);
+
+/*******************************************************************/
+/* remove unused bits in left most handside of the binary sequence */
+/*******************************************************************/
+void remove_unused_lsb(huge* h);
+
+/*******************************************************/
+/* keep track of the overflow bit and expand if needed */
+/*******************************************************/
+void left_shift(huge *huge1);
+
+/****************/
+/* freeing huge */
+/****************/
+void free_huge(huge *n);
+
+/*******************************/
+/* Copy an int to a byte array */
+/*******************************/
+void set_huge(huge *huge, unsigned int val);

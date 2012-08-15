@@ -112,7 +112,7 @@ void multiply(huge* huge1, huge* huge2){
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
 /*******************************************************************/
-remove_unused_lsb(huge* h){
+void remove_unused_lsb(huge* h){
   int i = 0;
   while(!(h->rep[i]) && (i < h->size)) i++;
   if(i && i < h->size){
