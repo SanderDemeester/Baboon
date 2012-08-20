@@ -10,6 +10,7 @@ struct arguments{
   char *configfile;
   int crypt; //switch to usermode crypto function
   int d; //go in brackground
+  int s; //suspress constructing graph
 };
 typedef struct{
   int value;

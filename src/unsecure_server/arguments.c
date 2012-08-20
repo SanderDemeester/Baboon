@@ -26,16 +26,17 @@ void display_help(char *prog_name){
 
 void init_function_pointer(argument_block** crypto_handlers);
 
- /******************************/
- /*  Possible options for now: */
- /* -d: backgrond	       */
- /* -f: load html files from   */
- /* -v: verbose		       */
- /* -p: port override	       */
- /* -f: file directory	       */
- /* -c: config file	       */
- /* -crypt: usermode crypto    */
- /******************************/
+/*********************************/
+ /*  Possible options for now:   */
+ /* -d: backgrond	         */
+ /* -f: load html files from     */
+ /* -v: verbose		         */
+ /* -p: port override	         */
+ /* -f: file directory	         */
+ /* -c: config file	         */
+ /* -crypt: usermode crypto      */
+ /* -s: suspres construcing graph*/
+ /********************************/
 
 void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   int opt = 0;
@@ -71,7 +72,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   init_function_pointer(crypto_handlers);
   option_index=0;
 
-  opt = getopt_long(argc, argv, "f:p:vdc:he::d::", long_optoins, &option_index);
+  opt = getopt_long(argc, argv, "sf:p:vdc:he::d::", long_optoins, &option_index);
 
   while(opt != -1){
     switch(opt){
@@ -96,6 +97,8 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
       }else{
 	crypto_enable_flags[3] = 7; 
       }
+    case 's':
+      arg_->s = 1;
       break;
     case 'd':
       arg_->d = 1;
@@ -105,7 +108,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
 	break;
       }
     }
-    opt = getopt_long(argc, argv, "f:p:vdc:he::d::", long_optoins, &option_index);
+    opt = getopt_long(argc, argv, "sf:p:vdc:he::d::", long_optoins, &option_index);
   }
 
   if(long_crypto_usermode_flag){
