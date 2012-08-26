@@ -36,7 +36,7 @@ void add(huge *huge1, huge* huge2){
     }else{
       sum = huge1->representation[i] + carry;
     }
-    carry = sum > 0xFF; //shift byte in
+    carry = sum > 0xFF; //bigger then FF? whut? well.. yes.
     huge1->representation[i] = sum;
   }while(i);
   if(carry){
