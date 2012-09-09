@@ -119,6 +119,7 @@ void remove_unused_lsb(huge* h){
     unsigned char *temp = &h->rep[i];
     h->representation = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
     memcpy(h->rep,temp, h->size-i);
+    h->size-=1;
   }
 }
 void left_shift(huge *huge1){
