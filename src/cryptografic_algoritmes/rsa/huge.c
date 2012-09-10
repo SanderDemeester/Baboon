@@ -114,11 +114,11 @@ void multiply(huge* huge1, huge* huge2){
 /*******************************************************************/
 void remove_unused_lsb(huge* h){
   int i = 0;
-  while(!(h->rep[i]) && (i < h->size)) i++;
+  while(!(h->representation[i]) && (i < h->size)) i++;
   if(i && i < h->size){
-    unsigned char *temp = &h->rep[i];
+    unsigned char *temp = &h->representation[i];
     h->representation = (unsigned char*) calloc(h->size - i, sizeof(unsigned char));
-    memcpy(h->rep,temp, h->size-i);
+    memcpy(h->representation,temp, h->size-i);
     h->size-=1;
   }
 }
