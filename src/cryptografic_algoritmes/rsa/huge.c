@@ -165,7 +165,7 @@ void set_huge(huge *huge, unsigned int val){
   /**************************************************************/
   for(; mask > 0x000000FF; mask >>=8){
     if(val & mask) break;
-    h->size--;
+    huge->size--;
   }
   
 }
