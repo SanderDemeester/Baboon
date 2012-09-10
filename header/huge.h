@@ -13,7 +13,7 @@ void add(huge *huge1, huge* huge2);
 /**********************/
 /* expand huge struct */
 /**********************/
-void expaned(huge *huge1);
+void expand(huge *huge1);
 /*******************************************************************/
 /* Go through h and see how many of the lest-most bytes are unused */
 /* remove then and resize h appropriately			   */

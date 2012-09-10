@@ -48,7 +48,7 @@ void add(huge *huge1, huge* huge2){
 /**********************/
 /* expand huge struct */
 /**********************/
-void expaned(huge *huge1){
+void expand(huge *huge1){
   unsigned char *temp = huge1->representation;
   huge1->size++;
   huge1->representation = (unsigned char*) calloc(huge1->size, sizeof(unsigned char));
