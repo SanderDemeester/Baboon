@@ -2,14 +2,13 @@
 #define HTTP_PARSING_HEADER
 #define LINE_SIZE 255
 #define HTTP_RESPONSE_BUF 255
-#define NULL 0
 #include <time.h>
 void build_error_response(int connection_socket, int http_reponse_code);
 void build_succes_response(int connection_socket);
 void *process_http_request(int *connection_socket);
 char *read_line(int connection_socket);
 
-typedef struct http_header{
+typedef struct {
   char *accept_header; /*Accept new incoming connection*/
   char *accept_charset; /*specify */
   char *accept_encoding;
@@ -41,6 +40,6 @@ typedef struct http_header{
   char *user_agent;
   char *via;
   char *warning;
-};
+}http_header;
 
 #endif

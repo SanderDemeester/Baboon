@@ -26,7 +26,9 @@ int main(int argc, char *argv[]){
     ar.file_directory=get_current_dir_name();
     ar.file_directory[strlen(ar.file_directory)]='/';
   }
-  construct_graph(ar.file_directory);
+  if(ar.s){
+    construct_graph(ar.file_directory);
+  }
   
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);

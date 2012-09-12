@@ -11,7 +11,6 @@
 -1 not a directory
 **/
 document_unit* links(htmlNodePtr htm_node){
-  int skip = 1; //skip if dependency is not in same-origin as current context
   htmlNodePtr node = NULL;
   //  xmlAttrPtr attr = NULL;
   xmlAttribute *attr = NULL;
@@ -169,6 +168,7 @@ int construct_graph(char *root){
   #ifndef _DEBUG
   //printf("%d \n",filestructure_start->fp_exist_element("index.html",filestructure_start));
   #endif
+  return 0;
 }
 
 /*************************/
@@ -177,7 +177,6 @@ int construct_graph(char *root){
  
 int exist_element(char *file_path,struct context_unit* filestructure_start){
       int i,j;
-      int number_of_links;
       for(i = 0;i < filestructure_start->number_of_units; i++){
       if(strcmp(file_path,filestructure_start->entry_point[i].path) == 0){
 #ifdef _DEBUG
