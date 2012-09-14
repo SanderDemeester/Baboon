@@ -110,6 +110,13 @@ void multiply(huge* huge1, huge* huge2){
   }while(i);
   
 }
+/*************************************/
+/* Divide			     */
+/* note: diviser will be destroyed   */
+/* note: quotient will be overwriten */
+/*************************************/
+void divide(huge *divid, huge *divisor, huge *quotient){
+}
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
 /*******************************************************************/

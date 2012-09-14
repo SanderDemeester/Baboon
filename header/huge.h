@@ -54,3 +54,10 @@ void free_huge(huge *n);
 /* Copy an int to a byte array */
 /*******************************/
 void set_huge(huge *huge, unsigned int val);
+
+/*************************************/
+/* Divide			     */
+/* note: diviser will be destroyed   */
+/* note: quotient will be overwriten */
+/*************************************/
+void divide(huge *divid, huge *divisor, huge *quotient);
