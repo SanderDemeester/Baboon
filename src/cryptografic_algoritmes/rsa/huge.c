@@ -133,7 +133,7 @@ void left_shift(huge *huge1){
     carry = (huge1->representation[i] & 0x80) == 0x80; //0x80 -> 128, the representation is unsigned
     huge1->representation[i] = (huge1->representation[i] << 1) | old_carry; //shift and or carry
   }while(i);
-  if(carry){
+  if(carry){ //we need to keep track when there is overflow
     expand(huge1); 
   }
 }
