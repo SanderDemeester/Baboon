@@ -170,4 +170,14 @@ void set_huge(huge *huge, unsigned int val){
   
   huge->representation = (unsigned char *)malloc(huge->size);
   
+  /****************************************************/
+  /* work through the representation masking off 8bit */
+  /****************************************************/
+  
+  mask = 0x000000FF;
+  shift = 0;
+  for(i = huge->size;i;i--){
+    huge->representation[i-1] = (val & mask) >> shift;
+  }
+  
 }
