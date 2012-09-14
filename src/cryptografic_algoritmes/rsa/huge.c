@@ -178,6 +178,8 @@ void set_huge(huge *huge, unsigned int val){
   shift = 0;
   for(i = huge->size;i;i--){
     huge->representation[i-1] = (val & mask) >> shift;
+    mask <<= 8;
+    shift +=8;
   }
   
 }
