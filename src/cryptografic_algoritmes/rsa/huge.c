@@ -116,6 +116,23 @@ void multiply(huge* huge1, huge* huge2){
 /* note: quotient will be overwriten */
 /*************************************/
 void divide(huge *divid, huge *divisor, huge *quotient){
+  int size = 0;  
+  int bit_p = 0; //keep track witch bit in quotient is being handeld
+  
+  //>=
+  while(compare(divisor, divid) < 0){
+    left_shift(divisor);
+    size++;
+  }
+
+  quotient->size = (size/8)+1;
+  quotient->representation = (unsigned char*) calloc(quotient->size, sizeof(unsigned char));
+  memset(quotient->representation,0,quotient->size);
+  
+  bit_p = 8 - (size % 8) - 1;
+  do{
+    
+  }while(1);
 }
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
