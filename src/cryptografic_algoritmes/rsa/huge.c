@@ -168,4 +168,6 @@ void set_huge(huge *huge, unsigned int val){
     huge->size--;
   }
   
+  huge->representation = (unsigned char *)malloc(huge->size);
+  
 }
