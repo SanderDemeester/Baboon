@@ -1,6 +1,8 @@
 CC=gcc
 SRC=src
 CRYPT_SOURCE=$(SRC)/cryptografic_algoritmes
+UNS_SERVER=$(SRC)/unsecure_server
+UNS_CLIENT=$(SRC)/unsecure_client
 CFLAGS=-Wimplicit-function-declaration -std=c99
 NAME=baboon
 builddir=build/
