@@ -93,6 +93,7 @@ void multiply(huge* huge1, huge* huge2){
   unsigned int i;
   huge temp;
   
+  //huge temp is on the stack and filled with garbage, that is way we have two calls
   set_huge(&temp, 0);
   copy_huge(&temp, huge1);
   set_huge(huge1, 0);
