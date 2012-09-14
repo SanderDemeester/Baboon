@@ -131,8 +131,15 @@ void divide(huge *divid, huge *divisor, huge *quotient){
   
   bit_p = 8 - (size % 8) - 1;
   do{
-    
-  }while(1);
+    if(compare(divisor, divid) <= 0){
+      substract(divid, divisor); //divid -= divisor
+      quotient->representation[(int)(bit_p / 8)] |= (0x80 >> (bit_p % 8));
+    }
+    if(size){
+      right_shift(divisor);
+    }
+    bit_p++;
+  }while(size--);
 }
 /*******************************************************************/
 /* remove unused bits in left most handside of the binary sequence */
@@ -146,6 +153,9 @@ void remove_unused_lsb(huge* h){
     memcpy(h->representation,temp, h->size-i);
     h->size-=1;
   }
+}
+
+void right_shift(huge *h){
 }
 void left_shift(huge *huge1){
   int i = huge1->size;
@@ -207,4 +217,7 @@ void set_huge(huge *huge, unsigned int val){
     shift +=8;
   }
   
+}
+int compare(huge *h1, huge *h2){
+  return 0; //stub
 }

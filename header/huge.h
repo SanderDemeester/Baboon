@@ -44,6 +44,7 @@ void remove_unused_lsb(huge* h);
 /* keep track of the overflow bit and expand if needed */
 /*******************************************************/
 void left_shift(huge *huge1);
+void right_shift(huge *h);
 
 /****************/
 /* freeing huge */
@@ -61,3 +62,4 @@ void set_huge(huge *huge, unsigned int val);
 /* note: quotient will be overwriten */
 /*************************************/
 void divide(huge *divid, huge *divisor, huge *quotient);
+int compare(huge *h1, huge *h2);
