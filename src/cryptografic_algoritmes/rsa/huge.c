@@ -218,6 +218,9 @@ void set_huge(huge *huge, unsigned int val){
   }
   
 }
+//0 if equal
+//+n if h1>h2
+//-n if h1<h2
 int compare(huge *h1, huge *h2){
   return 0; //stub
 }
