@@ -222,5 +222,11 @@ void set_huge(huge *huge, unsigned int val){
 //+n if h1>h2
 //-n if h1<h2
 int compare(huge *h1, huge *h2){
+	int i = 0;
+	int j = 0;
+	if(h1->size > h2->size)
+		return 1;
+	if(h1->size < h2->size)
+		return -1;
   return 0; //stub
 }
