@@ -228,5 +228,14 @@ int compare(huge *h1, huge *h2){
 		return 1;
 	if(h1->size < h2->size)
 		return -1;
-  return 0; //stub
+	while(h1->representation[i] < h2->representation[j]){
+		if(h1-representation[i] < h2->representation[j])
+			return -1;
+		else if(h1->representation[i] < h2->representation[j])
+			return 1;
+		j++;
+		i++;
+	}
+
+  return 0; //equal
 }
