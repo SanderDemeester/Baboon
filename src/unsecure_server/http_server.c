@@ -22,6 +22,7 @@ int main(int argc, char *argv[]){
     
     if(ar.p == 1)
     	port = ar.port;      // use port provided from cli
+
   }
   if(ar.f == 0){
     ar.file_directory=get_current_dir_name();

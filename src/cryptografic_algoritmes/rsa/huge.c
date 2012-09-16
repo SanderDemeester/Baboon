@@ -156,6 +156,10 @@ void remove_unused_lsb(huge* h){
 }
 
 void right_shift(huge *h){
+	int i = 0;
+	unsigned int old_carry = 0;
+	unsigned int carry = 0;
+
 }
 void left_shift(huge *huge1){
   int i = huge1->size;
