@@ -159,7 +159,10 @@ void right_shift(huge *h){
 	int i = 0;
 	unsigned int old_carry = 0;
 	unsigned int carry = 0;
+	do{
 
+	}while(++i < h->size);
+	remove_unused_lsb(h);
 }
 void left_shift(huge *huge1){
   int i = huge1->size;
