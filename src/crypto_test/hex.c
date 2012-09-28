@@ -12,15 +12,15 @@ int hex_decode( const unsigned char *input,unsigned char **decoded){
 		strcpy(*decoded, input);
 		len--;
 	}else{
-		len = (strlen(input) >> 1)-1;
-		*decoded = malloc(len);
-
-		for(i = 2; i < strlen(input); i+= 2){
-			(*decoded)[((i/2)-1)] =
-					(((input[i] <= '9') ? input[i] - '0' :
-							((tolower(input[i])) - 'a' + 10)) << 4) |
-							((input[i+1] <= '9') ? input[i+1] - '0' : ((tolower(input[i+1])) - 'a' + 10));
-		}
+	  len = (strlen(input) >> 1)-1;
+	  *decoded = malloc(len);
+	  
+	  for(i = 2; i < strlen(input); i+= 2){
+	    (*decoded)[((i/2)-1)] =
+	      (((input[i] <= '9') ? input[i] - '0' :
+		((tolower(input[i])) - 'a' + 10)) << 4) |
+	      ((input[i+1] <= '9') ? input[i+1] - '0' : ((tolower(input[i+1])) - 'a' + 10));
+	  }
 	}
 	return len;
 }
@@ -28,8 +28,8 @@ int hex_decode( const unsigned char *input,unsigned char **decoded){
 
 
 void show_hex(const unsigned char *array, int len){
-	while(len--){
-		printf("%.02x",*array++);
-	}
-	printf("\n");
+  while(len--){
+    printf("%.02x",*array++);
+  }
+  printf("\n");
 }

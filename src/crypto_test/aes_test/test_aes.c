@@ -52,9 +52,9 @@ int main(int argc, char *argv[]){
   }
 
   //free all!!!
-  free(iv);
-  free(key);
-  free(input);
+  //free(iv);
+  //free(key);
+  //  free(input);
   return 0;
 }
 
