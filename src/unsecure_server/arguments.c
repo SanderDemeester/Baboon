@@ -58,7 +58,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     { "block-cipher",  no_argument,        &crypto_enable_flags[0],      2},
     { "blockcipher",   no_argument,        &crypto_enable_flags[0],      2},
     { "stream-cipher", no_argument,        &crypto_enable_flags[1],      3},
-    { "streamcipher", no_argument,         &crypto_enable_flags[1],      3},
+    { "streamcipher",  no_argument,        &crypto_enable_flags[1],      3},
     { "list",          no_argument,        &crypto_enable_flags[2],      5},
     { "help",          no_argument,        &crypto_enable_flags[3],      7},
     { "aes",           no_argument,        &crypto_enable_flags[4],      11},
@@ -110,13 +110,11 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     }
     opt = getopt_long(argc, argv, "sf:p:vdc:he::d::", long_optoins, &option_index);
   }
-
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
-
     for(option_index = 0; option_index < CRYPTO_OPTIONS-1; option_index++){
       if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
     	crypto_handlers[option_index]->function_pointer(argc,argv);
@@ -145,5 +143,6 @@ void init_function_pointer(argument_block** crypto_handlers){
 
   crypto_handlers[6]->value = 7;
   crypto_handlers[6]->function_pointer = usermode_crypto_help;
+  
 }
 
