@@ -20,10 +20,8 @@ $(builddir)/%.o:
 all:
 	baboon
 baboon: 
-debug:
-	CC += -DDEBUG -g
-debug:
-	unsecure_server
+debug: CC += -DDEBUG -g
+debug: unsecure_server
 unsecure_client: $(OBJ_UNSECURE_CLIENT)
 	$(CC) $(OBJ_UNSECURE_CLIENT) -o http_client
 unsecure_server: $(OBJ_UNSECURE_SERVER);
