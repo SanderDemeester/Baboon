@@ -115,6 +115,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
+    printf("%d \n",uniq_functionpointer_identifier);
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
     	crypto_handlers[option_index]->function_pointer(argc,argv);
@@ -124,22 +125,22 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
   }
 }
 void init_function_pointer(argument_block** crypto_handlers){
-  crypto_handlers[0]->value = 22;
+  crypto_handlers[0]->value = PRIME_ID_USERMOD_AES;
   crypto_handlers[0]->function_pointer = usermode_aes;
 
-  crypto_handlers[1]->value = 26;
+  crypto_handlers[1]->value = PRIME_ID_USERMOD_3DES;
   crypto_handlers[1]->function_pointer = usermode_3des;
 
-  crypto_handlers[2]->value = 34;
+  crypto_handlers[2]->value = PRIME_ID_USERMOD_DES;
   crypto_handlers[2]->function_pointer = usermode_des;
 
-  crypto_handlers[3]->value = 57;
+  crypto_handlers[3]->value = PRIME_ID_USERMOD_RC4;
   crypto_handlers[3]->function_pointer = usermode_rc4;
 
-  crypto_handlers[4]->value = 10;
+  crypto_handlers[4]->value = PRIME_ID_USERMOD_LIST_BLOCKCIPHER;
   crypto_handlers[4]->function_pointer = usermode_list_blockcipher;
 
-  crypto_handlers[5]->value = 15;
+  crypto_handlers[5]->value = PRIME_ID_USERMOD_LIST_STREAMCIPHER;
   crypto_handlers[5]->function_pointer = usermode_list_streamcipher;
 
   crypto_handlers[6]->value = PRIME_ID_CRYPTO_HELP;
