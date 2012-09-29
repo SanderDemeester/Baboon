@@ -115,7 +115,7 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
-    for(option_index = 0; option_index < CRYPTO_OPTIONS-1; option_index++){
+    for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
     	crypto_handlers[option_index]->function_pointer(argc,argv);
 	exit(0); //stop executing proces
@@ -142,8 +142,11 @@ void init_function_pointer(argument_block** crypto_handlers){
   crypto_handlers[5]->value = 15;
   crypto_handlers[5]->function_pointer = usermode_list_streamcipher;
 
-  crypto_handlers[6]->value = 7;
+  crypto_handlers[6]->value = PRIME_ID_CRYPTO_HELP;
   crypto_handlers[6]->function_pointer = usermode_crypto_help;
+
+  crypto_handlers[7]->value = 1;
+  crypto_handlers[7]->function_pointer = usermode_crypto_help;
   
 }
 

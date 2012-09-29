@@ -1,4 +1,5 @@
 #define _USERMODE_CRYPTO_MANAGEMENT
+#define PRIME_ID_CRYPTO_HELP 7
 void usermode_aes(int argc, char** argv);
 void usermode_rc4(int argc, char** argv);
 void usermode_des(int argc, char** argv);
