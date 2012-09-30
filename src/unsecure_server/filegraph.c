@@ -126,7 +126,7 @@ int dir_re(const char *path, context_unit *filestructure_start){
        construct_dependency(path_file,listing,filestructure_start); 
     }
   }
-  closedir(root_d);
+  return closedir(root_d);
 }
 
 int construct_graph(char *root){
