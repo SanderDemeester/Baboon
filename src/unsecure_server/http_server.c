@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   local_addr.sin_family = AF_INET;
-  if(ar.p == 1) local_addr.sin_port = htons((atoi(ar.port)));
+  if(ar.p == 1) local_addr.sin_port = htons((atoi((char*)ar.port)));
   else local_addr.sin_port = htons(HTTP_PORT);
   local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
