@@ -5,7 +5,7 @@
 #include <time.h>
 void build_error_response(int connection_socket, int http_reponse_code);
 void build_succes_response(int connection_socket);
-void *process_http_request(int *connection_socket);
+void process_http_request(int *connection_socket);
 char *read_line(int connection_socket);
 
 typedef struct {
