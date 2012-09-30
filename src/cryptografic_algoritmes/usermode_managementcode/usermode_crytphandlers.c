@@ -27,7 +27,7 @@ void usermode_crypto_help(int argc, char** argv){
   printf("%s \n", "USERMOD CRYPTO HELP SECTION");
   printf("Crypto flag options\n");
   printf("--crypto [--block-cipher]|[--stream-cipher]:\t\t use block-cipher protocols or stream-cipher protocols\n");
-  printf("--block-cipher [--list\]: \t\t\t\t list all available block ciphers in this section of crypto-ciphers\n");
-  printf("--stream-cipher [--list]\: \t\t\t\t list all avaiabale stream ciphers in this section of crypto-ciphers\n");
+  printf("--block-cipher  [--list]: \t\t\t\t list all available block ciphers in this section of crypto-ciphers\n");
+  printf("--stream-cipher [--list]: \t\t\t\t list all avaiabale stream ciphers in this section of crypto-ciphers\n");
   exit(0);
 }
