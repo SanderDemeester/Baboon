@@ -21,7 +21,8 @@ int main(int argc, char *argv[]){
     parse_arguments(argc,argv,&ar);
     
     if(ar.p == 1)
-    	port = ar.port;      // use port provided from cli
+      port = *ar.port;      // use port provided from cli
+
 
   }
   if(ar.f == 0){
