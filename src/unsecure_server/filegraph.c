@@ -61,7 +61,7 @@ void construct_dependency(char *path_file, struct dirent* listing, context_unit 
   /* 1 = relax parsing 		        */
   /****************************************/
   
-  html_document = htmlReadFile((xmlChar*)path_file,NULL,97);
+  html_document = htmlReadFile(path_file,NULL,97);
 #ifdef _DEBUG
   printf("starting to check: %s \n",path_file);
 #endif
