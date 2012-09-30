@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
       perror("Max connections limit is reached, wont accespt any more connections");
     }else{
     thread_return[thread_index++] = pthread_create (&threads[thread_index-1],
-						    NULL,process_http_request,&connection_socket);
+						    NULL,(void*)process_http_request,&connection_socket);
     }
   }
   if(connection_socket == -1){
