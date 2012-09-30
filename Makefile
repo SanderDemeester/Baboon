@@ -24,7 +24,7 @@ debug: CC += -DDEBUG -g
 debug: unsecure_server
 unsecure_client: $(OBJ_UNSECURE_CLIENT)
 	$(CC) $(OBJ_UNSECURE_CLIENT) -o http_client
-unsecure_server: $(OBJ_UNSECURE_SERVER);
+unsecure_server: $(OBJ_UNSECURE_SERVER)
 	$(CC) $(CFLAGS) $(OBJ_UNSECURE_SERVER) -lpthread -lxml2 -lm -o http_server 
 test_des: $(OBJ_DES_TEST)
 	$(CC) $(OBJ_DES_TEST) -o test_des
