@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
   pthread_t *threads = (pthread_t *)malloc(sizeof(pthread_t)*MAX_CONNECTIONS);
   int *thread_return = (int *)malloc(sizeof(int)*MAX_CONNECTIONS);
 
-  int client_addr_len = sizeof(client_addr);
+  unsigned int client_addr_len = sizeof(client_addr);
   if(ar.v==1) printf("%s \n","setting up socket...");
   if((listen_socket = socket(PF_INET,SOCK_STREAM,0)) == -1){
     perror("Unable te create listen socket");
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
     exit(0);
   }
   local_addr.sin_family = AF_INET;
-  if(ar.p == 1) local_addr.sin_port = htons(atoi(ar.port));
+  if(ar.p == 1) local_addr.sin_port = htons((atoi(ar.port)));
   else local_addr.sin_port = htons(HTTP_PORT);
   local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 

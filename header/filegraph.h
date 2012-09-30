@@ -59,4 +59,5 @@ typedef struct document_graph{
 } document_graph;
 
 int exist_element(char *,struct context_unit*);
+int construct_graph(char *root);
 void enumerate_file_graph(struct context_unit*);
