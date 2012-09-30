@@ -23,7 +23,7 @@ document_unit* links(htmlNodePtr htm_node){
     if(node->type == XML_ELEMENT_NODE){
       if(xmlStrcasecmp(node->name,(const xmlChar*)"A") == 0 ||
 	 xmlStrcasecmp(node->name,(const xmlChar*)"LINK") == 0){
-	for(attr = node->properties; attr != NULL; attr = attr->next){
+	for(attr = (xmlAttribute*)node->properties; attr != NULL; attr = (xmlAttribute*)attr->next){
 	  if(xmlStrcasecmp(attr->name, (const xmlChar*)"HREF") == 0){
 	    //need to check if the depending document is in the same origin.
 	    strncpy(URN_https,(char*)attr->children->content+0,8);
