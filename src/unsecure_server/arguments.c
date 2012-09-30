@@ -115,7 +115,9 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
+    #ifdef debug
     printf("%d \n",uniq_functionpointer_identifier);
+    #endif
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
     	crypto_handlers[option_index]->function_pointer(argc,argv);
