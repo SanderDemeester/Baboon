@@ -6,11 +6,12 @@
 #endif
 
 void usermode_aes(int argc, char** argv){
-  int i = 4;
-  for(; i < argc; i++){
-    printf("%s \n", argv[i]);
-  }
-  printf("aes \n");
+  int offset_to_arguments = 4; //offset for arguments
+  
+  unsigned char *key = NULL;
+  unsigned char *input = NULL;
+  unsigned char *iv = NULL; 
+  
 }
 void usermode_rc4(int argc, char** argv){
   printf("rc4 \n");
