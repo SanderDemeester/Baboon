@@ -4,6 +4,8 @@
 #ifndef _GENERAL
 #include "header/general.h"
 #endif
+#include "header/hex.h"
+#include "header/aes.h"
 
 void usermode_aes(int argc, char** argv){
   int offset_to_arguments = 4; //offset for arguments
@@ -19,6 +21,8 @@ void usermode_aes(int argc, char** argv){
   if(argc-offset_to_arguments < 5){
     fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
   }
+  
+  key_len = hex_decode(argv[offset_to_arguments+2], &key);
   
 }
 void usermode_rc4(int argc, char** argv){

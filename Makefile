@@ -6,7 +6,7 @@ UNS_CLIENT=$(SRC)/unsecure_client
 CFLAGS=-Wimplicit-function-declaration -std=c99
 NAME=baboon
 builddir=build/
-OBJ_UNSECURE_SERVER=http_server.o http_parsing.o arguments.o filegraph.o usermode_crytphandlers.o
+OBJ_UNSECURE_SERVER=http_server.o http_parsing.o arguments.o filegraph.o hex.o usermode_crytphandlers.o 
 OBJ_UNSECURE_CLIENT=http.o http_command.o
 OBJ_DES=des.o 
 OBJ_AES=aes.o
@@ -42,7 +42,7 @@ http_parsing.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/unsecure_server/http_parsing.c
 arguments.o:	
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/unsecure_server/arguments.c
-usermode_crytphandlers.o:
+usermode_crytphandlers.o: 
 	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/usermode_managementcode/usermode_crytphandlers.c
 filegraph.o:
 	$(CC) $(CFLAGS) -Wall -I. -Lobject_files/ -I src/ -c $(SRC)/unsecure_server/filegraph.c
