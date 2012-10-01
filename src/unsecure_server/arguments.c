@@ -124,6 +124,8 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
 	exit(0); //stop executing proces
       }
     }
+    //geen geldige 
+    crypto_handlers[PRIME_ID_CRYPTO_HELP]->function_pointer(argc,argv);
   }
 }
 void init_function_pointer(argument_block** crypto_handlers){
