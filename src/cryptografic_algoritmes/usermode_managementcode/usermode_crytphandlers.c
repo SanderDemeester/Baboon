@@ -15,6 +15,10 @@ void usermode_aes(int argc, char** argv){
   int key_len = 0;
   int input_len = 0;
   int iv_len = 0;
+
+  if(argc-offset_to_arguments < 5){
+    fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
+  }
   
 }
 void usermode_rc4(int argc, char** argv){
