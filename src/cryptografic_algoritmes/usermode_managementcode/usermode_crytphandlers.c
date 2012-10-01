@@ -22,7 +22,9 @@ void usermode_aes(int argc, char** argv){
     fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
   }
   
-  key_len = hex_decode(argv[offset_to_arguments+2], &key);
+  key_len   = hex_decode(argv[offset_to_arguments+2], &key);
+  iv_len    = hex_decode(argv[offset_to_arguments+3], &iv);
+  input_len = hex_decode(argv[offset_to_arguments+4], &input);
   
 }
 void usermode_rc4(int argc, char** argv){
