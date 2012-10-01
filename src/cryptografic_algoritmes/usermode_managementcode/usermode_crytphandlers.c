@@ -11,6 +11,10 @@ void usermode_aes(int argc, char** argv){
   unsigned char *key = NULL;
   unsigned char *input = NULL;
   unsigned char *iv = NULL; 
+
+  int key_len = 0;
+  int input_len = 0;
+  int iv_len = 0;
   
 }
 void usermode_rc4(int argc, char** argv){
