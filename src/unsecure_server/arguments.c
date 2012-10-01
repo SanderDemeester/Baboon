@@ -108,19 +108,17 @@ void parse_arguments(int argc, char *argv[], struct arguments *arg_){
 	break;
       }
     }
-    opt = getopt_long(argc, argv, "sf:p:vdc:he::d::", long_optoins, &option_index);
+    opt = getopt_long(argc, argv, "sf:p:vdc:he::d::i:", long_optoins, &option_index);
   }
   if(long_crypto_usermode_flag){
     arg_->crypt = 1;
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       uniq_functionpointer_identifier *= crypto_enable_flags[option_index];
     }
-    #ifdef debug
     printf("%d \n",uniq_functionpointer_identifier);
-    #endif
     for(option_index = 0; option_index < CRYPTO_OPTIONS; option_index++){
       if(crypto_handlers[option_index]->value == uniq_functionpointer_identifier){
-    	crypto_handlers[option_index]->function_pointer(argc,argv);
+    	crypto_handlers[option_index]->function_pointer(argc,argv); 
 	exit(0); //stop executing proces
       }
     }

@@ -6,6 +6,10 @@
 #endif
 
 void usermode_aes(int argc, char** argv){
+  int i = 4;
+  for(; i < argc; i++){
+    printf("%s \n", argv[i]);
+  }
   printf("aes \n");
 }
 void usermode_rc4(int argc, char** argv){
