@@ -25,6 +25,10 @@ void usermode_aes(int argc, char** argv){
   key_len   = hex_decode(argv[offset_to_arguments+2], &key);
   iv_len    = hex_decode(argv[offset_to_arguments+3], &iv);
   input_len = hex_decode(argv[offset_to_arguments+4], &input);
+
+  if(!strcmp(argv[offset_to_arguments+1],"-e")){
+    //enc
+  }
   
 }
 void usermode_rc4(int argc, char** argv){
