@@ -27,7 +27,14 @@ void usermode_aes(int argc, char** argv){
   input_len = hex_decode(argv[offset_to_arguments+4], &input);
 
   if(!strcmp(argv[offset_to_arguments+1],"-e")){
-    //enc
+    unsigned char *ciphertext = (unsigned char*) malloc(input_len); //space for ciphertext
+    if(key_len == 16){
+      
+    }else if(key_len == 32){
+      
+    }else{
+      //fout
+    }
   }
   
 }
