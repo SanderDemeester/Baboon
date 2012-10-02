@@ -6,7 +6,7 @@ int hex_decode( const unsigned char *input,unsigned char **decoded){
 	int i;
 	int len;
 
-	if(strncmp( "0x",input,2)){
+	if(strncmp("0x",(char*)input,2)){
 		len = strlen(input)+1;
 		*decoded = malloc(len);
 		strcpy(*decoded, input);
