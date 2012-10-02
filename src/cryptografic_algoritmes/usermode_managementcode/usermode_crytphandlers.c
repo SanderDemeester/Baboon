@@ -29,12 +29,18 @@ void usermode_aes(int argc, char** argv){
   if(!strcmp(argv[offset_to_arguments+1],"-e")){
     unsigned char *ciphertext = (unsigned char*) malloc(input_len); //space for ciphertext
     if(key_len == 16){
-      
+
     }else if(key_len == 32){
       
     }else{
       //fout
+      fprintf(stderr, "ENCRYPT: Unsupported key length: %d\n",key_len);
+      return 2;
     }
+    show_hex(ciphertext, input_len);
+    free(ciphertext);
+  }else if(!strcmp(argv[offset_to_arguments+1],"-d")){
+    //dec
   }
   
 }
