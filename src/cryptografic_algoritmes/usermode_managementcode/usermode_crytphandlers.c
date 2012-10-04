@@ -18,15 +18,18 @@ void usermode_aes(int argc, char** argv){
   int input_len = 0;
   int iv_len = 0;
 
-  if(argc-offset_to_arguments < 5){
+  if(argc-offset_to_arguments < 4){
     fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
+    exit(-1);
   }
   
-  key_len   = hex_decode(argv[offset_to_arguments+2], &key);
-  iv_len    = hex_decode(argv[offset_to_arguments+3], &iv);
-  input_len = hex_decode(argv[offset_to_arguments+4], &input);
+  key_len   = hex_decode(argv[offset_to_arguments+1], &key);
+  iv_len    = hex_decode(argv[offset_to_arguments+2], &iv);
+  input_len = hex_decode(argv[offset_to_arguments+3], &input);
 
-  if(!strcmp(argv[offset_to_arguments+1],"-e")){
+  printf("%d \n",key_len);
+  
+  if(!strcmp(argv[offset_to_arguments],"-e")){
     unsigned char *ciphertext = (unsigned char*) malloc(input_len); //space for ciphertext
     if(key_len == 16){
       aes_128_encrypt(input, input_len, ciphertext, iv, key);
