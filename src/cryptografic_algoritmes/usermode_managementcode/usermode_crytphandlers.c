@@ -53,7 +53,7 @@ void usermode_aes(int argc, char** argv){
     show_hex(plaintext, input_len);
     free(plaintext);
   }else{
-    fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
+    //    fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
   }
   return 0;
 }
