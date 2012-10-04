@@ -29,9 +29,9 @@ void usermode_aes(int argc, char** argv){
   if(!strcmp(argv[offset_to_arguments+1],"-e")){
     unsigned char *ciphertext = (unsigned char*) malloc(input_len); //space for ciphertext
     if(key_len == 16){
-
+      aes_128_encrypt(input, input_len, ciphertext, iv, key);
     }else if(key_len == 32){
-      
+      aes_256_encrypt(input, input_len, ciphertext, iv, key);
     }else{
       //fout
       fprintf(stderr, "ENCRYPT: Unsupported key length: %d\n",key_len);
@@ -40,9 +40,22 @@ void usermode_aes(int argc, char** argv){
     show_hex(ciphertext, input_len);
     free(ciphertext);
   }else if(!strcmp(argv[offset_to_arguments+1],"-d")){
-    //dec
+    unsigned char *plaintext = (unsigned char*) malloc(input_len); 
+    if(key_len == 16){
+      aes_128_decrypt(input, input_len, plaintext, iv, key);
+    }else if(key_len == 32){
+      aes_256_decrypt(input, input_len, plaintext, iv, key);
+    }else{
+      //fout 
+      fprintf(stderr, "DECRYPT: Unsupported key length: %d\n", key_len);
+      exit(-1);
+    }
+    show_hex(plaintext, input_len);
+    free(plaintext);
+  }else{
+    fprintf(stderr, "Usage: %s %s %s %s [-e|-d] <key> <iv> <input>\n",argv[0],argv[1],argv[2],argv[3]);
   }
-  
+  return 0;
 }
 void usermode_rc4(int argc, char** argv){
   printf("rc4 \n");
