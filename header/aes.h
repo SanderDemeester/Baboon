@@ -1,5 +1,10 @@
 #define _AES_H
 #define AES_BLOCK_SIZE 16
+#ifndef _GENERAL_H
+#include "header/general.h"
+#endif
+
+
 
 /*********************************************************************/
 /* HEADER FILE CRYPTO FUNCTIONS SIGNATURE LAYOUT		     */

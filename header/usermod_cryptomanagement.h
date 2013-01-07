@@ -6,7 +6,7 @@
 #define PRIME_ID_USERMOD_RC4 57
 #define PRIME_ID_USERMOD_LIST_BLOCKCIPHER 10
 #define PRIME_ID_USERMOD_LIST_STREAMCIPHER 15
-void usermode_aes(int argc, char** argv);
+int usermode_aes(int argc, char** argv);
 void usermode_rc4(int argc, char** argv);
 void usermode_des(int argc, char** argv);
 void usermode_3des(int argc, char** argv);

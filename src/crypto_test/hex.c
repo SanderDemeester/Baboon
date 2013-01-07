@@ -7,15 +7,15 @@ int hex_decode( const unsigned char *input,unsigned char **decoded){
 	int len;
 
 	if(strncmp("0x",(char*)input,2)){
-		len = strlen(input)+1;
+	  len = strlen((char*)input)+1;
 		*decoded = malloc(len);
-		strcpy(*decoded, input);
+		strcpy((char**)decoded, (char*)input);
 		len--;
 	}else{
-	  len = (strlen(input) >> 1)-1;
+	  len = (strlen((char*)input) >> 1)-1;
 	  *decoded = malloc(len);
 	  
-	  for(i = 2; i < strlen(input); i+= 2){
+	  for(i = 2; i < strlen((char*)input); i+= 2){
 	    (*decoded)[((i/2)-1)] =
 	      (((input[i] <= '9') ? input[i] - '0' :
 		((tolower(input[i])) - 'a' + 10)) << 4) |

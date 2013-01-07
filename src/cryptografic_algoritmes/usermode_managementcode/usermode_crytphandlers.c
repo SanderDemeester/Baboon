@@ -7,7 +7,7 @@
 #include "header/hex.h"
 #include "header/aes.h"
 
-void usermode_aes(int argc, char** argv){
+int usermode_aes(int argc, char** argv){
   int offset_to_arguments = 4; //offset for arguments
   
   unsigned char *key = NULL;
