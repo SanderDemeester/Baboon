@@ -63,3 +63,7 @@ void set_huge(huge *huge, unsigned int val);
 /*************************************/
 void divide(huge *divid, huge *divisor, huge *quotient);
 int compare(huge *h1, huge *h2);
+
+/* raise huge to the power of exp. */
+/* return result in huge */
+void expon(huge*h, huge*exp);

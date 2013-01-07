@@ -253,3 +253,32 @@ int compare(huge *h1, huge *h2){
 
   return 0; //equal
 }
+
+/* raise huge to the power of exp. */
+/* return result in huge */
+void expon(huge*h, huge*exp){
+  int i = exp->size;
+  int mask;
+  huge t1; //temp var1
+  huge t2; //temp var2
+
+  set_huge(&t1);
+  set_huge(&t2);
+
+  copy_huge(&t1,h);
+  set_huge(h,1);
+
+  while(i){
+    i--;
+    for(mask = 0x01; mask; mask <<=1){
+      if(exp->representation[i] & mask){
+	multiply(h,&t1);
+      }
+      copy_huge(&t2,&t1);
+      multiply(&t1,&t2);
+    }
+  }
+
+  free(&t1);
+  free(&t2);  
+}
