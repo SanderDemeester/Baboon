@@ -125,15 +125,19 @@ void divide(huge *divid, huge *divisor, huge *quotient){
     size++;
   }
 
-  quotient->size = (size/8)+1;
-  quotient->representation = (unsigned char*) calloc(quotient->size, sizeof(unsigned char));
-  memset(quotient->representation,0,quotient->size);
+  if(quotient){
+    quotient->size = (size/8)+1;
+    quotient->representation = (unsigned char*) calloc(quotient->size, sizeof(unsigned char));
+    memset(quotient->representation,0,quotient->size);
+  }
   
   bit_p = 8 - (size % 8) - 1;
   do{
     if(compare(divisor, divid) <= 0){
       substract(divid, divisor); //divid -= divisor
-      quotient->representation[(int)(bit_p / 8)] |= (0x80 >> (bit_p % 8));
+      if(quotient){
+	quotient->representation[(int)(bit_p / 8)] |= (0x80 >> (bit_p % 8));
+      }
     }
     if(size){
       right_shift(divisor);
@@ -160,10 +164,13 @@ void right_shift(huge *h){
 	unsigned int old_carry = 0;
 	unsigned int carry = 0;
 	do{
-
+	  old_carry = carry;
+	  carry = (h->representation[i] & 0x01) << 7;
+	  h->representation[i] = (h->representation[i] >> 1) | old_carry;
 	}while(++i < h->size);
 	remove_unused_lsb(h);
 }
+
 void left_shift(huge *huge1){
   int i = huge1->size;
   int old_carry = 0;
