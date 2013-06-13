@@ -62,6 +62,8 @@ hex.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(SRC)/crypto_test/hex.c	
 huge.o:
 	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/rsa/huge.c
+rsa.o:
+	$(CC) $(CFLAGS) -Wall -I. -c $(CRYPT_SOURCE)/rsa/rsa.c
 clean:
 	rm -rf *.o 
 	rm -rf *.out 
