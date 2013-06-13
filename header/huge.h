@@ -67,3 +67,5 @@ int compare(huge *h1, huge *h2);
 /* raise huge to the power of exp. */
 /* return result in huge */
 void expon(huge*h, huge*exp);
+/* Mod exponantiation  */
+void mod_pow(huge*h, huge*exp, huge*n, huge*h2);

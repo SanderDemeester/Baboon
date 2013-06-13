@@ -74,6 +74,7 @@ void construct_dependency(char *path_file, struct dirent* listing, context_unit 
 #endif
   }else{
     printf("fout\n");
+
   }
 #ifdef _DEBUG
   printf("%s \n","start free-ing xmlDocument");

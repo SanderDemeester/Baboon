@@ -282,3 +282,34 @@ void expon(huge*h, huge*exp){
   free(&t1);
   free(&t2);  
 }
+
+/* Mod exponantiation  */
+void mod_pow(huge*h, huge*exp, huge*n, huge*h2){
+  unsigned int i = exp->size;
+  unsigned char mask;
+  
+  huge t1;
+  huge t2;
+  
+  set_huge(&t1,0);
+  set_huge(&t2,0);
+
+  copy_huge(&t1,0);
+  set_huge(h2,1);
+  
+  while(i){
+    i--;
+    for(mask = 0x01; mask; mask <<= 1){
+      if(exp->representation[i] & mask){
+      multiply(h2,&t1);
+      divide(h2,n,NULL);
+      }
+    copy_huge(&t2,&t1);
+    multiply(&t1,&t2);
+    divide(&t1,n,NULL);
+    }
+  }
+  free_huge(&t1);
+  free_huge(&t2);
+}
+
