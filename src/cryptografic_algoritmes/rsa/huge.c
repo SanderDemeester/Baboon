@@ -313,3 +313,11 @@ void mod_pow(huge*h, huge*exp, huge*n, huge*h2){
   free_huge(&t2);
 }
 
+/* Go from a giving array to a huge datastructure */
+void load_huge(huge*huge1, const unsigned char*array, int len){
+  //skip zero bytes for compatibility with openssl/gnuTLS
+  while(!(array)){
+    array++;
+    len--;
+  }
+}
